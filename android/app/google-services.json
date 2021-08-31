@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "450136498182",
+    "project_id": "gammal-tech-mobile-app",
+    "storage_bucket": "gammal-tech-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450136498182:android:f74342fe1539daa809e387",
+        "android_client_info": {
+          "package_name": "com.example.gammal_tech_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450136498182-8vu498u74q4mk2tvm1pjaslmoljdnnv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXU9out0Kjyf6-Yr5Gk5MtvTjLtNsBT9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450136498182-8vu498u74q4mk2tvm1pjaslmoljdnnv6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
