@@ -27,126 +27,125 @@ class HomePage extends StatelessWidget {
 
   Column buildColumn(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildText(),
-        buildCardStartHere(),
-        buildCard(context, "Courses"),
-        buildCard(context, "FAQ"),
-        buildCardGoPremium(),
-        buildRowText("Facebook"),
-        buildRowText("YouTube"),
-      ],
-    );
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          buildText(),
+          buildCardStartHere(),
+          buildCard(context,"Courses"),
+          buildCard(context,"FAQ"),
+          buildCardGoPremium(),
+          buildRowText("Facebook"),
+          buildRowText("YouTube"),
+
+        ],
+      );
   }
 
   Row buildRowText(String link) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildJoinUsText(),
-        buildLink(link),
-        buildExclamationMarkAsAText(),
-      ],
-    );
-  }
-
-  InkWell buildLink(String link) {
-    return InkWell(
-      onTap: () {},
-      child: Text(
-        link,
-        style: TextStyle(
-            color: Colors.white,
-            fontStyle: FontStyle.italic,
-            fontSize: 15,
-            decoration: TextDecoration.underline,
-            fontWeight: FontWeight.bold),
-      ),
-    );
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildJoinUsText(),
+            InkWell(
+              onTap: () {},
+              child: Text(
+                link,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 15,
+                    decoration: TextDecoration.underline,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            buildExclamationMarkAsAText(),
+          ],
+        );
   }
 
   Text buildExclamationMarkAsAText() {
     return Text(
-      "!",
-      style: TextStyle(
-          color: Colors.white70,
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.w300),
-    );
+            "!",
+            style: TextStyle(
+                color: Colors.white70,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w300),
+          );
   }
 
   Text buildJoinUsText() {
     return Text(
-      "Join us on ",
-      style: TextStyle(
-          color: Colors.white70,
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.w300),
-    );
+            "Join us on ",
+            style: TextStyle(
+                color: Colors.white70,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.w300),
+          );
   }
 
   Card buildCardGoPremium() {
     return Card(
-      color: Colors.yellow[600],
-      margin: EdgeInsets.all(15),
-      elevation: 10,
-      child: TextButton(
-        onPressed: () {},
-        child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: Text(
-            "Go Premium",
-            style: TextStyle(fontSize: 25, color: Colors.black),
+          color: Colors.yellow[600],
+          margin: EdgeInsets.all(15),
+          elevation: 10,
+          child: TextButton(
+            onPressed: () {},
+            child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                "Go Premium",
+                style: TextStyle(fontSize: 25, color: Colors.black),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        );
   }
 
   Card buildCardStartHere() {
     return Card(
-      color: Color.fromARGB(200, 8, 43, 34),
-      margin: EdgeInsets.all(15),
-      elevation: 10,
-      child: TextButton(
-        onPressed: () {},
-        child: Container(
-          width: double.infinity,
-          alignment: Alignment.center,
-          child: Text(
-            "START HERE",
-            style: TextStyle(
-                fontSize: 25, color: Colors.white, fontWeight: FontWeight.w300),
+          color: Color.fromARGB(200, 8, 43, 34),
+          margin: EdgeInsets.all(15),
+          elevation: 10,
+          child: TextButton(
+            onPressed: () {},
+            child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Text(
+                "START HERE",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+        );
   }
 
   Text buildText() {
     return Text(
-      "The only place to master software engineering.",
-      style: TextStyle(
-        color: Colors.white70,
-        fontStyle: FontStyle.italic,
-        fontSize: 15,
-        fontWeight: FontWeight.w300,
-      ),
-      maxLines: 2,
-    );
+          "The only place to master software engineering.",
+          style: TextStyle(
+            color: Colors.white70,
+            fontStyle: FontStyle.italic,
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
+          ),
+          maxLines: 2,
+        );
   }
 
-  Card buildCard(BuildContext context, String text) {
+  Card buildCard(BuildContext context,String text) {
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 10,
       child: TextButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CoursesPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CoursesPage()));
         },
         child: Container(
           width: double.infinity,

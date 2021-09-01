@@ -5,7 +5,6 @@ import 'package:gammal_tech_mobile_app/CPP_programming_page.dart';
 import 'package:gammal_tech_mobile_app/c_programming_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/get_the_video.dart';
-import 'package:scroll_app_bar/scroll_app_bar.dart';
 import 'package:video_player/video_player.dart';
 
 class CoursesPage extends StatefulWidget {
@@ -48,28 +47,28 @@ class _CoursesPageState extends State<CoursesPage> {
                     ),
                   ),
                 ),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=31ca2d8d-236f-42dc-874b-a5c3c01486d7"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "C Programming", page: cProgrammingPage()),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20C%2B%2B.mp4?alt=media&token=42d826fc-89a2-4d84-badd-9f3d832e1219"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20Data%20Structures.mp4?alt=media&token=47babd95-e5fe-4716-9732-bee416a44990"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "Data Structures"),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20Algorithms.mp4?alt=media&token=1ddc81d9-ddf6-4cda-ac34-de6e39236b25"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "Algorithms"),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20OOP.mp4?alt=media&token=281210a6-c4d7-4673-b2a1-857498d248bc"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "OOP"),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20Python.mp4?alt=media&token=0c3dca71-ebd8-429b-836d-f3feed7af04a"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "Python"),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20Entrepreneurship.mp4?alt=media&token=21190dc6-d0f5-4989-a246-a13f0a8b28b8"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "Entrepreneurship"),
                 buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/gammal-tech-mobile-app.appspot.com/o/Gammal%20Tech%20-%20Company%20Security.mp4?alt=media&token=9f73a523-9fcc-40bf-a114-3da08be8fe9f"),
+                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
                 buildCardText(text: "Company Security"),
                 buildSizedBox(),
               ],
