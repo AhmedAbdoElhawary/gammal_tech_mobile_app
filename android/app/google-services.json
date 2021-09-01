@@ -1,46 +1,36 @@
 {
   "project_info": {
-    "project_number": "992339568965",
-    "firebase_url": "https://ai-interns-37af4-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "ai-interns-37af4",
-    "storage_bucket": "ai-interns-37af4.appspot.com"
+    "project_number": "1017025062549",
+    "project_id": "gammal-tech-app",
+    "storage_bucket": "gammal-tech-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:992339568965:android:32ddd0e56560b40aa3b62c",
+        "mobilesdk_app_id": "1:1017025062549:android:79ec46dcb712530ae0dd9c",
         "android_client_info": {
           "package_name": "com.example.gammal_tech_mobile_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1017025062549-6kaok92eu6jc1ort6ol8k8lqgcitvqog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyB0S6jnXxryIFUgMiykL7cke3kOvmmX82U"
+          "current_key": "AIzaSyDDPfX7f5kGGZ6quuoP88X40R7tMb5JQyY"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:992339568965:android:0dd4277fdb9d9622a3b62c",
-        "android_client_info": {
-          "package_name": "com.example.project1"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB0S6jnXxryIFUgMiykL7cke3kOvmmX82U"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017025062549-6kaok92eu6jc1ort6ol8k8lqgcitvqog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
