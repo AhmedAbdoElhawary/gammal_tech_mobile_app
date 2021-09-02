@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,64 +18,74 @@ class _CoursesPageState extends State<CoursesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: Container(
-        width: double.infinity,
-        height: 700,
-        color: Color.fromARGB(215, 1, 82, 69),
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Card(
-                  margin: EdgeInsets.all(10),
-                  elevation: 5,
-                  color: Colors.black,
-                  child: TextButton(
-                    onPressed: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => CoursesPage()));
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Our Courses",
-                        style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("info").snapshots(),
+        builder: (BuildContext context,
+        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
+          final docs = snapshot.data!.docs;
+          return Container(
+            width: double.infinity,
+            height: 700,
+            color: Color.fromARGB(215, 1, 82, 69),
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    Card(
+                      margin: EdgeInsets.all(10),
+                      elevation: 5,
+                      color: Colors.black,
+                      child: TextButton(
+                        onPressed: () {
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) => CoursesPage()));
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Our Courses",
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    buildVideo(docs[0]),
+                    buildCardText(text: "C Programming", page: cProgrammingPage()),
+                    buildSizedBox(),
+                    buildVideo(docs[1]),
+                    buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
+                    buildSizedBox(),
+                    buildVideo(docs[0]),
+                    buildCardText(text: "Data Structures"),
+                    buildSizedBox(),
+                    buildVideo(docs[1]),
+                    buildCardText(text: "Algorithms"),
+                    buildSizedBox(),
+                    buildVideo(docs[0]),
+                    buildCardText(text: "OOP"),
+                    buildSizedBox(),
+                    buildVideo(docs[1]),
+                    buildCardText(text: "Python"),
+                    buildSizedBox(),
+                    buildVideo(docs[0]),
+                    buildCardText(text: "Entrepreneurship"),
+                    buildSizedBox(),
+                    buildVideo(docs[1]),
+                    buildCardText(text: "Company Security"),
+                    buildSizedBox(),
+                  ],
                 ),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "C Programming", page: cProgrammingPage()),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "Data Structures"),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "Algorithms"),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "OOP"),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "Python"),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "Entrepreneurship"),
-                buildSizedBox(),
-                buildVideo("https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"),
-                buildCardText(text: "Company Security"),
-                buildSizedBox(),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }
@@ -105,7 +116,8 @@ class _CoursesPageState extends State<CoursesPage> {
     );
   }
 
-  Padding buildVideo(String url) {
+  Padding buildVideo(url) {
+    var taskData = url.data();
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
       child: Container(
@@ -116,7 +128,7 @@ class _CoursesPageState extends State<CoursesPage> {
         height: 190,
         alignment: Alignment.center,
         child: ChewieListItem(
-          videoPlayerController: VideoPlayerController.network(url),
+          videoPlayerController: VideoPlayerController.network(taskData["videoUrl"]),
           looping: true,
         ),
       ),
