@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: buildAppBar(),
       body: buildCenterBody(context),
+      floatingActionButton: FloatingActionButton(onPressed:(){} ,child:Icon(Icons.chat_rounded),),
     );
   }
 
@@ -100,19 +101,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _animationControllerStartHere.forward();
     });
     return Center(
-      child: Stack(
+      child: Column(
         children: [
-          Container(
-              height: double.infinity,
-              width: double.infinity,
-              child: Image.network(
-                "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e070b1376f1c636adab9240_Web%201920%20%E2%80%93%201.jpg",
-                fit: BoxFit.cover,
-              )),
+          Expanded(
+            child: Stack(
+              children: [
+                Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                    child: Image.network(
+                      "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e070b1376f1c636adab9240_Web%201920%20%E2%80%93%201.jpg",
+                      fit: BoxFit.cover,
+                    )),
+                Container(
+                  width: double.infinity,
+                  color: Color.fromARGB(215, 0, 118, 125),
+                  child: buildColumn(context),
+                ),
+              ],
+            ),
+          ),
           Container(
             width: double.infinity,
-            color: Color.fromARGB(215, 0, 118, 125),
-            child: buildColumn(context),
+            height: 33,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.check_circle),
+                Text(
+                  "© 2021 Gammal Tech. All rights reserved.",
+                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400,),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -215,7 +237,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Text(
       text,
       style: TextStyle(
-          color: Colors.white70,
+          color: Colors.white,
           fontSize: 15,
           fontStyle: FontStyle.italic,
           fontWeight: FontWeight.w300),
