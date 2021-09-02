@@ -12,11 +12,11 @@ class videoPage extends StatefulWidget {
   State<videoPage> createState() => _videoPageState(index);
 }
 class _videoPageState extends State<videoPage> {
-  String dropdownValue1 = 'One';
-  String dropdownValue2 = 'One';
-  String dropdownValue3 = 'One';
-  String dropdownValue4 = 'One';
-  String dropdownValue5 = 'One';
+  String dropdownValue1 = 'Select one...';
+  String dropdownValue2 = 'Select one...';
+  String dropdownValue3 = 'Select one...';
+  String dropdownValue4 = 'Select one...';
+  String dropdownValue5 = 'Select one...';
   int index;
 
   _videoPageState(this.index){
@@ -41,9 +41,8 @@ class _videoPageState extends State<videoPage> {
               return CircularProgressIndicator();
             }
 
-            // final docs = snapshot.data!.docs;
-            // var taskDoc = docs[0];
-            // var taskData = taskDoc.data();
+            final docs = snapshot.data!.docs;
+            var taskData = docs[index].data();
 
             return Container(
               width: double.infinity,
@@ -79,7 +78,7 @@ class _videoPageState extends State<videoPage> {
                           height: 186,
                           child: ChewieListItem(
                             videoPlayerController: VideoPlayerController.network(
-                              "https://firebasestorage.googleapis.com/v0/b/ai-interns-37af4.appspot.com/o/Gammal%20Tech%20-%20C.mp4?alt=media&token=c9c86cfd-a351-4c61-a6e2-5bdbe2ba5f6c"
+                                taskData["videoUrl"]
                             ),
                             looping: true,
                           ),
@@ -260,7 +259,7 @@ class _videoPageState extends State<videoPage> {
                   v = newValue!;
                 });
               },
-              items: ["Select one...", 'One', 'Two', 'Free', 'Four']
+              items: ["Select one...", 'One', 'Two', 'three', 'Four']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
