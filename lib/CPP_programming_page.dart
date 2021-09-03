@@ -29,7 +29,7 @@ class CppProgrammingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body:Container(
         width: double.infinity,
         height: 700,

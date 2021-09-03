@@ -13,27 +13,15 @@ final titles = [
 
 ];
 
-final icons = [
-  Icons.directions_bike,
-  Icons.directions_boat,
-  Icons.directions_bus,
-  Icons.directions_car,
-  Icons.directions_railway,
-  Icons.directions_run,
-  Icons.directions_subway,
-  Icons.directions_transit,
-  Icons.directions_walk
-];
-
 class cProgrammingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body:Container(
         width: double.infinity,
         height: 700,
-        color: Color.fromARGB(215, 1, 82, 69),
+        color: Color.fromARGB(215, 0, 118, 125),
         child:ListView.separated(
             itemCount: titles.length,
             itemBuilder: (context, index) {

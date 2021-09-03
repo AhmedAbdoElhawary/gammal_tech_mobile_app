@@ -11,6 +11,7 @@ class videoPage extends StatefulWidget {
   @override
   State<videoPage> createState() => _videoPageState(index);
 }
+
 class _videoPageState extends State<videoPage> {
   String dropdownValue1 = 'Select one...';
   String dropdownValue2 = 'Select one...';
@@ -19,8 +20,9 @@ class _videoPageState extends State<videoPage> {
   String dropdownValue5 = 'Select one...';
   int index;
 
-  _videoPageState(this.index){
-   print("$index ==========================================================================");
+  _videoPageState(this.index) {
+    print(
+        "$index ==========================================================================");
   }
 
   void initState() {
@@ -32,182 +34,202 @@ class _videoPageState extends State<videoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: new StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("info").snapshots(),
-          builder: (BuildContext context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            }
+        stream: FirebaseFirestore.instance.collection("info").snapshots(),
+        builder: (BuildContext context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          }
 
-            final docs = snapshot.data!.docs;
-            var taskData = docs[index].data();
+          final docs = snapshot.data!.docs;
+          var taskData = docs[index].data();
 
-            return Container(
-              width: double.infinity,
-              height: 700,
-              color: Color.fromARGB(255, 0, 118, 125),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Card(
-                        margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                        elevation: 5,
-                        color: Colors.black,
-                        child: Container(
-                          height: 47,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "lesson video",
-                            style: TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 15, right: 15, left: 15, bottom: 10),
-                        child: Container(
-                          color: Colors.white,
-                          width: double.infinity,
-                          height: 186,
-                          child: ChewieListItem(
-                            videoPlayerController: VideoPlayerController.network(
-                                taskData["videoUrl"]
-                            ),
-                            looping: true,
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Colors.white,
-                          ),
-                          height: 55,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Start Coding",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Colors.white,
-                          ),
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.all(10),
-                          child: Column(
-                            children: [
-                              Center(
-                                  child: Text(
-                                    "Exercises",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 35),
-                                  )),
-                              buildSizedBox(),
-                              Container(
-                                alignment: Alignment.centerRight,
-                                child: Column(
-                                  children: [
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                    buildTextQuestion(),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white,
-                        ),
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(10),
-                        margin:
-                        const EdgeInsets.only(right: 10, left: 10, bottom: 10),
-                        child: Column(
-                          children: [
-                            Center(
-                                child: Text(
-                                  "Questions",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 35),
-                                )),
-                            buildSizedBox(),
-                            Text(
-                                "Answer the following questions according to what you learned from the video."),
-                            buildSizedBox(),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: Column(
-                                children: [
-                                  buildQuestionText(),
-                                  buildDropDwonButton(dropdownValue1),
-                                  buildQuestionText(),
-                                  buildDropDwonButton(dropdownValue2),
-                                  buildQuestionText(),
-                                  buildDropDwonButton(dropdownValue3),
-                                  buildQuestionText(),
-                                  buildDropDwonButton(dropdownValue4),
-                                  buildQuestionText(),
-                                  buildDropDwonButton(dropdownValue5),
-                                  buildSendButton(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        margin:
-                        const EdgeInsets.only(right: 10, left: 10, bottom: 10),
-                        width: double.infinity,
-                        height: 700,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          return buildContainer(taskData);
+        },
+      ),
+    );
+  }
+
+  Container buildContainer(Map<String, dynamic> taskData) {
+    return Container(
+      width: double.infinity,
+      height: 700,
+      color: Color.fromARGB(255, 0, 118, 125),
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              buildTheHeadCardOfText(),
+              buildTheVideo(taskData),
+              buildStartCodingTextButton(),
+              buildContainerOfExercises(),
+              buildContainerOfQuestion(),
+              buildEmptyContainer(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildEmptyContainer() {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+      width: double.infinity,
+      height: 700,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Container buildContainerOfQuestion() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: Colors.white,
+      ),
+      width: double.infinity,
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+      child: Column(
+        children: [
+          Center(
+              child: Text(
+            "Questions",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+          )),
+          buildSizedBox(),
+          Text(
+              "Answer the following questions according to what you learned from the video."),
+          buildSizedBox(),
+          Container(
+            alignment: Alignment.centerRight,
+            child: Column(
+              children: [
+                buildQuestionText(),
+                buildDropDwonButton(dropdownValue1),
+                buildQuestionText(),
+                buildDropDwonButton(dropdownValue2),
+                buildQuestionText(),
+                buildDropDwonButton(dropdownValue3),
+                buildQuestionText(),
+                buildDropDwonButton(dropdownValue4),
+                buildQuestionText(),
+                buildDropDwonButton(dropdownValue5),
+                buildSendButton(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Directionality buildContainerOfExercises() {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.white,
+        ),
+        width: double.infinity,
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Center(
+                child: Text(
+              "Exercises",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+            )),
+            buildSizedBox(),
+            Container(
+              alignment: Alignment.centerRight,
+              child: Column(
+                children: [
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                  buildTextQuestion(),
+                ],
               ),
-            );
-          },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Card buildStartCodingTextButton() {
+    return Card(
+      elevation: 5,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.white,
+        ),
+        height: 55,
+        child: TextButton(
+          onPressed: () {},
+          child: Text(
+            "Start Coding",
+            style: TextStyle(
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.normal),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding buildTheVideo(Map<String, dynamic> taskData) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 15, right: 15, left: 15, bottom: 10),
+      child: Container(
+        color: Colors.white,
+        width: double.infinity,
+        height: 186,
+        child: ChewieListItem(
+          videoPlayerController:
+              VideoPlayerController.network(taskData["videoUrl"]),
+          looping: true,
+        ),
+      ),
+    );
+  }
+
+  Card buildTheHeadCardOfText() {
+    return Card(
+      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+      elevation: 5,
+      color: Colors.black,
+      child: Container(
+        height: 47,
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: Text(
+          "lesson video",
+          style: TextStyle(
+              fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -219,7 +241,7 @@ class _videoPageState extends State<videoPage> {
       child: Container(
         height: 55,
         decoration: BoxDecoration(
-            color: Color.fromARGB(255, 0, 118, 125),
+            color: Color.fromARGB(215, 0, 118, 125),
             borderRadius: BorderRadius.circular(5)),
         child: TextButton(
           onPressed: () {},
@@ -233,10 +255,11 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Padding buildDropDwonButton(var v) {
+  Padding buildDropDwonButton(String v) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
+          width: double.infinity,
           height: 40,
           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
           decoration: BoxDecoration(
@@ -254,9 +277,9 @@ class _videoPageState extends State<videoPage> {
                   color: Colors.black87,
                   fontSize: 17,
                   fontWeight: FontWeight.w300),
-              onChanged: (String? newValue) {
+              onChanged: (n) {
                 setState(() {
-                  v = newValue!;
+                  v = n!;
                 });
               },
               items: ["Select one...", 'One', 'Two', 'three', 'Four']

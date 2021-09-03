@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gammal_tech_mobile_app/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -34,10 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     pulseAnimationCourses = animate(_animationControllerCourses);
     pulseAnimationFAQ = animate(_animationControllerFAQ);
     pulseAnimationGoPremium = animate(_animationControllerGoPremium);
-    ListenerButtonClicked(
-        plus: pulseAnimationStartHere,
-        animation: _animationControllerStartHere,
-        movingToThePage: null);
+    ListenerStartHereButtonClicked();
     ListenerButtonClicked(
         plus: pulseAnimationCourses,
         animation: _animationControllerCourses,
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     ListenerButtonClicked(
         plus: pulseAnimationFAQ,
         animation: _animationControllerFAQ,
-        movingToThePage: null);
+        movingToThePage: faqPage());
     ListenerButtonClicked(
         plus: pulseAnimationGoPremium,
         animation: _animationControllerGoPremium,
@@ -55,9 +54,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: buildCenterBody(context),
-      floatingActionButton: FloatingActionButton(onPressed:(){} ,child:Icon(Icons.chat_rounded),),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromARGB(255, 11, 120, 105),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(9),
+                bottomLeft: Radius.circular(40),
+                topLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40))),
+        onPressed: () {},
+        child: Icon(
+          Icons.chat_rounded,
+        ),
+      ),
     );
   }
 
@@ -78,16 +89,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   AnimationController animationControllerValue(int d) =>
       AnimationController(vsync: this, duration: Duration(milliseconds: d));
 
+  void ListenerStartHereButtonClicked() {
+    return pulseAnimationStartHere.addStatusListener((status) {
+      if (status == AnimationStatus.completed)
+        _animationControllerStartHere.reverse();
+      else if (status == AnimationStatus.dismissed) {
+        _animationControllerStartHere.forward();
+      }
+    });
+  }
+
   void ListenerButtonClicked(
       {required plus, required animation, required movingToThePage}) {
     return plus.addStatusListener((status) {
       if (status == AnimationStatus.completed)
         animation.reverse();
       else if (status == AnimationStatus.dismissed) {
-        if (plus == pulseAnimationStartHere)
-          animation.forward();
-        else
-          animation.stop();
+        animation.stop();
 
         if (movingToThePage != null)
           Navigator.push(context,
@@ -128,10 +146,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.check_circle),
-                Text(
-                  "© 2021 Gammal Tech. All rights reserved.",
-                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400,),
+                InkWell(
+                  onTap: () {
+                    _launchURL(
+                        "https://www.youtube.com/gammaltech?sub_confirmation=1");
+                  },
+                  child: Image.asset(
+                    "lib/asset/images/youtube.png",
+                    fit: BoxFit.cover,
+                    width: 35,
+                    height: 70,
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    _launchURL(
+                        "https://www.youtube.com/gammaltech?sub_confirmation=1");
+                  },
+                  child: Text(
+                    "© 2021 Gammal Tech. All rights reserved.",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -191,22 +229,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               animation.forward();
             });
           },
-          child: Container(
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: Text(
-              text,
-              style: TextStyle(
-                  fontSize: 25,
-                  color: text == "START HERE" ? Colors.white : Colors.black,
-                  fontWeight: text == "Go Premium"
-                      ? FontWeight.bold
-                      : (text == "START HERE"
-                          ? FontWeight.w300
-                          : FontWeight.w400)),
-            ),
-          ),
+          child: buildContainerOfText(text),
         ),
+      ),
+    );
+  }
+
+  Container buildContainerOfText(String text) {
+    return Container(
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: TextStyle(
+            fontSize: 25,
+            color: text == "START HERE" ? Colors.white : Colors.black,
+            fontWeight: text == "Go Premium"
+                ? FontWeight.bold
+                : (text == "START HERE" ? FontWeight.w300 : FontWeight.w400)),
       ),
     );
   }
@@ -217,7 +257,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       children: [
         buildJoinUsText("Join us on "),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            _launchURL(link == "Facebook"
+                ? "https://www.facebook.com/gammal.tech"
+                : "https://www.youtube.com/gammaltech?sub_confirmation=1");
+          },
           child: Text(
             link,
             style: TextStyle(
@@ -231,6 +275,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         buildJoinUsText("!"),
       ],
     );
+  }
+
+  _launchURL(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Text buildJoinUsText(String text) {
