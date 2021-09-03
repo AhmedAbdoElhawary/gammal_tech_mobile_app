@@ -17,7 +17,7 @@ class _CoursesPageState extends State<CoursesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection("info").snapshots(),
         builder: (BuildContext context,
@@ -26,68 +26,78 @@ class _CoursesPageState extends State<CoursesPage> {
             return CircularProgressIndicator();
           }
           final docs = snapshot.data!.docs;
-          return Container(
-            width: double.infinity,
-            height: 700,
-            color: Color.fromARGB(215, 1, 82, 69),
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  children: [
-                    Card(
-                      margin: EdgeInsets.all(10),
-                      elevation: 5,
-                      color: Colors.black,
-                      child: TextButton(
-                        onPressed: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) => CoursesPage()));
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Our Courses",
-                            style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    buildVideo(docs[0]),
-                    buildCardText(text: "C Programming", page: cProgrammingPage()),
-                    buildSizedBox(),
-                    buildVideo(docs[1]),
-                    buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
-                    buildSizedBox(),
-                    buildVideo(docs[0]),
-                    buildCardText(text: "Data Structures"),
-                    buildSizedBox(),
-                    buildVideo(docs[1]),
-                    buildCardText(text: "Algorithms"),
-                    buildSizedBox(),
-                    buildVideo(docs[0]),
-                    buildCardText(text: "OOP"),
-                    buildSizedBox(),
-                    buildVideo(docs[1]),
-                    buildCardText(text: "Python"),
-                    buildSizedBox(),
-                    buildVideo(docs[0]),
-                    buildCardText(text: "Entrepreneurship"),
-                    buildSizedBox(),
-                    buildVideo(docs[1]),
-                    buildCardText(text: "Company Security"),
-                    buildSizedBox(),
-                  ],
-                ),
-              ),
-            ),
-          );
+          return buildContainer(docs);
         }
       ),
     );
+  }
+
+  Container buildContainer(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    return Container(
+          width: double.infinity,
+          height: 700,
+          color: Color.fromARGB(215, 0, 118, 125),
+          child: buildSingleChildScrollView(docs),
+        );
+  }
+
+  SingleChildScrollView buildSingleChildScrollView(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                buildTheHeadCardOfText(),
+                buildVideo(docs[0]),
+                buildCardText(text: "C Programming", page: cProgrammingPage()),
+                buildSizedBox(),
+                buildVideo(docs[1]),
+                buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
+                buildSizedBox(),
+                buildVideo(docs[2]),
+                buildCardText(text: "Data Structures"),
+                buildSizedBox(),
+                buildVideo(docs[3]),
+                buildCardText(text: "Algorithms"),
+                buildSizedBox(),
+                buildVideo(docs[0]),
+                buildCardText(text: "OOP"),
+                buildSizedBox(),
+                buildVideo(docs[1]),
+                buildCardText(text: "Python"),
+                buildSizedBox(),
+                buildVideo(docs[2]),
+                buildCardText(text: "Entrepreneurship"),
+                buildSizedBox(),
+                buildVideo(docs[3]),
+                buildCardText(text: "Company Security"),
+                buildSizedBox(),
+              ],
+            ),
+          ),
+        );
+  }
+
+  Card buildTheHeadCardOfText() {
+    return Card(
+                margin: EdgeInsets.all(10),
+                elevation: 5,
+                color: Colors.black,
+                child: TextButton(
+                  onPressed: () {
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Our Courses",
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              );
   }
 
   SizedBox buildSizedBox() => SizedBox(height: 10);
