@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/FAQ_video_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 
-final titles = [
+final titles_faq = [
   "هل يمكن العمل بدون شهادة",
   "Gammal Tech العمل في",
   'من أين أبدأ تعلم البرمجة؟',
@@ -20,9 +20,6 @@ final titles = [
   "هل يمكن العمل بدون شهادة",
   "Gammal Tech العمل في",
   'من أين أبدأ تعلم البرمجة؟',
-
-
-
 ];
 
 class faqPage extends StatelessWidget {
@@ -35,7 +32,7 @@ class faqPage extends StatelessWidget {
         height: 700,
         color: Color.fromARGB(215, 0, 118, 125),
         child:ListView.separated(
-            itemCount: titles.length,
+            itemCount: titles_faq.length,
             itemBuilder: (context, index) {
               return container(index,context);
             },
@@ -51,44 +48,11 @@ class faqPage extends StatelessWidget {
     return Column(
       children: [
         if(index==0)
-          containerOfTheHeadOfTheList(),
-        buildCard(context,titles[index],index),
+          TheHeadCardOfText("FAQ"),
+        buildCard(context,titles_faq[index],index),
       ],
     );
   }
-
-  Column containerOfTheHeadOfTheList(){
-    return Column(
-      children: [
-        Card(
-          margin: EdgeInsets.only(left: 10, right: 10, top: 15),
-          elevation: 5,
-          color: Colors.black,
-          child: TextButton(
-            onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => CoursesPage()));
-            },
-            child: Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              child: Text(
-                "FAQ",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-      ],
-    );
-  }
-
 
   Card buildCard(BuildContext context,String title,int index) {
     return Card(
@@ -97,7 +61,7 @@ class faqPage extends StatelessWidget {
       child: InkWell(
         onTap:(){
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => faqVideoPage(titles[index])));
+              context, MaterialPageRoute(builder: (context) => faqVideoPage(titles_faq[index])));
         } ,
         child: Container(
           padding: EdgeInsets.all(4),
