@@ -39,56 +39,44 @@ class _faqVideoPageState extends State<faqVideoPage> {
           final docs = snapshot.data!.docs;
           var taskData = docs[0].data();
 
-          return Container(
-            width: double.infinity,
-            height: 700,
-            color: Color.fromARGB(215, 0, 118, 125),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Card(
-                    margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-                    elevation: 5,
-                    color: Colors.black,
-                    child: Container(
-                      height: 47,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      child: Text(
-                        textIndex,
-                        style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                  buildTheVideo(taskData),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Colors.white,
-                      ),
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: buildTextQuestion(),
-                      ),
-                    ),
-                  ),
-                  buildStartCodingTextButton(
-                      "  View Courses  ", CoursesPage(), context),
-                ],
-              ),
-            ),
-          );
+          return buildContainer(taskData, context);
         },
       ),
     );
+  }
+
+  Container buildContainer(Map<String, dynamic> taskData, BuildContext context) {
+    return Container(
+          width: double.infinity,
+          height: 700,
+          color: Color.fromARGB(215, 0, 118, 125),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                TheHeadCardOfText(textIndex),
+                buildTheVideo(taskData),
+                Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.white,
+                    ),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: buildTextQuestion(),
+                    ),
+                  ),
+                ),
+                buildTextButton(
+                    "  View Courses  ", CoursesPage(), context),
+              ],
+            ),
+          ),
+        );
   }
 
   SizedBox buildSizedBox() => SizedBox(height: 15);
