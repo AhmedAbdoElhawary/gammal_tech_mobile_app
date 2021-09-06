@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gammal_tech_mobile_app/c_programming_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/get_the_video.dart';
-import 'package:video_player/video_player.dart';
 
 class videoPage extends StatefulWidget {
   int index;
@@ -55,9 +53,9 @@ class _videoPageState extends State<videoPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              buildTheHeadCardOfText(),
+              TheHeadCardOfText(titles[index]),
               buildTheVideo(taskData),
-              buildStartCodingTextButton("Start Coding", context, null),
+              buildTextButton("Start Coding", context, null),
               buildContainerOfExercises(),
               buildContainerOfQuestion(),
               buildEmptyContainer(),
@@ -192,26 +190,6 @@ class _videoPageState extends State<videoPage> {
       child: Text(
         title,
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-      ),
-    );
-  }
-
-
-
-  Card buildTheHeadCardOfText() {
-    return Card(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-      elevation: 5,
-      color: Colors.black,
-      child: Container(
-        height: 47,
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: Text(
-          titles[index],
-          style: TextStyle(
-              fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
-        ),
       ),
     );
   }
