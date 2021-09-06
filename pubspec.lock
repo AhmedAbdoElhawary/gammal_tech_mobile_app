@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  firebase:
+    dependency: transitive
+    description:
+      name: firebase
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "9.0.1"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -237,6 +244,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_auth_ui:
+    dependency: "direct main"
+    description:
+      name: flutter_auth_ui
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.2"
+  flutter_auth_ui_web:
+    dependency: transitive
+    description:
+      name: flutter_auth_ui_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -303,6 +324,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "9.1.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.8"
   google_fonts:
     dependency: "direct main"
     description:
@@ -379,7 +407,7 @@ packages:
       name: image_picker_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.1"
   intl:
     dependency: transitive
     description:
@@ -387,6 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
+  intl_phone_field:
+    dependency: "direct main"
+    description:
+      name: intl_phone_field
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   js:
     dependency: transitive
     description:
@@ -401,6 +436,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
+  location:
+    dependency: "direct main"
+    description:
+      name: location
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.0"
+  location_platform_interface:
+    dependency: transitive
+    description:
+      name: location_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.0"
+  location_web:
+    dependency: transitive
+    description:
+      name: location_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.1"
   matcher:
     dependency: transitive
     description:
@@ -769,7 +825,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.8"
+    version: "2.2.9"
   xdg_directories:
     dependency: transitive
     description:

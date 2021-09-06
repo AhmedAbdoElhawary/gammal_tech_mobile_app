@@ -39,15 +39,6 @@ class _myAccountPageState extends State<myAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    // for(int i=1;i<32;i++){
-    //   listOfDay.add("$i");
-    // }
-    // for(int i=1;i<13;i++){
-    //   listOfMonth.add("$i");
-    // }
-    // for(int i=1920;i<2015;i++){
-    //   listOfDay.add("$i");
-    // }
     return Scaffold(
       appBar: buildAppBar(context),
       body: Container(
@@ -109,7 +100,7 @@ class _myAccountPageState extends State<myAccountPage> {
               buildDropDwonButton(dropdownValueGender),
               buildQuestionText("Birthdate"),
               buildBirthdateButton(),
-              buildSendButton(),
+              buildTextButton(" Save Changes ",null,context),
             ],
           ),
         ),
@@ -205,52 +196,7 @@ class _myAccountPageState extends State<myAccountPage> {
               },
               items: buildListMap(v=="1"?listOfDay:(v=="11"?listOfMonth:listOfYear)).toList(),
             ),
-            /*
-            * DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
-              items: <String>['One', 'Two', 'Free', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            * */
           )),
-    );
-  }
-
-  Card buildSendButton() {
-    return Card(
-      margin: EdgeInsets.all(10),
-      elevation: 5,
-      child: Container(
-        height: 55,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            "  Save Changes  ",
-            style: TextStyle(
-                fontSize: 26, fontWeight: FontWeight.w400, color: Colors.black),
-          ),
-        ),
-      ),
     );
   }
 
