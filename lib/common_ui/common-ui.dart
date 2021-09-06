@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
+import 'package:gammal_tech_mobile_app/get_the_video.dart';
 import 'package:gammal_tech_mobile_app/my_account_page.dart';
+import 'package:video_player/video_player.dart';
 
 AppBar buildAppBar(context) {
   return AppBar(elevation: 5,
@@ -110,6 +112,49 @@ AppBar buildAppBar(context) {
         ),
       ),
     ],
+  );
+}
+
+Card buildStartCodingTextButton(String text,page,context) {
+  return Card(
+    elevation: 5,
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: Colors.white,
+      ),
+      height: 55,
+      child: TextButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => page));
+        },
+        child: Text(
+          text,
+          style: TextStyle(
+              fontSize: 30,
+              color: Colors.black,
+              fontWeight: FontWeight.normal),
+        ),
+      ),
+    ),
+  );
+}
+
+
+Padding buildTheVideo(Map<String, dynamic> taskData) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 15, right: 15, left: 15, bottom: 10),
+    child: Container(
+      color: Colors.white,
+      width: double.infinity,
+      height: 186,
+      child: ChewieListItem(
+        videoPlayerController:
+        VideoPlayerController.network(taskData["videoUrl"]),
+        looping: true,
+      ),
+    ),
   );
 }
 

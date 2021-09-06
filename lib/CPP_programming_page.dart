@@ -13,18 +13,6 @@ final titles = [
 
 ];
 
-final icons = [
-  Icons.directions_bike,
-  Icons.directions_boat,
-  Icons.directions_bus,
-  Icons.directions_car,
-  Icons.directions_railway,
-  Icons.directions_run,
-  Icons.directions_subway,
-  Icons.directions_transit,
-  Icons.directions_walk
-];
-
 class CppProgrammingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
