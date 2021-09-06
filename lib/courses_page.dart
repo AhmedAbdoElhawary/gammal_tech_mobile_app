@@ -2,11 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/CPP_programming_page.dart';
 import 'package:gammal_tech_mobile_app/c_programming_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/get_the_video.dart';
-import 'package:video_player/video_player.dart';
 
 class CoursesPage extends StatefulWidget {
   @override
@@ -46,58 +43,35 @@ class _CoursesPageState extends State<CoursesPage> {
           child: Center(
             child: Column(
               children: [
-                buildTheHeadCardOfText(),
-                buildVideo(docs[0]),
-                buildCardText(text: "C Programming", page: cProgrammingPage()),
+                TheHeadCardOfText("Our Courses"),
+                buildTheVideo(docs[0].data()),
+                buildCardText(text: "C Programming", page: cProgrammingPage("C Programming")),
                 buildSizedBox(),
-                buildVideo(docs[1]),
-                buildCardText(text: "C++ Programming", page: CppProgrammingPage()),
+                buildTheVideo(docs[1].data()),
+                buildCardText(text: "C++ Programming", page: cProgrammingPage("C++ Programming")),
                 buildSizedBox(),
-                buildVideo(docs[2]),
+                buildTheVideo(docs[2].data()),
                 buildCardText(text: "Data Structures"),
                 buildSizedBox(),
-                buildVideo(docs[3]),
+                buildTheVideo(docs[3].data()),
                 buildCardText(text: "Algorithms"),
                 buildSizedBox(),
-                buildVideo(docs[0]),
+                buildTheVideo(docs[0].data()),
                 buildCardText(text: "OOP"),
                 buildSizedBox(),
-                buildVideo(docs[1]),
+                buildTheVideo(docs[3].data()),
                 buildCardText(text: "Python"),
                 buildSizedBox(),
-                buildVideo(docs[2]),
+                buildTheVideo(docs[1].data()),
                 buildCardText(text: "Entrepreneurship"),
                 buildSizedBox(),
-                buildVideo(docs[3]),
+                buildTheVideo(docs[2].data()),
                 buildCardText(text: "Company Security"),
                 buildSizedBox(),
               ],
             ),
           ),
         );
-  }
-
-  Card buildTheHeadCardOfText() {
-    return Card(
-                margin: EdgeInsets.all(10),
-                elevation: 5,
-                color: Colors.black,
-                child: TextButton(
-                  onPressed: () {
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Our Courses",
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              );
   }
 
   SizedBox buildSizedBox() => SizedBox(height: 10);
@@ -121,25 +95,6 @@ class _CoursesPageState extends State<CoursesPage> {
                 color: Colors.black87,
                 fontWeight: FontWeight.w400),
           ),
-        ),
-      ),
-    );
-  }
-
-  Padding buildVideo(url) {
-    var taskData = url.data();
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        width: double.infinity,
-        height: 190,
-        alignment: Alignment.center,
-        child: ChewieListItem(
-          videoPlayerController: VideoPlayerController.network(taskData["videoUrl"]),
-          looping: true,
         ),
       ),
     );

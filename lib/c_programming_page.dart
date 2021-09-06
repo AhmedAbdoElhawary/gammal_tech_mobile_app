@@ -49,7 +49,7 @@ class cProgrammingPage extends StatelessWidget {
   Column containerOfTheHeadOfTheList() {
     return Column(
       children: [
-        buildTheHeadCardOfText(title),
+        TheHeadCardOfText(title),
         SizedBox(height: 10),
         descriptionText(),
         SizedBox(height: 10),
