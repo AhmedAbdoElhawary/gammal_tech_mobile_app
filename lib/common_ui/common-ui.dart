@@ -1,8 +1,15 @@
+
 import 'package:flutter/material.dart';
+import 'package:gammal_tech_mobile_app/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
 import 'package:gammal_tech_mobile_app/get_the_video.dart';
-import 'package:gammal_tech_mobile_app/my_account_page.dart';
+import 'package:gammal_tech_mobile_app/account_page.dart';
+import 'package:gammal_tech_mobile_app/sign_in_page.dart';
+
 import 'package:video_player/video_player.dart';
+
+String textOfButton = "SIGN IN";
+
 
 AppBar buildAppBar(context) {
   return AppBar(
@@ -37,43 +44,12 @@ AppBar buildAppBar(context) {
                           shrinkWrap: true,
                           children: <Widget>[
                             ListTile(title: Text('Premium')),
-                            ListTile(
-                                title: Text('Courses'),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CoursesPage()));
-                                }),
+                            listTileOfDropMenu(
+                                context, 'Courses', CoursesPage()),
                             ListTile(title: Text('Masterclass')),
-                            ListTile(title: Text('FAQ')),
+                            listTileOfDropMenu(context, 'FAQ', faqPage()),
                             ListTile(title: Text('Content')),
-                            Center(
-                              child: Card(
-                                color: Color.fromARGB(255, 0, 118, 125),
-                                margin: EdgeInsets.all(10),
-                                elevation: 5,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                myAccountPage()));
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(8),
-                                    child: Text(
-                                      "  MY Account  ",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
+                            biuldTextButton(context)
                           ],
                         ),
                       ),
@@ -106,6 +82,42 @@ AppBar buildAppBar(context) {
   );
 }
 
+Center biuldTextButton(BuildContext context) {
+  return Center(
+    child: Card(
+      color: Color.fromARGB(255, 0, 118, 125),
+      margin: EdgeInsets.all(10),
+      elevation: 5,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => textOfButton == "SIGN IN"
+                      ? signInPage()
+                      : accountPage()));
+        },
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Text(
+            textOfButton,
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+ListTile listTileOfDropMenu(BuildContext context, String text, var page) {
+  return ListTile(
+      title: Text(text),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      });
+}
+
 Card buildTextButton(String text, page, context) {
   return Card(
     elevation: 5,
@@ -117,8 +129,9 @@ Card buildTextButton(String text, page, context) {
       height: 55,
       child: TextButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => page));
+          if (page != null)
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => page));
         },
         child: Text(
           text,
@@ -163,3 +176,4 @@ Card TheHeadCardOfText(String title) {
     ),
   );
 }
+
