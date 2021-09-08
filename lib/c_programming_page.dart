@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/video_page.dart';
+import 'package:gammal_tech_mobile_app/waitingPage.dart';
 
 final titles = [
   'printf',
@@ -10,11 +11,21 @@ final titles = [
   'scanf',
   'practice 1',
   'practice 2',
+  'practice 3',
+  'practice 4',
+  'practice 5',
+  'practice 6',
+  'practice 7',
+  'practice 8',
+  'practice 9',
+  'practice 10'
 ];
 
 class cProgrammingPage extends StatelessWidget {
-  String title;
-  cProgrammingPage(this.title);
+  String title = "C Programming";
+  cProgrammingPage({var title}) {
+    this.title = title;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +53,7 @@ class cProgrammingPage extends StatelessWidget {
         if (index == 0) containerOfTheHeadOfTheList(),
         buildPadding(index),
         buildCard(context, titles[index], index),
+        if (titles.length - 1 == index) buildTheBottomContainer(),
       ],
     );
   }
@@ -87,8 +99,13 @@ class cProgrammingPage extends StatelessWidget {
       elevation: 5,
       child: TextButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => videoPage(index)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            if (textOfButton != "SIGN IN" ||
+                index == 0 ||
+                index == 1 ||
+                index == 2) return videoPage(index);
+            return waitingPage();
+          }));
         },
         child: Container(
           width: double.infinity,
