@@ -7,7 +7,6 @@ import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -124,59 +123,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Expanded(
             child: Stack(
               children: [
-                Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                    child: Image.network(
-                      "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e070b1376f1c636adab9240_Web%201920%20%E2%80%93%201.jpg",
-                      fit: BoxFit.cover,
-                    )),
-                Container(
-                  width: double.infinity,
-                  color: Color.fromARGB(215, 0, 118, 125),
-                  child: buildColumn(context),
-                ),
+                buildContainerOfImage(),
+                buildContainerOfButtons(context),
               ],
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 33,
-            color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    _launchURL(
-                        "https://www.youtube.com/gammaltech?sub_confirmation=1");
-                  },
-                  child: Image.asset(
-                    "lib/asset/images/youtube.png",
-                    fit: BoxFit.cover,
-                    width: 35,
-                    height: 70,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    _launchURL(
-                        "https://www.youtube.com/gammaltech?sub_confirmation=1");
-                  },
-                  child: Text(
-                    "© 2021 Gammal Tech. All rights reserved.",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          buildTheBottomContainer(),
         ],
       ),
     );
+  }
+
+  Container buildContainerOfButtons(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Color.fromARGB(215, 0, 118, 125),
+      child: buildColumn(context),
+    );
+  }
+
+  Container buildContainerOfImage() {
+    return Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Image.network(
+          "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e070b1376f1c636adab9240_Web%201920%20%E2%80%93%201.jpg",
+          fit: BoxFit.cover,
+        ));
   }
 
   Column buildColumn(BuildContext context) {
@@ -189,8 +162,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         buildCard(context, "Courses"),
         buildCard(context, "FAQ"),
         buildCard(context, "Go Premium"),
-        buildRowText("Facebook"),
-        buildRowText("YouTube"),
+        buildRowOfLinks("Facebook"),
+        buildRowOfLinks("YouTube"),
       ],
     );
   }
@@ -251,14 +224,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Row buildRowText(String link) {
+  Row buildRowOfLinks(String link) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildJoinUsText("Join us on "),
         InkWell(
           onTap: () {
-            _launchURL(link == "Facebook"
+            launchURL(link == "Facebook"
                 ? "https://www.facebook.com/gammal.tech"
                 : "https://www.youtube.com/gammaltech?sub_confirmation=1");
           },
@@ -275,14 +248,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         buildJoinUsText("!"),
       ],
     );
-  }
-
-  _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   Text buildJoinUsText(String text) {

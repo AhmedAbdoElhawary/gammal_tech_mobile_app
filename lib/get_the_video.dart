@@ -7,10 +7,9 @@ class ChewieListItem extends StatefulWidget {
   final bool looping;
 
   ChewieListItem({
-     required this.videoPlayerController,
-     required this.looping,
+    required this.videoPlayerController,
+    required this.looping,
   });
-
   @override
   _ChewieListItemState createState() => _ChewieListItemState();
 }
@@ -23,12 +22,10 @@ class _ChewieListItemState extends State<ChewieListItem> {
     super.initState();
 
     _chewieController = ChewieController(
-
       videoPlayerController: widget.videoPlayerController,
-      aspectRatio: 18.46/9,
+      aspectRatio: 18.46 / 9,
       autoInitialize: true,
       looping: widget.looping,
-
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(
@@ -42,8 +39,8 @@ class _ChewieListItemState extends State<ChewieListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return  Chewie(
-        controller: _chewieController,
+    return Chewie(
+      controller: _chewieController,
     );
   }
 
