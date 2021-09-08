@@ -50,13 +50,15 @@ class faqPage extends StatelessWidget {
         if(index==0)
           TheHeadCardOfText("FAQ"),
         buildCard(context,titles_faq[index],index),
+        SizedBox(height: 10,),
+        if (titles_faq.length - 1 == index) buildTheBottomContainer(),
       ],
     );
   }
 
   Card buildCard(BuildContext context,String title,int index) {
     return Card(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+      margin: EdgeInsets.only(left: 15, right: 15, ),
       elevation: 5,
       child: InkWell(
         onTap:(){
@@ -64,7 +66,7 @@ class faqPage extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => faqVideoPage(titles_faq[index])));
         } ,
         child: Container(
-          padding: EdgeInsets.all(4),
+          padding: EdgeInsets.all(3),
           width: double.infinity,
           alignment: Alignment.centerRight,
           child: Text(

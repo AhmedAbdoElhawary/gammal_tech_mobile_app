@@ -45,38 +45,49 @@ class _faqVideoPageState extends State<faqVideoPage> {
     );
   }
 
-  Container buildContainer(Map<String, dynamic> taskData, BuildContext context) {
-    return Container(
-          width: double.infinity,
-          height: 700,
-          color: Color.fromARGB(215, 0, 118, 125),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TheHeadCardOfText(textIndex),
-                buildTheVideo(taskData),
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Colors.white,
-                    ),
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: buildTextQuestion(),
+  SingleChildScrollView buildContainer(Map<String, dynamic> taskData, BuildContext context) {
+    return SingleChildScrollView(
+      child: Expanded(
+        child: Column(
+          children: [
+            Container(
+                  width: double.infinity,
+                  color: Color.fromARGB(215, 0, 118, 125),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        TheHeadCardOfText(textIndex),
+                        buildTheVideo(taskData),
+                        buildContainerOfText(),
+                        buildTextButton("  View Courses  ", CoursesPage(), context),
+                      ],
                     ),
                   ),
                 ),
-                buildTextButton(
-                    "  View Courses  ", CoursesPage(), context),
-              ],
-            ),
-          ),
-        );
+            buildTheBottomContainer(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Directionality buildContainerOfText() {
+    return Directionality(
+                textDirection: TextDirection.rtl,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white,
+                  ),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: buildTextQuestion(),
+                  ),
+                ),
+              );
   }
 
   SizedBox buildSizedBox() => SizedBox(height: 15);
