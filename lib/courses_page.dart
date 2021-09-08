@@ -29,13 +29,19 @@ class _CoursesPageState extends State<CoursesPage> {
     );
   }
 
-  Container buildContainer(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-    return Container(
-          width: double.infinity,
-          height: 700,
-          color: Color.fromARGB(215, 0, 118, 125),
-          child: buildSingleChildScrollView(docs),
-        );
+  Column buildContainer(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+                width: double.infinity,
+                height: 700,
+                color: Color.fromARGB(215, 0, 118, 125),
+                child: buildSingleChildScrollView(docs),
+              ),
+        ),
+      ],
+    );
   }
 
   SingleChildScrollView buildSingleChildScrollView(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
@@ -45,10 +51,10 @@ class _CoursesPageState extends State<CoursesPage> {
               children: [
                 TheHeadCardOfText("Our Courses"),
                 buildTheVideo(docs[0].data()),
-                buildCardText(text: "C Programming", page: cProgrammingPage("C Programming")),
+                buildCardText(text: "C Programming", page: cProgrammingPage(title:"C Programming")),
                 buildSizedBox(),
                 buildTheVideo(docs[1].data()),
-                buildCardText(text: "C++ Programming", page: cProgrammingPage("C++ Programming")),
+                buildCardText(text: "C++ Programming", page: cProgrammingPage(title:"C++ Programming")),
                 buildSizedBox(),
                 buildTheVideo(docs[2].data()),
                 buildCardText(text: "Data Structures"),
@@ -68,6 +74,7 @@ class _CoursesPageState extends State<CoursesPage> {
                 buildTheVideo(docs[2].data()),
                 buildCardText(text: "Company Security"),
                 buildSizedBox(),
+                buildTheBottomContainer(),
               ],
             ),
           ),
