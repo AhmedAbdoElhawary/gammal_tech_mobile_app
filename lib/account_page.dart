@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final List<String> listOfShirtSize = [
   "Select one...",
@@ -20,9 +22,9 @@ final List<String> listOfGender = [
   "Male",
   "Female",
 ];
-List<String> listOfDay = ["1", "2", "3"];
-List<String> listOfMonth = ["11", "21", "31"];
-List<String> listOfYear = ["100", "200", "300"];
+var listOfDay = new List<String>.generate(31, (i) => "${i + 1}");
+var listOfMonth = new List<String>.generate(12, (i) => "${i + 1}");
+var listOfYear = new List<String>.generate(67, (i) => "${1950 + i}");
 
 class accountPage extends StatefulWidget {
   @override
@@ -30,13 +32,15 @@ class accountPage extends StatefulWidget {
 }
 
 class _accountPageState extends State<accountPage> {
+  var controlUserName = TextEditingController();
+  var controlUserEmail = TextEditingController();
+
   String dropdownValueShirtSize = 'Select one...';
   String dropdownValueGender = 'Select one...';
-  String dropdownValueDay = '1';
-  String dropdownValueMonth = '11';
-  String dropdownValueYear = '100';
+  String dropdownValueDay = '4';
+  String dropdownValueMonth = '4';
+  String dropdownValueYear = '2001';
   final _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +54,14 @@ class _accountPageState extends State<accountPage> {
     );
   }
 
-  Column container(var context) {
-    return Column(
-      children: [
-        containerOfTheHeadOfTheList(),
-        buildCard(context),
-      ],
+  SingleChildScrollView container(var context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          containerOfTheHeadOfTheList(),
+          buildCard(context),
+        ],
+      ),
     );
   }
 
@@ -94,21 +100,40 @@ class _accountPageState extends State<accountPage> {
           alignment: Alignment.centerRight,
           child: Column(
             children: [
-              buildQuestionText("T-Shirt Size"),
+              buildQuestionText("Name",25),
+              buildTextFormField(controlUserName, 'Your Name'),
+              buildText('Your name (in English) that would be used in certificates.'),
+              buildQuestionText("Email",25),
+              buildTextFormField(controlUserEmail, 'Your Email'),
+              buildText('To update your email, you should be signed in recently.'),
+              buildQuestionText("Phone",25),
+              buildTextFormField(null, 'phone'),
+              buildQuestionText("T-Shirt Size",25),
               buildDropDwonButton(dropdownValueShirtSize, listOfShirtSize),
-              buildQuestionText("Gender"),
-              buildDropDwonButton2(dropdownValueGender, listOfGender),
-              buildQuestionText("Birthdate"),
+              buildQuestionText("Gender",25),
+              buildDropDwonButton(dropdownValueGender, listOfGender),
+              buildQuestionText("Birthdate",25),
               buildBirthdateButton(),
-              buildTextButton(" Save Changes ", null, context),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: buildTextButton(" Save Changes ", HomePage(), context),
+              ),
+              buildQuestionText("Membership",25),
+              buildQuestionText("Premium 👑",18),
+              buildQuestionText("Yearly Membership",18),
+              buildQuestionText("Expires 2 January 2023",18),
+              buildQuestionText("Your rank is 16  See more",18),
               Card(
                 color: Colors.white,
                 margin: EdgeInsets.all(10),
                 elevation: 3,
                 child: InkWell(
                   onTap: () async {
-                    textOfButton = "SIGN IN";
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString("textOfButton", "SIGN IN");
                     await _auth.signOut();
+                    // user=null;
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => HomePage()));
                   },
@@ -131,15 +156,63 @@ class _accountPageState extends State<accountPage> {
     );
   }
 
-  Text buildQuestionText(String text) => Text(
-        text,
-        style: TextStyle(
-            fontWeight: FontWeight.bold, color: Colors.white, fontSize: 25),
-      );
+  Text buildText(String text) {
+    return Text(
+      text,textAlign: TextAlign.center,
+      style: TextStyle(
+          color: Colors.white,
+          fontSize: 11,
+          fontStyle: FontStyle.italic,
+          fontWeight: FontWeight.w300),
+    );
+  }
+
+  Padding buildTextFormField(var controller, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 5,bottom: 15,),
+      child: Card(
+        elevation: 5,
+        child: Container(
+          height: 40,
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              border: Border.all(color: Colors.black12)),
+          child: text == 'phone'
+              ? Center(
+                child: Text(
+                    '${user!.phoneNumber}',
+                    style: TextStyle(color: Colors.black87),
+                  ),
+              )
+              : TextFormField(
+                  controller: controller,
+                  keyboardType: TextInputType.name,
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: text,
+                    hintStyle: TextStyle(color: Colors.black26),
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+  Padding buildQuestionText(String text,double fontSize) => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+          text,
+          style: TextStyle(
+              fontWeight:fontSize!=25?FontWeight.normal:FontWeight.bold, color: Colors.white, fontSize: fontSize),
+        ),
+  );
 
   Padding buildDropDwonButton(String v, List<String> dropList) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+      padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 5,bottom: 15,),
       child: Card(
         elevation: 5,
         child: Container(
@@ -151,7 +224,9 @@ class _accountPageState extends State<accountPage> {
                 border: Border.all(color: Colors.black12)),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: dropdownValueShirtSize,
+                value: v == dropdownValueShirtSize
+                    ? dropdownValueShirtSize
+                    : dropdownValueGender,
                 isExpanded: true,
                 icon: const Icon(Icons.keyboard_arrow_down_outlined),
                 iconSize: 20,
@@ -162,51 +237,13 @@ class _accountPageState extends State<accountPage> {
                     fontWeight: FontWeight.w300),
                 onChanged: (n) {
                   setState(() {
-                    dropdownValueShirtSize = n!;
+                    v == dropdownValueShirtSize
+                        ? dropdownValueShirtSize = n!
+                        : dropdownValueGender = n!;
                   });
                 },
-                items:
-                    listOfShirtSize.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            )),
-      ),
-    );
-  }
-
-  Padding buildDropDwonButton2(String va, List<String> dropList) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: Card(
-        elevation: 5,
-        child: Container(
-            height: 40,
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white,
-                border: Border.all(color: Colors.black12)),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: dropdownValueGender,
-                isExpanded: true,
-                icon: const Icon(Icons.keyboard_arrow_down_outlined),
-                iconSize: 20,
-                elevation: 16,
-                style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w300),
-                onChanged: (n) {
-                  setState(() {
-                    dropdownValueGender = n!;
-                  });
-                },
-                items: listOfGender.map<DropdownMenuItem<String>>((String value) {
+                items: listOfShirtSize
+                    .map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -261,12 +298,16 @@ class _accountPageState extends State<accountPage> {
                     fontWeight: FontWeight.w300),
                 onChanged: (String? newValue) {
                   setState(() {
-                    v = newValue!;
+                    v == dropdownValueDay
+                        ? dropdownValueDay = newValue!
+                        : (v == dropdownValueMonth
+                            ? dropdownValueMonth = newValue!
+                            : dropdownValueYear = newValue!);
                   });
                 },
-                items: buildListMap(v == "1"
+                items: buildListMap(v == dropdownValueDay
                         ? listOfDay
-                        : (v == "11" ? listOfMonth : listOfYear))
+                        : (v == dropdownValueMonth ? listOfMonth : listOfYear))
                     .toList(),
               ),
             )),
