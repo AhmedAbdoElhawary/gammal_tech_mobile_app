@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/video_page.dart';
 import 'package:gammal_tech_mobile_app/waitingPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final titles = [
   'printf',
@@ -33,7 +34,7 @@ class cProgrammingPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: 700,
-        color: Color.fromARGB(215, 0, 118, 125),
+        color: Color.fromARGB(215, 11, 108, 108),
         child: ListView.separated(
             itemCount: titles.length,
             itemBuilder: (context, index) {
@@ -83,6 +84,8 @@ class cProgrammingPage extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             "Your first step in computer science and becoming a software engineer.\nDevelop your programming skills by learning C: one of the most fundamental programming languages.",
+            textAlign: TextAlign.center,
+
             style: TextStyle(
                 fontSize: 20,
                 color: Colors.black,
@@ -94,13 +97,16 @@ class cProgrammingPage extends StatelessWidget {
   }
 
   Card buildCard(BuildContext context, String title, int index) {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 5,
       child: TextButton(
-        onPressed: () {
+        onPressed: () async{
+          SharedPreferences prefs =await SharedPreferences.getInstance();
+
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            if (textOfButton != "SIGN IN" ||
+            if (prefs.getString("textOfButton") != "SIGN IN" ||
                 index == 0 ||
                 index == 1 ||
                 index == 2) return videoPage(index);

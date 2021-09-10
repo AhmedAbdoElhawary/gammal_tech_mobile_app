@@ -5,21 +5,26 @@ import 'package:gammal_tech_mobile_app/FAQ_video_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 
 final titles_faq = [
-  "هل يمكن العمل بدون شهادة",
-  "Gammal Tech العمل في",
-  'من أين أبدأ تعلم البرمجة؟',
-  "هل يمكن العمل بدون شهادة",
-  "Gammal Tech العمل في",
-  'من أين أبدأ تعلم البرمجة؟',
-  "هل يمكن العمل بدون شهادة",
-  "Gammal Tech العمل في",
-  'من أين أبدأ تعلم البرمجة؟',
-  "هل يمكن العمل بدون شهادة",
-  "Gammal Tech العمل في",
-  'من أين أبدأ تعلم البرمجة؟',
-  "هل يمكن العمل بدون شهادة",
-  "Gammal Tech العمل في",
-  'من أين أبدأ تعلم البرمجة؟',
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  ' من أين أبدأ تعلم البرمجة؟ ',
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  ' من أين أبدأ تعلم البرمجة؟ ',
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  ' من أين أبدأ تعلم البرمجة؟ ',
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
+  ' من أين أبدأ تعلم البرمجة؟ ',
+  " هل يمكن العمل بدون شهادة ",
+  " Gammal Tech العمل في ",
 ];
 
 class faqPage extends StatelessWidget {
@@ -30,7 +35,7 @@ class faqPage extends StatelessWidget {
       body:Container(
         width: double.infinity,
         height: 700,
-        color: Color.fromARGB(215, 0, 118, 125),
+        color: Color.fromARGB(215, 11, 108, 108),
         child:ListView.separated(
             itemCount: titles_faq.length,
             itemBuilder: (context, index) {

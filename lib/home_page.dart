@@ -137,7 +137,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Container buildContainerOfButtons(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Color.fromARGB(215, 0, 118, 125),
+      height: double.maxFinite,
+      color: Color.fromARGB(226, 11, 108, 108),
       child: buildColumn(context),
     );
   }
@@ -152,19 +153,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ));
   }
 
-  Column buildColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        buildJoinUsText("The only place to master software engineering."),
-        buildCard(context, "START HERE"),
-        buildCard(context, "Courses"),
-        buildCard(context, "FAQ"),
-        buildCard(context, "Go Premium"),
-        buildRowOfLinks("Facebook"),
-        buildRowOfLinks("YouTube"),
-      ],
+  Center buildColumn(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildJoinUsText("The only place to master software engineering."),
+            buildCard(context, "START HERE"),
+            buildCard(context, "Courses"),
+            buildCard(context, "FAQ"),
+            buildCard(context, "Go Premium"),
+            buildRowOfLinks("Facebook"),
+            buildRowOfLinks("YouTube"),
+          ],
+        ),
+      ),
     );
   }
 
@@ -237,6 +242,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           },
           child: Text(
             link,
+            textAlign: TextAlign.center,
             style: TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,

@@ -1,15 +1,18 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gammal_tech_mobile_app/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
 import 'package:gammal_tech_mobile_app/get_the_video.dart';
 import 'package:gammal_tech_mobile_app/account_page.dart';
 import 'package:gammal_tech_mobile_app/sign_in_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
-String textOfButton = "SIGN IN";
-bool checkBack=false;
+String? textOfButton ;
+User? user = FirebaseAuth.instance.currentUser;
+bool checkBack = false;
 AppBar buildAppBar(context) {
   return AppBar(
     elevation: 5,
@@ -22,7 +25,9 @@ AppBar buildAppBar(context) {
     ),
     actions: [
       IconButton(
-        onPressed: () {
+        onPressed: () async {
+          SharedPreferences prefs =await SharedPreferences.getInstance();
+          textOfButton=prefs.getString("textOfButton")!;
           showGeneralDialog(
             context: context,
             barrierDismissible: true,
@@ -81,25 +86,26 @@ AppBar buildAppBar(context) {
   );
 }
 
-Center biuldTextButton(BuildContext context) {
+Center biuldTextButton(BuildContext context)  {
   return Center(
     child: Card(
       color: Color.fromARGB(255, 0, 118, 125),
       margin: EdgeInsets.all(10),
       elevation: 5,
       child: InkWell(
-        onTap: () {
+        onTap: () async{
+          SharedPreferences prefs =await SharedPreferences.getInstance();
+
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => textOfButton == "SIGN IN"
-                      ? signInPage()
-                      : accountPage()));
+                  builder: (context) =>
+                  prefs.getString("textOfButton") == "SIGN IN" ? signInPage() : accountPage()));
         },
         child: Container(
           padding: EdgeInsets.all(8),
           child: Text(
-            textOfButton,
+              textOfButton!,
             style: TextStyle(
                 fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
           ),
@@ -107,6 +113,16 @@ Center biuldTextButton(BuildContext context) {
       ),
     ),
   );
+}
+
+Future<bool?> showToast(String toast) {
+  return Fluttertoast.showToast(
+      msg: toast,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.white,
+      textColor: Colors.black);
 }
 
 ListTile listTileOfDropMenu(BuildContext context, String text, var page) {
@@ -176,7 +192,6 @@ Card TheHeadCardOfText(String title) {
   );
 }
 
-
 Container buildTheBottomContainer() {
   return Container(
     width: double.infinity,
@@ -227,7 +242,6 @@ launchURL(url) async {
   if (await canLaunch(url)) {
     await launch(url);
   } else {
-    throw 'Could not launch $url';
+    showToast('Could not launch : $url');
   }
 }
-
