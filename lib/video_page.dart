@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gammal_tech_mobile_app/c_programming_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+import 'package:gammal_tech_mobile_app/waitingPage.dart';
+
+List<String> dropList = ["Select one...", 'One', 'Two', 'three', 'Four'];
 
 class videoPage extends StatefulWidget {
   int index;
@@ -12,11 +15,10 @@ class videoPage extends StatefulWidget {
 }
 
 class _videoPageState extends State<videoPage> {
-  String dropdownValue1 = 'Select one...';
   int index;
 
   _videoPageState(this.index);
-
+  String dropdownValue1 = "Select one...";
   void initState() {
     super.initState();
   }
@@ -36,7 +38,7 @@ class _videoPageState extends State<videoPage> {
           }
 
           final docs = snapshot.data!.docs;
-          var taskData = docs[index].data();
+          var taskData = docs[0].data();
 
           return buildContainer(taskData);
         },
@@ -44,25 +46,32 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Container buildContainer(Map<String, dynamic> taskData) {
-    return Container(
-      width: double.infinity,
-      height: 700,
-      color: Color.fromARGB(255, 0, 118, 125),
-      child: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TheHeadCardOfText(titles[index]),
-              buildTheVideo(taskData),
-              buildTextButton("Start Coding", context, null),
-              buildContainerOfExercises(),
-              buildContainerOfQuestion(),
-              buildEmptyContainer(),
-            ],
+  Column buildContainer(Map<String, dynamic> taskData) {
+    return Column(
+      children: [
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            height: 700,
+            color: Color.fromARGB(215, 11, 108, 108),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TheHeadCardOfText(titles[index]),
+                    buildTheVideo(taskData),
+                    buildTextButton("Start Coding", context, null),
+                    buildContainerOfExercises(),
+                    buildContainerOfQuestion(),
+                    buildEmptyContainer(),
+                    buildTheBottomContainer(),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
@@ -93,7 +102,9 @@ class _videoPageState extends State<videoPage> {
           buildTheHeadText("Questions"),
           buildSizedBox(),
           Text(
-              "Answer the following questions according to what you learned from the video."),
+            "Answer the following questions according to what you learned from the video.",
+            textAlign: TextAlign.center,
+          ),
           buildSizedBox(),
           Container(
             alignment: Alignment.centerRight,
@@ -121,31 +132,33 @@ class _videoPageState extends State<videoPage> {
               borderRadius: BorderRadius.circular(5),
               color: Color.fromARGB(191, 243, 243, 243),
               border: Border.all(color: Colors.black12)),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: dropdownValue1,
-              isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down_outlined),
-              iconSize: 20,
-              elevation: 16,
-              style: const TextStyle(
-                  color: Colors.black87,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300),
-              onChanged: (n) {
-                setState(() {
-                  dropdownValue1 = n!;
-                });
-              },
-              items: ["Select one...", 'One', 'Two', 'three', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          )),
+          child: buildDropdownButton()),
+    );
+  }
+
+  DropdownButtonHideUnderline buildDropdownButton() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<String>(
+        value: dropdownValue1,
+        isExpanded: true,
+        icon: const Icon(Icons.keyboard_arrow_down_outlined),
+        iconSize: 20,
+        elevation: 16,
+        style: const TextStyle(
+            color: Colors.black87, fontSize: 17, fontWeight: FontWeight.w300),
+        onChanged: (n) {
+          setState(() {
+            dropdownValue1 = n!;
+          });
+        },
+        items: ["Select one...", 'Hello Gammal Tech', 'Error']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
     );
   }
 
@@ -204,7 +217,19 @@ class _videoPageState extends State<videoPage> {
             color: Color.fromARGB(215, 0, 118, 125),
             borderRadius: BorderRadius.circular(5)),
         child: TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => waitingPage(
+                          image: dropdownValue1 == "Hello Gammal Tech"
+                              ? "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e3fcd02b8df234d21a85952_handshake.gif"
+                              : "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e3e7bea42782820e8fa79c0_we%20shaking%20head%20omptimized.gif",
+                          checkAnswer: dropdownValue1 == "Hello Gammal Tech"
+                              ? true
+                              : false,
+                        )));
+          },
           child: Text(
             "  Send  ",
             style: TextStyle(
@@ -217,6 +242,7 @@ class _videoPageState extends State<videoPage> {
 
   Text buildQuestions() => Text(
         "std::cout<<\"Hello Gammal Tech\"<<std::endl;",
+        textAlign: TextAlign.center,
         style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
       );
 
