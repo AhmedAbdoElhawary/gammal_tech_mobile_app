@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 
 class FirestoreOperation {
@@ -73,4 +74,30 @@ class FirestoreOperation {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
+  deleteDataFirestore(
+      {required String id,
+      required var model,
+      required bool fromUpdate}) async {
+    String filePath = model["image"].replaceAll(new RegExp(r'(\?alt).*'), '');
+
+    List split = filePath.split("data%2F");
+
+    FirebaseStorage.instance
+        .ref("data")
+        .child(split[1])
+        .delete()
+        .then((_) => print('Successfully deleted $filePath storage item'))
+        .catchError((_) {
+      print("image not exist in the firebase storage");
+    });
+
+    if (!fromUpdate) {
+      dbref
+          .doc(id)
+          .delete()
+          .then((value) => print("deleting successfully"))
+          .catchError((e) => print("$e \nerror while deleting the element"));
+      print(id);
+    }
+  }
 }
