@@ -29,6 +29,7 @@ class _waitingPageState extends State<waitingPage> {
 
   @override
   Widget build(BuildContext context) {
+    startTimer();
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -43,5 +44,16 @@ class _waitingPageState extends State<waitingPage> {
         )),
       ),
     );
+  }
+  Future<void> startTimer() async {
+    if (_start <= 0) {
+      Navigator.pop(context);
+    } else {
+      await Future.delayed(const Duration(seconds: 1), () {
+        setState(() {
+          _start--;
+        });
+      });
+    }
   }
 }
