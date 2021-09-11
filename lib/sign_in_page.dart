@@ -61,7 +61,16 @@ class _signInPageState extends State<signInPage> {
         for (i = 0; i < querySnapshot.docs.length; i++) {
           if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) break;
           else if(i == querySnapshot.docs.length-1){
-
+            FirestoreOperation().addDataFirestore(
+              name: "",
+              shirt: "",
+              email: "",
+              phone: user!.phoneNumber,
+              gender: "",
+              birthday: "",
+              birthmonth: "",
+              birthyear: "",
+            );
           }
         }
 
