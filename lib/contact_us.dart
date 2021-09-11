@@ -142,7 +142,29 @@ class ContactUS extends StatelessWidget {
       children: [
         TheHeadCardOfText(title),
         SizedBox(height: 10),
+        descriptionText(),
+        SizedBox(height: 10),
       ],
+    );
+  }
+
+  Card descriptionText() {
+    return Card(
+      margin: EdgeInsets.only(
+        left: 15,
+        right: 15,
+      ),
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.all(15),
+        width: double.infinity,
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+
+          ],
+        ),
+      ),
     );
   }
 }
