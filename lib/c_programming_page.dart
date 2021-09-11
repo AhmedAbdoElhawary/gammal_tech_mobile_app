@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/video_page.dart';
@@ -103,15 +104,16 @@ class cProgrammingPage extends StatelessWidget {
       elevation: 5,
       child: TextButton(
         onPressed: () async{
-          SharedPreferences prefs =await SharedPreferences.getInstance();
-
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            if (prefs.getString("textOfButton") != "SIGN IN" ||
-                index == 0 ||
-                index == 1 ||
-                index == 2) return videoPage(index);
-            return waitingPage();
-          }));
+          SchedulerBinding.instance!.addPostFrameCallback((_) async {
+            SharedPreferences prefs =await SharedPreferences.getInstance();
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              if (prefs.getString("textOfButton") != "SIGN IN" ||
+                  index == 0 ||
+                  index == 1 ||
+                  index == 2) return videoPage(index);
+              return waitingPage();
+            }));
+          });
         },
         child: Container(
           width: double.infinity,

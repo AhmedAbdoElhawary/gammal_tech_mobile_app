@@ -36,7 +36,7 @@ class _CoursesPageState extends State<CoursesPage> {
           child: Container(
                 width: double.infinity,
                 height: 700,
-                color: Color.fromARGB(215, 0, 118, 125),
+            color: Color.fromARGB(215, 11, 108, 108),
                 child: buildSingleChildScrollView(docs),
               ),
         ),
@@ -45,33 +45,34 @@ class _CoursesPageState extends State<CoursesPage> {
   }
 
   SingleChildScrollView buildSingleChildScrollView(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    var video=docs[0].data();
     return SingleChildScrollView(
           child: Center(
             child: Column(
               children: [
                 TheHeadCardOfText("Our Courses"),
-                buildTheVideo(docs[0].data()),
+                buildTheVideo(video),
                 buildCardText(text: "C Programming", page: cProgrammingPage(title:"C Programming")),
                 buildSizedBox(),
-                buildTheVideo(docs[1].data()),
+                buildTheVideo(video),
                 buildCardText(text: "C++ Programming", page: cProgrammingPage(title:"C++ Programming")),
                 buildSizedBox(),
-                buildTheVideo(docs[2].data()),
+                buildTheVideo(video),
                 buildCardText(text: "Data Structures"),
                 buildSizedBox(),
-                buildTheVideo(docs[3].data()),
+                buildTheVideo(video),
                 buildCardText(text: "Algorithms"),
                 buildSizedBox(),
-                buildTheVideo(docs[0].data()),
+                buildTheVideo(video),
                 buildCardText(text: "OOP"),
                 buildSizedBox(),
-                buildTheVideo(docs[3].data()),
+                buildTheVideo(video),
                 buildCardText(text: "Python"),
                 buildSizedBox(),
-                buildTheVideo(docs[1].data()),
+                buildTheVideo(video),
                 buildCardText(text: "Entrepreneurship"),
                 buildSizedBox(),
-                buildTheVideo(docs[2].data()),
+                buildTheVideo(video),
                 buildCardText(text: "Company Security"),
                 buildSizedBox(),
                 buildTheBottomContainer(),
