@@ -159,6 +159,52 @@ class _signInPageState extends State<signInPage> {
             print(phoneController);
           },
         ),
+        Card(
+          color: Color.fromARGB(215, 11, 108, 108),
+          margin: EdgeInsets.all(10),
+          elevation: 3,
+          child: InkWell(
+            onTap: () async {
+              finalNumber = zd + phoneController.text;
+              setState(() {
+                showLoading = true;
+              });
+              await _auth.verifyPhoneNumber(
+                phoneNumber: finalNumber,
+                verificationCompleted: (phoneAuthCredential) async {
+                  setState(() {
+                    showLoading = false;
+                  });
+                },
+                verificationFailed: (verificationFailed) async {
+                  setState(() {
+                    showLoading = false;
+                  });
+                  _scaffoldKey.currentState!.showSnackBar(SnackBar(
+                      content: Text(verificationFailed.message.toString())));
+                },
+                codeSent: (verificationId, resendingToken) async {
+                  setState(() {
+                    showLoading = false;
+                    currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
+                    this.verificationId = verificationId;
+                  });
+                },
+                codeAutoRetrievalTimeout: (verificationId) async {},
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(8),
+              child: Text(
+                "  VERIFY  ",
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+        ),
         Text(
           "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
           textAlign: TextAlign.center,
