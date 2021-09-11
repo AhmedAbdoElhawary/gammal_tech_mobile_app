@@ -44,6 +44,33 @@ class FirestoreOperation {
         .catchError((error) => print("Failed to update user: $error"));
   }
 
-
+  updateDataFirestore(
+      {required String name,
+      required String shirt,
+      required String email,
+      required var phone,
+      required String gender,
+      required String birthday,
+      required String birthmonth,
+      required String birthyear,
+      required String id}) {
+    dbref
+        .doc(id)
+        .update({
+          'name': name,
+          "email": email,
+          "phone": phone,
+          'shirt': shirt,
+          'gender': gender,
+          'birthday': birthday,
+          'birthmonth': birthmonth,
+          'birthyear': birthyear,
+        })
+        .then((value) => print(
+            "************************************************************************************************************************************************************\n"
+                "  User Updated "
+                "\n***********************************************************************************************************************************************************"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
 
 }
