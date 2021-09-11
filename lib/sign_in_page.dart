@@ -175,6 +175,38 @@ class _signInPageState extends State<signInPage> {
           "Verify your phone number",
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
         ),
+        SizedBox(
+          height: 8,
+        ),
+        TextField(
+          controller: otpController,
+          decoration: InputDecoration(
+            hintText: "6-digit code",
+          ),
+        ),
+        Row(
+          children: [
+            Card(
+              color: Colors.white,
+              margin: EdgeInsets.all(10),
+              elevation: 3,
+              child: InkWell(
+                onTap: () async {},
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    "  CANCEL  ",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Color.fromARGB(215, 11, 108, 108),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         Text(
           "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
           textAlign: TextAlign.center,
