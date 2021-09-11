@@ -161,7 +161,29 @@ class ContactUS extends StatelessWidget {
         alignment: Alignment.center,
         child: Column(
           children: [
-
+            Text(
+              "Call us or use WhatsApp at",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+            InkWell(
+                onTap: () => launch("tel:+201033998844"),
+                child: Text(
+                  "+201033998844",
+                  style: TextStyle(fontSize: 20, color: Colors.blue[700]),
+                )),
+            Text(
+              "Email us at support@gammal.tech\nChat with us using the chat icon (for signed-in users)."
+              "Send us a message using the form.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
           ],
         ),
       ),
