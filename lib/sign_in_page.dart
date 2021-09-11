@@ -120,7 +120,7 @@ class _signInPageState extends State<signInPage> {
                                         MobileVerificationState
                                             .SHOW_MOBILE_FORM_STATE
                                     ? getMobileForm(context)
-                                    : null,
+                                    : getOtpCode(context),
                           ),
                         ),
                       ),
@@ -168,4 +168,19 @@ class _signInPageState extends State<signInPage> {
     );
   }
 
+  getOtpCode(context) {
+    return Column(
+      children: [
+        Text(
+          "Verify your phone number",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+        ),
+        Text(
+          "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 12),
+        ),
+      ],
+    );
+  }
 }
