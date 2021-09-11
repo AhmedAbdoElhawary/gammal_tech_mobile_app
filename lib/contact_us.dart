@@ -51,7 +51,31 @@ class ContactUS extends StatelessWidget {
               child: Column(
                 children: [
 
-
+                  Card(
+                    margin: EdgeInsets.all(10),
+                    elevation: 5,
+                    child: Container(
+                      height: 55,
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(215, 0, 118, 125),
+                          borderRadius: BorderRadius.circular(5)),
+                      child: TextButton(
+                        onPressed: () async {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
+                        child: Text(
+                          "  Send  ",
+                          style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
