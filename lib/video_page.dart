@@ -111,7 +111,7 @@ class _videoPageState extends State<videoPage> {
             child: Column(
               children: [
                 buildQuestions(),
-                buildDropDwonButton(),
+                buildDropDwonPadding(),
                 buildSendButton(),
               ],
             ),
@@ -121,7 +121,7 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Padding buildDropDwonButton() {
+  Padding buildDropDwonPadding() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

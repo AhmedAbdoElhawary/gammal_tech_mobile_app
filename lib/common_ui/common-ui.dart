@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gammal_tech_mobile_app/FAQ_page.dart';
+import 'package:gammal_tech_mobile_app/contact_us.dart';
 import 'package:gammal_tech_mobile_app/courses_page.dart';
 import 'package:gammal_tech_mobile_app/get_the_video.dart';
 import 'package:gammal_tech_mobile_app/account_page.dart';
@@ -10,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
-String? textOfButton ;
+String? textOfButton;
 User? user = FirebaseAuth.instance.currentUser;
 bool checkBack = false;
 AppBar buildAppBar(context) {
@@ -26,39 +28,45 @@ AppBar buildAppBar(context) {
     actions: [
       IconButton(
         onPressed: () async {
-          SharedPreferences prefs =await SharedPreferences.getInstance();
-          textOfButton=prefs.getString("textOfButton")!;
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          textOfButton = (prefs.getString("textOfButton") == null
+              ? "Sign In"
+              : prefs.getString("textOfButton"));
           showGeneralDialog(
             context: context,
             barrierDismissible: true,
             transitionDuration: Duration(milliseconds: 500),
             barrierLabel: MaterialLocalizations.of(context).dialogLabel,
-            barrierColor: Colors.black.withOpacity(0.5),
+            barrierColor: Colors.black.withOpacity(0),
             pageBuilder: (context, _, __) {
               return SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Color.fromARGB(0, 255, 255, 255),
-                      child: Card(
-                        color: Color.fromARGB(240, 255, 255, 255),
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: <Widget>[
-                            ListTile(title: Text('Premium')),
-                            listTileOfDropMenu(
-                                context, 'Courses', CoursesPage()),
-                            ListTile(title: Text('Masterclass')),
-                            listTileOfDropMenu(context, 'FAQ', faqPage()),
-                            ListTile(title: Text('Content')),
-                            biuldTextButton(context)
-                          ],
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 52.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        width: double.infinity,
+                        color: Color.fromARGB(0, 255, 255, 255),
+                        child: Card(
+                          color: Color.fromARGB(240, 255, 255, 255),
+                          margin: const EdgeInsets.only(),
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: <Widget>[
+                              ListTile(title: Text('Premium')),
+                              listTileOfDropMenu(
+                                  context, 'Courses', CoursesPage()),
+                              ListTile(title: Text('Masterclass')),
+                              listTileOfDropMenu(context, 'FAQ', faqPage()),
+                              listTileOfDropMenu(context, 'Content', ContactUS()),
+                              biuldTextButton(context)
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },
@@ -86,26 +94,62 @@ AppBar buildAppBar(context) {
   );
 }
 
-Center biuldTextButton(BuildContext context)  {
+Center biuldTextButton(BuildContext context) {
   return Center(
     child: Card(
       color: Color.fromARGB(255, 0, 118, 125),
       margin: EdgeInsets.all(10),
       elevation: 5,
       child: InkWell(
-        onTap: () async{
-          SharedPreferences prefs =await SharedPreferences.getInstance();
+        onTap: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          CollectionReference _collectionRef =
+              FirebaseFirestore.instance.collection('users');
+          QuerySnapshot querySnapshot = await _collectionRef.get();
+          int i=0;
+          for (i = 0; i < querySnapshot.docs.length&&user!=null; i++) {
+            if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) break;
+          }
+          var data = querySnapshot.docs[i];
+          print(
+              "=============================================\n${querySnapshot.docs[i].data()}\n${data.get("name")}\n==============================================");
+          TextEditingController controlUserName = TextEditingController();
+          controlUserName.text = data.get("name");
+          TextEditingController controlUserEmail = TextEditingController();
+          controlUserEmail.text = data.get("email");
+          String dropdownValueShirtSize =
+              data.get("shirt") == "" ? 'Select one...' : data.get("shirt");
+          String dropdownValueGender =
+              data.get("gender") == "" ? 'Select one...' : data.get("gender");
+          String dropdownValueDay =
+              data.get("birthday") == "" ? '4' : data.get("birthday");
+          String dropdownValueMonth =
+              data.get("birthmonth") == "" ? '4' : data.get("birthmonth");
+          String dropdownValueYear =
+              data.get("birthyear") == "" ? '2000' : data.get("birthyear");
+          String id = data.id;
 
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                  prefs.getString("textOfButton") == "SIGN IN" ? signInPage() : accountPage()));
+                      prefs.getString("textOfButton") == "SIGN IN"
+                          ? signInPage()
+                          : accountPage(
+                              dropdownValueDay: dropdownValueDay,
+                              dropdownValueGender: dropdownValueGender,
+                              dropdownValueMonth: dropdownValueMonth,
+                              dropdownValueShirtSize: dropdownValueShirtSize,
+                              dropdownValueYear: dropdownValueYear,
+                              controlUserName: controlUserName,
+                              controlUserEmail: controlUserEmail,
+                              docId: id,
+                            )));
         },
         child: Container(
           padding: EdgeInsets.all(8),
           child: Text(
-              textOfButton!,
+            textOfButton!,
             style: TextStyle(
                 fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
           ),

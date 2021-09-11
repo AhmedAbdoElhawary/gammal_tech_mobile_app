@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,31 +28,68 @@ var listOfMonth = new List<String>.generate(12, (i) => "${i + 1}");
 var listOfYear = new List<String>.generate(67, (i) => "${1950 + i}");
 
 class accountPage extends StatefulWidget {
+  TextEditingController controlUserName;
+  TextEditingController controlUserEmail;
+  String docId;
+  String dropdownValueShirtSize;
+  String dropdownValueGender;
+  String dropdownValueDay;
+  String dropdownValueMonth;
+  String dropdownValueYear;
+  accountPage({
+    required this.controlUserName,
+    required this.controlUserEmail,
+    required this.dropdownValueShirtSize,
+    required this.dropdownValueGender,
+    required this.dropdownValueDay,
+    required this.dropdownValueMonth,
+    required this.dropdownValueYear,
+    required this.docId,
+  });
   @override
-  State<accountPage> createState() => _accountPageState();
+  State<accountPage> createState() => _accountPageState(
+        controlUserEmail: controlUserEmail,
+        controlUserName: controlUserName,
+        dropdownValueDay: dropdownValueDay,
+        dropdownValueGender: dropdownValueGender,
+        dropdownValueMonth: dropdownValueMonth,
+        dropdownValueShirtSize: dropdownValueShirtSize,
+        dropdownValueYear: dropdownValueYear,
+        docId: docId,
+      );
 }
 
 class _accountPageState extends State<accountPage> {
-  var controlUserName = TextEditingController();
-  var controlUserEmail = TextEditingController();
-
-  String dropdownValueShirtSize = 'Select one...';
-  String dropdownValueGender = 'Select one...';
-  String dropdownValueDay = '4';
-  String dropdownValueMonth = '4';
-  String dropdownValueYear = '2001';
+  TextEditingController controlUserName;
+  TextEditingController controlUserEmail;
+  String docId;
   final _auth = FirebaseAuth.instance;
+  String dropdownValueShirtSize;
+  String dropdownValueGender;
+  String dropdownValueDay;
+  String dropdownValueMonth;
+  String dropdownValueYear;
+  _accountPageState({
+    required this.controlUserName,
+    required this.controlUserEmail,
+    required this.dropdownValueShirtSize,
+    required this.dropdownValueGender,
+    required this.dropdownValueDay,
+    required this.dropdownValueMonth,
+    required this.dropdownValueYear,
+    required this.docId,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
-      body: Container(
-        width: double.infinity,
-        height: 700,
-        color: Color.fromARGB(215, 11, 108, 108),
-        child: container(context),
-      ),
-    );
+        appBar: buildAppBar(context),
+        body: Container(
+          width: double.infinity,
+          height: 700,
+          color: Color.fromARGB(215, 11, 108, 108),
+          child: container(context),
+        ));
   }
 
   SingleChildScrollView container(var context) {
@@ -100,29 +138,28 @@ class _accountPageState extends State<accountPage> {
           alignment: Alignment.centerRight,
           child: Column(
             children: [
-              buildQuestionText("Name",25),
+              buildQuestionText("Name", 25),
               buildTextFormField(controlUserName, 'Your Name'),
-              buildText('Your name (in English) that would be used in certificates.'),
-              buildQuestionText("Email",25),
+              buildText(
+                  'Your name (in English) that would be used in certificates.'),
+              buildQuestionText("Email", 25),
               buildTextFormField(controlUserEmail, 'Your Email'),
-              buildText('To update your email, you should be signed in recently.'),
-              buildQuestionText("Phone",25),
+              buildText(
+                  'To update your email, you should be signed in recently.'),
+              buildQuestionText("Phone", 25),
               buildTextFormField(null, 'phone'),
-              buildQuestionText("T-Shirt Size",25),
+              buildQuestionText("T-Shirt Size", 25),
               buildDropDwonButton(dropdownValueShirtSize, listOfShirtSize),
-              buildQuestionText("Gender",25),
+              buildQuestionText("Gender", 25),
               buildDropDwonButton(dropdownValueGender, listOfGender),
-              buildQuestionText("Birthdate",25),
+              buildQuestionText("Birthdate", 25),
               buildBirthdateButton(),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: buildTextButton(" Save Changes ", HomePage(), context),
-              ),
-              buildQuestionText("Membership",25),
-              buildQuestionText("Premium 👑",18),
-              buildQuestionText("Yearly Membership",18),
-              buildQuestionText("Expires 2 January 2023",18),
-              buildQuestionText("Your rank is 16  See more",18),
+              buildSaveChangesTextButton(context),
+              buildQuestionText("Membership", 25),
+              buildQuestionText("Premium 👑", 18),
+              buildQuestionText("Yearly Membership", 18),
+              buildQuestionText("Expires 2 January 2023", 18),
+              buildQuestionText("Your rank is 16  See more", 18),
               Card(
                 color: Colors.white,
                 margin: EdgeInsets.all(10),
@@ -133,7 +170,6 @@ class _accountPageState extends State<accountPage> {
                         await SharedPreferences.getInstance();
                     prefs.setString("textOfButton", "SIGN IN");
                     await _auth.signOut();
-                    // user=null;
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => HomePage()));
                   },
@@ -156,9 +192,50 @@ class _accountPageState extends State<accountPage> {
     );
   }
 
+  Padding buildSaveChangesTextButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Card(
+        elevation: 5,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.white,
+          ),
+          height: 55,
+          child: TextButton(
+            onPressed: () async {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HomePage()));
+              FirestoreOperation().updateDataFirestore(
+                name: controlUserName.text,
+                shirt: dropdownValueShirtSize,
+                email: controlUserEmail.text,
+                phone: user!.phoneNumber,
+                gender: dropdownValueGender,
+                birthday: dropdownValueDay,
+                birthmonth: dropdownValueMonth,
+                birthyear: dropdownValueYear,
+                id: docId,
+              );
+            },
+            child: Text(
+              " Save Changes ",
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Text buildText(String text) {
     return Text(
-      text,textAlign: TextAlign.center,
+      text,
+      textAlign: TextAlign.center,
       style: TextStyle(
           color: Colors.white,
           fontSize: 11,
@@ -169,7 +246,12 @@ class _accountPageState extends State<accountPage> {
 
   Padding buildTextFormField(var controller, String text) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 5,bottom: 15,),
+      padding: const EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+        top: 5,
+        bottom: 15,
+      ),
       child: Card(
         elevation: 5,
         child: Container(
@@ -181,11 +263,11 @@ class _accountPageState extends State<accountPage> {
               border: Border.all(color: Colors.black12)),
           child: text == 'phone'
               ? Center(
-                child: Text(
+                  child: Text(
                     '${user!.phoneNumber}',
                     style: TextStyle(color: Colors.black87),
                   ),
-              )
+                )
               : TextFormField(
                   controller: controller,
                   keyboardType: TextInputType.name,
@@ -201,18 +283,25 @@ class _accountPageState extends State<accountPage> {
     );
   }
 
-  Padding buildQuestionText(String text,double fontSize) => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Text(
+  Padding buildQuestionText(String text, double fontSize) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
           text,
           style: TextStyle(
-              fontWeight:fontSize!=25?FontWeight.normal:FontWeight.bold, color: Colors.white, fontSize: fontSize),
+              fontWeight: fontSize != 25 ? FontWeight.normal : FontWeight.bold,
+              color: Colors.white,
+              fontSize: fontSize),
         ),
-  );
+      );
 
   Padding buildDropDwonButton(String v, List<String> dropList) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 5,bottom: 15,),
+      padding: const EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+        top: 5,
+        bottom: 15,
+      ),
       child: Card(
         elevation: 5,
         child: Container(
@@ -224,9 +313,7 @@ class _accountPageState extends State<accountPage> {
                 border: Border.all(color: Colors.black12)),
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: v == dropdownValueShirtSize
-                    ? dropdownValueShirtSize
-                    : dropdownValueGender,
+                value: v,
                 isExpanded: true,
                 icon: const Icon(Icons.keyboard_arrow_down_outlined),
                 iconSize: 20,
@@ -242,13 +329,8 @@ class _accountPageState extends State<accountPage> {
                         : dropdownValueGender = n!;
                   });
                 },
-                items: listOfShirtSize
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
+                items: buildListMap(v == dropdownValueShirtSize ? listOfShirtSize : listOfGender)
+                    .toList(),
               ),
             )),
       ),
