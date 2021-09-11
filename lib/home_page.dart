@@ -49,6 +49,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         animation: _animationControllerGoPremium,
         movingToThePage: null);
   }
+  @override
+  dispose() {
+    _animationControllerStartHere.dispose();
+    _animationControllerCourses.dispose();
+    _animationControllerFAQ.dispose();
+    _animationControllerGoPremium.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
