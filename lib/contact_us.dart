@@ -38,6 +38,7 @@ class ContactUS extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+
           Card(
             margin: EdgeInsets.only(
               left: 15,
@@ -50,6 +51,7 @@ class ContactUS extends StatelessWidget {
               alignment: Alignment.center,
               child: Column(
                 children: [
+                  buildQuestionText('Name', 24.5),
 
                   Card(
                     margin: EdgeInsets.all(10),
@@ -88,5 +90,14 @@ class ContactUS extends StatelessWidget {
       ),
     );
   }
+
+  Text buildQuestionText(String text, double fontSize) => Text(
+        text,
+        style: TextStyle(
+            fontWeight: fontSize != 25 ? FontWeight.normal : FontWeight.bold,
+            color: Colors.black,
+            fontSize: fontSize),
+      );
+
 
 }
