@@ -18,4 +18,32 @@ class FirestoreOperation {
     data = querySnapshot.docs[i].data();
     return querySnapshot.docs[i].data();
   }
+
+  addDataFirestore({
+    required String name,
+    required String shirt,
+    required String email,
+    required var phone,
+    required String gender,
+    required String birthday,
+    required String birthmonth,
+    required String birthyear,
+  }) {
+    dbref
+        .add({
+          'name': name,
+          "email": email,
+          "phone": phone,
+          'shirt': shirt,
+          'gender': gender,
+          'birthday': birthday,
+          'birthmonth': birthmonth,
+          'birthyear': birthyear,
+        })
+        .then((value) => print("User Updat ed"))
+        .catchError((error) => print("Failed to update user: $error"));
+  }
+
+
+
 }
