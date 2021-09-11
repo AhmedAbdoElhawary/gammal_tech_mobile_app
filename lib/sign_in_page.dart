@@ -187,6 +187,33 @@ class _signInPageState extends State<signInPage> {
         Row(
           children: [
             Card(
+              color: Color.fromARGB(215, 11, 108, 108),
+              margin: EdgeInsets.all(10),
+              elevation: 3,
+              child: InkWell(
+                onTap: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  PhoneAuthCredential phoneAuthCredential =
+                      PhoneAuthProvider.credential(
+                          verificationId: verificationId,
+                          smsCode: otpController.text);
+                  signInWithPhoneAuthCredential(phoneAuthCredential);
+                  prefs.setString("textOfButton", "My Account");
+                },
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    "  CONTINUE  ",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            Card(
               color: Colors.white,
               margin: EdgeInsets.all(10),
               elevation: 3,
