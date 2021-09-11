@@ -38,7 +38,6 @@ class ContactUS extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-
           Card(
             margin: EdgeInsets.only(
               left: 15,
@@ -52,7 +51,13 @@ class ContactUS extends StatelessWidget {
               child: Column(
                 children: [
                   buildQuestionText('Name', 24.5),
-
+                  buildTextFormField(controlUserName, 'Your Name'),
+                  buildQuestionText('Phone Number', 24.5),
+                  buildTextFormField(controlPhoneNumber, '+20100XXXYYYY'),
+                  buildQuestionText('Email Address', 24.5),
+                  buildTextFormField(controlEmailAddress, 'Your@gmail.com'),
+                  buildQuestionText('Message', 24.5),
+                  buildTextFormField(controlMessage, 'Your message goes here'),
                   Card(
                     margin: EdgeInsets.all(10),
                     elevation: 5,
@@ -99,5 +104,36 @@ class ContactUS extends StatelessWidget {
             fontSize: fontSize),
       );
 
+  Padding buildTextFormField(var controller, String hint) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 10.0,
+        right: 10.0,
+        top: 5,
+        bottom: 15,
+      ),
+      child: Card(
+        elevation: 0,
+        child: Container(
+          height: 40,
+          padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.white,
+              border: Border.all(color: Colors.black26)),
+          child: TextFormField(
+            controller: controller,
+            keyboardType: TextInputType.name,
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.black26),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
 }
