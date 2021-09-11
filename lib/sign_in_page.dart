@@ -1,10 +1,14 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/home_page.dart';
-
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FORM_STATE,
@@ -76,7 +80,44 @@ class _signInPageState extends State<signInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Color.fromARGB(215, 11, 108, 108),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    TheHeadCardOfText("Sign In"),
+                    Text(
+                      "Enter your phone number to sign in or to sign up.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 40, left: 40),
+                        child: Container(
+                          color: Colors.white,
+                          width: double.infinity,
+                          child: Padding(
+                            key: _scaffoldKey,
+                            padding: const EdgeInsets.all(8.0),
 
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          buildTheBottomContainer()
+        ],
+      ),
     );
   }
 
