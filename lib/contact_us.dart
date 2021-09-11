@@ -38,6 +38,7 @@ class ContactUS extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          containerOfTheHeadOfTheList(),
           Card(
             margin: EdgeInsets.only(
               left: 15,
@@ -136,4 +137,12 @@ class ContactUS extends StatelessWidget {
     );
   }
 
+  Column containerOfTheHeadOfTheList() {
+    return Column(
+      children: [
+        TheHeadCardOfText(title),
+        SizedBox(height: 10),
+      ],
+    );
+  }
 }
