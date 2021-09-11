@@ -1,9 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gammal_tech_mobile_app">
+
    <application
+
         android:label="gammal_tech_mobile_app"
-        android:icon="@mipmap/ic_launcher">
+        >
         <activity
+            android:icon="@mipmap/ic_launcher"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
@@ -12,6 +15,7 @@
             android:windowSoftInputMode="adjustResize">
 
                 <meta-data
+
                     android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                     android:value="true" />
                 <intent-filter>
@@ -37,7 +41,8 @@
               android:resource="@drawable/launch_background"
               />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.SENDTO" />
+]                <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
