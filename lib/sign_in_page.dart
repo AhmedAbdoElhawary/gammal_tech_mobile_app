@@ -114,7 +114,13 @@ class _signInPageState extends State<signInPage> {
                           child: Padding(
                             key: _scaffoldKey,
                             padding: const EdgeInsets.all(8.0),
-
+                            child: showLoading
+                                ? Center(child: CircularProgressIndicator())
+                                : currentState ==
+                                        MobileVerificationState
+                                            .SHOW_MOBILE_FORM_STATE
+                                    ? getMobileForm(context)
+                                    : null,
                           ),
                         ),
                       ),
@@ -127,6 +133,38 @@ class _signInPageState extends State<signInPage> {
           buildTheBottomContainer()
         ],
       ),
+    );
+  }
+
+  getMobileForm(context) {
+    return Column(
+      children: [
+        Text(
+          "Enter your phone number",
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
+        ),
+        IntlPhoneField(
+          controller: phoneController,
+          decoration: InputDecoration(
+            hintText: "Phone Number",
+          ),
+          onChanged: (phone) {
+            zd = phone.countryCode.toString();
+            print(zd);
+            print(phoneController);
+          },
+          onCountryChanged: (phone) {
+            zd = phone.countryCode.toString();
+            print(zd);
+            print(phoneController);
+          },
+        ),
+        Text(
+          "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 12),
+        ),
+      ],
     );
   }
 
