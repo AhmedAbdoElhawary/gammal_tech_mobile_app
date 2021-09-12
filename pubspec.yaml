@@ -67,7 +67,13 @@ dependencies:
   flutter_email_sender: ^5.0.2
   mailer: ^5.0.2
   provider: ^6.0.0
-  # The following adds the Cupertino Icons font to your application.
+  youtube_player_flutter: ^8.0.0
+  vimeo_player_flutter: ^0.0.3+1
+  flutter_credit_card: ^2.0.0
+  flutter_pay: ^1.0.2
+  http: ^0.13.3
+  progress_dialog: ^1.2.2
+    # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
 
@@ -99,6 +105,9 @@ flutter:
   # To add asset to your application, add an asset section, like this:
   assets:
     - lib/asset/images/youtube.png
+    - lib/asset/images/home_photo.jpg
+    - lib/asset/images/right.gif
+    - lib/asset/images/wrong.gif
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
