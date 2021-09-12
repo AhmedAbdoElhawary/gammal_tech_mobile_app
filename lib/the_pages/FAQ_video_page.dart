@@ -1,53 +1,28 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/courses_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/the_pages/courses_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class faqVideoPage extends StatefulWidget {
-  String index;
-  faqVideoPage(this.index);
-  @override
-  State<faqVideoPage> createState() => _faqVideoPageState(index);
-}
-
-class _faqVideoPageState extends State<faqVideoPage> {
+class faqVideoPage extends StatelessWidget {
   String textIndex;
+  SharedPreferences prefs;
+  faqVideoPage(this.textIndex,this.prefs);
 
-  _faqVideoPageState(this.textIndex);
-
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  int get hashCode => super.hashCode;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: new StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("info").snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-
-          final docs = snapshot.data!.docs;
-          var taskData = docs[0].data();
-
-          return buildContainer(taskData, context);
-        },
-      ),
+      body: buildContainer( context),
     );
   }
 
-  Column buildContainer(
-      Map<String, dynamic> taskData, BuildContext context) {
+  Column buildContainer(BuildContext context) {
     return Column(
       children: [
         Expanded(
@@ -58,7 +33,7 @@ class _faqVideoPageState extends State<faqVideoPage> {
               child: Column(
                 children: [
                   TheHeadCardOfText(textIndex),
-                  buildTheVideo(taskData),
+                  buildTheVideo(true,false),
                   buildContainerOfText(),
                   buildTextButton("  View Courses  ", CoursesPage(), context),
                 ],
