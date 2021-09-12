@@ -4,58 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/FAQ_page.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/courses_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_home_page.dart';
+import 'package:gammal_tech_mobile_app/the_pages/start_here_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController _animationControllerStartHere;
-  late Animation<double> pulseAnimationStartHere;
-  late AnimationController _animationControllerCourses;
-  late Animation<double> pulseAnimationCourses;
-  late AnimationController _animationControllerFAQ;
-  late Animation<double> pulseAnimationFAQ;
-  late AnimationController _animationControllerGoPremium;
-  late Animation<double> pulseAnimationGoPremium;
-
+class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
+    Future.delayed(Duration.zero, () {
+      Provider.of<Provider_animationOfButtons_HomePage>(context, listen: false)
+          .initState(context: context);
+    });
     super.initState();
-    _animationControllerStartHere = animationControllerValue(1200);
-    _animationControllerCourses = animationControllerValue(200);
-    _animationControllerFAQ = animationControllerValue(200);
-    _animationControllerGoPremium = animationControllerValue(200);
-
-    pulseAnimationStartHere = animate(_animationControllerStartHere);
-    pulseAnimationCourses = animate(_animationControllerCourses);
-    pulseAnimationFAQ = animate(_animationControllerFAQ);
-    pulseAnimationGoPremium = animate(_animationControllerGoPremium);
-    ListenerStartHereButtonClicked();
-    ListenerButtonClicked(
-        plus: pulseAnimationCourses,
-        animation: _animationControllerCourses,
-        movingToThePage: CoursesPage());
-    ListenerButtonClicked(
-        plus: pulseAnimationFAQ,
-        animation: _animationControllerFAQ,
-        movingToThePage: faqPage());
-    ListenerButtonClicked(
-        plus: pulseAnimationGoPremium,
-        animation: _animationControllerGoPremium,
-        movingToThePage: null);
   }
+
   @override
   dispose() {
-    _animationControllerStartHere.dispose();
-    _animationControllerCourses.dispose();
-    _animationControllerFAQ.dispose();
-    _animationControllerGoPremium.dispose();
-
+    Future.delayed(Duration.zero, () {
+      Provider.of<Provider_animationOfButtons_HomePage>(context, listen: false).dispose();
+    });
     super.dispose();
   }
 
@@ -80,52 +54,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Animation<double> animate(controller) {
-    double end;
-    var curve;
-    if (controller == _animationControllerStartHere) {
-      end = 1.06;
-      curve = Curves.easeIn;
-    } else {
-      end = 0.7;
-      curve = Curves.easeInBack;
-    }
-    return Tween<double>(begin: 1.0, end: end)
-        .animate(CurvedAnimation(parent: controller, curve: curve));
-  }
-
-  AnimationController animationControllerValue(int d) =>
-      AnimationController(vsync: this, duration: Duration(milliseconds: d));
-
-  void ListenerStartHereButtonClicked() {
-    return pulseAnimationStartHere.addStatusListener((status) {
-      if (status == AnimationStatus.completed)
-        _animationControllerStartHere.reverse();
-      else if (status == AnimationStatus.dismissed) {
-        _animationControllerStartHere.forward();
-      }
-    });
-  }
-
-  void ListenerButtonClicked(
-      {required plus, required animation, required movingToThePage}) {
-    return plus.addStatusListener((status) {
-      if (status == AnimationStatus.completed)
-        animation.reverse();
-      else if (status == AnimationStatus.dismissed) {
-        animation.stop();
-
-        if (movingToThePage != null)
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => movingToThePage));
-      }
-    });
-  }
-
   Center buildCenterBody(BuildContext context) {
-    setState(() {
-      _animationControllerStartHere.forward();
-    });
+    Provider.of<Provider_animationOfButtons_HomePage>(context).animationControllerStartHere.forward();
     return Center(
       child: Column(
         children: [
@@ -156,8 +86,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Container(
         height: double.infinity,
         width: double.infinity,
-        child: Image.network(
-          "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e070b1376f1c636adab9240_Web%201920%20%E2%80%93%201.jpg",
+        child: Image.asset(
+          "lib/asset/images/home_photo.jpg",
           fit: BoxFit.cover,
         ));
   }
@@ -183,14 +113,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   ScaleTransition buildCard(BuildContext context, String text) {
+    var plus = Provider.of<Provider_animationOfButtons_HomePage>(context);
     return ScaleTransition(
       scale: text == "Courses"
-          ? pulseAnimationCourses
+          ? plus.pulseAnimationCourses
           : (text == "FAQ"
-              ? pulseAnimationFAQ
+              ? plus.pulseAnimationFAQ
               : (text == "Go Premium"
-                  ? pulseAnimationGoPremium
-                  : pulseAnimationStartHere)),
+                  ? plus.pulseAnimationGoPremium
+                  : plus.pulseAnimationStartHere)),
       child: Card(
         color: text == "Go Premium"
             ? Colors.yellow[600]
@@ -205,16 +136,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         elevation: 10,
         child: TextButton(
           onPressed: () {
-            setState(() {
-              AnimationController animation = text == "Courses"
-                  ? _animationControllerCourses
-                  : (text == "FAQ"
-                      ? _animationControllerFAQ
-                      : (text == "START HERE"
-                          ? _animationControllerStartHere
-                          : _animationControllerGoPremium));
-              animation.forward();
-            });
+            AnimationController animation = text == "Courses"
+                ? plus.animationControllerCourses
+                : (text == "FAQ"
+                    ? plus.animationControllerFAQ
+                    : (text == "START HERE"
+                        ? plus.animationControllerStartHere
+                        : plus.animationControllerGoPremium));
+            animation.forward();
+            if(text=="START HERE")
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => StartHerePage(text)));
+
           },
           child: buildContainerOfText(text),
         ),

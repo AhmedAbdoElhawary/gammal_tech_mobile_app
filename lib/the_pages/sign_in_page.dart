@@ -1,92 +1,18 @@
 import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/home_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_sign_in_page.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-enum MobileVerificationState {
-  SHOW_MOBILE_FORM_STATE,
-  SHOW_OTP_FORM_STATE,
-}
-
-class signInPage extends StatefulWidget {
-  @override
-  State<signInPage> createState() => _signInPageState();
-}
-
-class _signInPageState extends State<signInPage> {
-  MobileVerificationState currentState =
-      MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-  final phoneController = TextEditingController();
-  late String zd;
-  final otpController = TextEditingController();
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  String finalNumber = "";
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
-  late String verificationId;
-
-  bool showLoading = false;
-
-  void signInWithPhoneAuthCredential(
-      PhoneAuthCredential phoneAuthCredential) async {
-    setState(() {
-      showLoading = true;
-    });
-
-    try {
-      final authCredential =
-          await _auth.signInWithCredential(phoneAuthCredential);
-
-      setState(() {
-        showLoading = false;
-      });
-
-      if (authCredential.user != null) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-              (Route<dynamic> route) => false,
-        );
-        CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection('users');
-        QuerySnapshot querySnapshot = await _collectionRef.get();
-        int i = 0;
-        for (i = 0; i < querySnapshot.docs.length; i++) {
-          if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) break;
-          else if(i == querySnapshot.docs.length-1){
-            FirestoreOperation().addDataFirestore(
-              name: "",
-              shirt: "",
-              email: "",
-              phone: user!.phoneNumber,
-              gender: "",
-              birthday: "",
-              birthmonth: "",
-              birthyear: "",
-            );
-          }
-        }
-
-      }
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        showLoading = false;
-      });
-
-      _scaffoldKey.currentState!
-          .showSnackBar(SnackBar(content: Text(e.message.toString())));
-    }
-  }
-
+class signInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var plus = Provider.of<Provider_SignIn>(context);
     return Scaffold(
       appBar: buildAppBar(context),
       body: Column(
@@ -112,11 +38,11 @@ class _signInPageState extends State<signInPage> {
                           color: Colors.white,
                           width: double.infinity,
                           child: Padding(
-                            key: _scaffoldKey,
+                            key: plus.scaffoldKey,
                             padding: const EdgeInsets.all(8.0),
-                            child: showLoading
+                            child: plus.showLoading
                                 ? Center(child: CircularProgressIndicator())
-                                : currentState ==
+                                : plus.currentState ==
                                         MobileVerificationState
                                             .SHOW_MOBILE_FORM_STATE
                                     ? getMobileForm(context)
@@ -137,6 +63,8 @@ class _signInPageState extends State<signInPage> {
   }
 
   getMobileForm(context) {
+    var plus = Provider.of<Provider_SignIn>(context);
+
     return Column(
       children: [
         Text(
@@ -144,19 +72,19 @@ class _signInPageState extends State<signInPage> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
         ),
         IntlPhoneField(
-          controller: phoneController,
+          controller: plus.phoneController,
           decoration: InputDecoration(
             hintText: "Phone Number",
           ),
           onChanged: (phone) {
-            zd = phone.countryCode.toString();
-            print(zd);
-            print(phoneController);
+            plus.zd = phone.countryCode.toString();
+            print(plus.zd);
+            print(plus.phoneController);
           },
           onCountryChanged: (phone) {
-            zd = phone.countryCode.toString();
-            print(zd);
-            print(phoneController);
+            plus.zd = phone.countryCode.toString();
+            print(plus.zd);
+            print(plus.phoneController);
           },
         ),
         Card(
@@ -165,33 +93,7 @@ class _signInPageState extends State<signInPage> {
           elevation: 3,
           child: InkWell(
             onTap: () async {
-              finalNumber = zd + phoneController.text;
-              setState(() {
-                showLoading = true;
-              });
-              await _auth.verifyPhoneNumber(
-                phoneNumber: finalNumber,
-                verificationCompleted: (phoneAuthCredential) async {
-                  setState(() {
-                    showLoading = false;
-                  });
-                },
-                verificationFailed: (verificationFailed) async {
-                  setState(() {
-                    showLoading = false;
-                  });
-                  _scaffoldKey.currentState!.showSnackBar(SnackBar(
-                      content: Text(verificationFailed.message.toString())));
-                },
-                codeSent: (verificationId, resendingToken) async {
-                  setState(() {
-                    showLoading = false;
-                    currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
-                    this.verificationId = verificationId;
-                  });
-                },
-                codeAutoRetrievalTimeout: (verificationId) async {},
-              );
+              plus.verifyNumber();
             },
             child: Container(
               padding: EdgeInsets.all(8),
@@ -215,6 +117,8 @@ class _signInPageState extends State<signInPage> {
   }
 
   getOtpCode(context) {
+    var plus = Provider.of<Provider_SignIn>(context);
+
     return Column(
       children: [
         Text(
@@ -225,7 +129,7 @@ class _signInPageState extends State<signInPage> {
           height: 8,
         ),
         TextField(
-          controller: otpController,
+          controller: plus.otpController,
           decoration: InputDecoration(
             hintText: "6-digit code",
           ),
@@ -238,14 +142,7 @@ class _signInPageState extends State<signInPage> {
               elevation: 3,
               child: InkWell(
                 onTap: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  PhoneAuthCredential phoneAuthCredential =
-                      PhoneAuthProvider.credential(
-                          verificationId: verificationId,
-                          smsCode: otpController.text);
-                  signInWithPhoneAuthCredential(phoneAuthCredential);
-                  prefs.setString("textOfButton", "My Account");
+                  plus.otpNumber(context);
                 },
                 child: Container(
                   padding: EdgeInsets.all(8),
@@ -264,7 +161,13 @@ class _signInPageState extends State<signInPage> {
               margin: EdgeInsets.all(10),
               elevation: 3,
               child: InkWell(
-                onTap: () async {},
+                onTap: () async {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                        (Route<dynamic> route) => false,
+                  );
+                },
                 child: Container(
                   padding: EdgeInsets.all(8),
                   child: Text(
