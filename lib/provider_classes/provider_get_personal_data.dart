@@ -1,0 +1,100 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+
+final List<String> listOfShirtSize = [
+  "Select one...",
+  "XS",
+  "S",
+  "M",
+  "L",
+  "XL"
+      "XXL",
+  "Overflow"
+];
+final List<String> listOfGender = [
+  "Select one...",
+  "Male",
+  "Female",
+];
+var listOfDay = new List<String>.generate(31, (i) => "${i + 1}");
+var listOfMonth = new List<String>.generate(12, (i) => "${i + 1}");
+var listOfYear = new List<String>.generate(67, (i) => "${1950 + i}");
+
+
+class Provider_GetPersonalData extends ChangeNotifier {
+  String dropdownValue1 = "Select one...";
+  String dropdownValueShirtSize='Select one...';
+  String dropdownValueGender='Select one...';
+  String dropdownValueDay='4';
+  String dropdownValueMonth='4';
+  String dropdownValueYear='2001';
+  String PhoneNumber='';
+  String TheVideo='';
+
+  TextEditingController controlUserName = TextEditingController();
+  TextEditingController controlUserEmail = TextEditingController();
+  String id='';
+  final auth = FirebaseAuth.instance;
+  personalData() async {
+   CollectionReference _collectionRef =
+   FirebaseFirestore.instance.collection('users');
+   QuerySnapshot querySnapshot = await _collectionRef.get();
+   int i=0;
+   for (i = 0; i < querySnapshot.docs.length&&user!=null; i++) {
+     if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) break;
+   }
+   var data = querySnapshot.docs[i];
+   print(
+       "=============================================\n${querySnapshot.docs[i].data()}\n${data.get("name")}\n==============================================");
+   controlUserName.text = data.get("name");
+   controlUserEmail.text = data.get("email");
+    dropdownValueShirtSize =
+   data.get("shirt") == "" ? 'Select one...' : data.get("shirt");
+    dropdownValueGender =
+   data.get("gender") == "" ? 'Select one...' : data.get("gender");
+    dropdownValueDay =
+   data.get("birthday") == "" ? '4' : data.get("birthday");
+    dropdownValueMonth =
+   data.get("birthmonth") == "" ? '4' : data.get("birthmonth");
+    dropdownValueYear =
+   data.get("birthyear") == "" ? '2000' : data.get("birthyear");
+   PhoneNumber =
+   data.get("phone") == "" ? '' : data.get("phone");
+     id = data.id;
+   notifyListeners();
+  }
+
+  getTheVideos(index) async {
+    CollectionReference _collectionRef =
+    FirebaseFirestore.instance.collection('info');
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    var data = querySnapshot.docs[index];
+    TheVideo=data.get("video");
+  }
+
+
+  onChangedBirthDate({required String? newValue,required String value}) {
+    value == dropdownValueDay
+  ? dropdownValueDay = newValue!
+      : (value == dropdownValueMonth
+  ? dropdownValueMonth = newValue!
+      : dropdownValueYear = newValue!);
+    notifyListeners();
+  }
+
+  onChanged({required String? newValue,required String value}) {
+    value == dropdownValueShirtSize
+        ?dropdownValueShirtSize = newValue!
+        : dropdownValueGender = newValue!;
+    notifyListeners();
+  }
+
+  onChange(String? newValue){
+    dropdownValue1 = newValue!;
+    notifyListeners();
+
+  }
+
+}
