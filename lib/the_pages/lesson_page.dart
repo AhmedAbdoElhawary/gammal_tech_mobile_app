@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/video_page.dart';
-import 'package:gammal_tech_mobile_app/waitingPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_get_videos_form_firestore.dart';
+import 'package:provider/provider.dart';
 
 final titles = [
   'printf',
@@ -23,9 +23,9 @@ final titles = [
   'practice 10'
 ];
 
-class cProgrammingPage extends StatelessWidget {
+class lessonPage extends StatelessWidget {
   String title = "C Programming";
-  cProgrammingPage({var title}) {
+  lessonPage(var title) {
     this.title = title;
   }
   @override
@@ -55,7 +55,10 @@ class cProgrammingPage extends StatelessWidget {
         if (index == 0) containerOfTheHeadOfTheList(),
         buildPadding(index),
         buildCard(context, titles[index], index),
-        if (titles.length - 1 == index) buildTheBottomContainer(),
+        if (titles.length - 1 == index) Padding(
+          padding: const EdgeInsets.only(top:10.0),
+          child: buildTheBottomContainer(),
+        ),
       ],
     );
   }
@@ -98,23 +101,14 @@ class cProgrammingPage extends StatelessWidget {
   }
 
   Card buildCard(BuildContext context, String title, int index) {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    var plus = Provider.of<Provider_GetTheVideosFromFirestore>(context);
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 5,
       child: TextButton(
         onPressed: () async{
-          SchedulerBinding.instance!.addPostFrameCallback((_) async {
-            SharedPreferences prefs =await SharedPreferences.getInstance();
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              if (prefs.getString("textOfButton") != "SIGN IN" ||
-                  index == 0 ||
-                  index == 1 ||
-                  index == 2) return videoPage(index);
-              return waitingPage();
-            }));
-          });
-        },
+          plus.onPressedLessonButton(context, index);
+          },
         child: Container(
           width: double.infinity,
           alignment: Alignment.center,
