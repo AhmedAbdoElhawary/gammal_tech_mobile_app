@@ -1,85 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/home_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final List<String> listOfShirtSize = [
-  "Select one...",
-  "XS",
-  "S",
-  "M",
-  "L",
-  "XL"
-      "XXL",
-  "Overflow"
-];
-final List<String> listOfGender = [
-  "Select one...",
-  "Male",
-  "Female",
-];
-var listOfDay = new List<String>.generate(31, (i) => "${i + 1}");
-var listOfMonth = new List<String>.generate(12, (i) => "${i + 1}");
-var listOfYear = new List<String>.generate(67, (i) => "${1950 + i}");
-
-class accountPage extends StatefulWidget {
-  TextEditingController controlUserName;
-  TextEditingController controlUserEmail;
-  String docId;
-  String dropdownValueShirtSize;
-  String dropdownValueGender;
-  String dropdownValueDay;
-  String dropdownValueMonth;
-  String dropdownValueYear;
-  accountPage({
-    required this.controlUserName,
-    required this.controlUserEmail,
-    required this.dropdownValueShirtSize,
-    required this.dropdownValueGender,
-    required this.dropdownValueDay,
-    required this.dropdownValueMonth,
-    required this.dropdownValueYear,
-    required this.docId,
-  });
-  @override
-  State<accountPage> createState() => _accountPageState(
-        controlUserEmail: controlUserEmail,
-        controlUserName: controlUserName,
-        dropdownValueDay: dropdownValueDay,
-        dropdownValueGender: dropdownValueGender,
-        dropdownValueMonth: dropdownValueMonth,
-        dropdownValueShirtSize: dropdownValueShirtSize,
-        dropdownValueYear: dropdownValueYear,
-        docId: docId,
-      );
-}
-
-class _accountPageState extends State<accountPage> {
-  TextEditingController controlUserName;
-  TextEditingController controlUserEmail;
-  String docId;
-  final _auth = FirebaseAuth.instance;
-  String dropdownValueShirtSize;
-  String dropdownValueGender;
-  String dropdownValueDay;
-  String dropdownValueMonth;
-  String dropdownValueYear;
-  _accountPageState({
-    required this.controlUserName,
-    required this.controlUserEmail,
-    required this.dropdownValueShirtSize,
-    required this.dropdownValueGender,
-    required this.dropdownValueDay,
-    required this.dropdownValueMonth,
-    required this.dropdownValueYear,
-    required this.docId,
-  });
-
+class accountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +22,7 @@ class _accountPageState extends State<accountPage> {
         ));
   }
 
-  SingleChildScrollView container(var context) {
+  SingleChildScrollView container(context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -131,6 +61,7 @@ class _accountPageState extends State<accountPage> {
   }
 
   Column buildCard(BuildContext context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Column(
       children: [
         buildSizedBox(),
@@ -139,21 +70,23 @@ class _accountPageState extends State<accountPage> {
           child: Column(
             children: [
               buildQuestionText("Name", 25),
-              buildTextFormField(controlUserName, 'Your Name'),
+              buildTextFormField(plus.controlUserName, 'Your Name', context),
               buildText(
                   'Your name (in English) that would be used in certificates.'),
               buildQuestionText("Email", 25),
-              buildTextFormField(controlUserEmail, 'Your Email'),
+              buildTextFormField(plus.controlUserEmail, 'Your Email', context),
               buildText(
                   'To update your email, you should be signed in recently.'),
               buildQuestionText("Phone", 25),
-              buildTextFormField(null, 'phone'),
+              buildTextFormField(null, 'phone', context),
               buildQuestionText("T-Shirt Size", 25),
-              buildDropDwonButton(dropdownValueShirtSize, listOfShirtSize),
+              buildDropDwonButton(
+                  plus.dropdownValueShirtSize, listOfShirtSize, context),
               buildQuestionText("Gender", 25),
-              buildDropDwonButton(dropdownValueGender, listOfGender),
+              buildDropDwonButton(
+                  plus.dropdownValueGender, listOfGender, context),
               buildQuestionText("Birthdate", 25),
-              buildBirthdateButton(),
+              buildBirthdateButton(context),
               buildSaveChangesTextButton(context),
               buildQuestionText("Membership", 25),
               buildQuestionText("Premium 👑", 18),
@@ -168,8 +101,8 @@ class _accountPageState extends State<accountPage> {
                   onTap: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString("textOfButton", "SIGN IN");
-                    await _auth.signOut();
+                    prefs.setBool("checkForAccount", false);
+                    await plus.auth.signOut();
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => HomePage()));
                   },
@@ -193,6 +126,7 @@ class _accountPageState extends State<accountPage> {
   }
 
   Padding buildSaveChangesTextButton(BuildContext context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Card(
@@ -208,15 +142,15 @@ class _accountPageState extends State<accountPage> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => HomePage()));
               FirestoreOperation().updateDataFirestore(
-                name: controlUserName.text,
-                shirt: dropdownValueShirtSize,
-                email: controlUserEmail.text,
-                phone: user!.phoneNumber,
-                gender: dropdownValueGender,
-                birthday: dropdownValueDay,
-                birthmonth: dropdownValueMonth,
-                birthyear: dropdownValueYear,
-                id: docId,
+                name: plus.controlUserName.text,
+                shirt: plus.dropdownValueShirtSize,
+                email: plus.controlUserEmail.text,
+                phone: plus.PhoneNumber,
+                gender: plus.dropdownValueGender,
+                birthday: plus.dropdownValueDay,
+                birthmonth: plus.dropdownValueMonth,
+                birthyear: plus.dropdownValueYear,
+                id: plus.id,
               );
             },
             child: Text(
@@ -244,7 +178,8 @@ class _accountPageState extends State<accountPage> {
     );
   }
 
-  Padding buildTextFormField(var controller, String text) {
+  Padding buildTextFormField(var controller, String text, context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.only(
         left: 10.0,
@@ -264,7 +199,7 @@ class _accountPageState extends State<accountPage> {
           child: text == 'phone'
               ? Center(
                   child: Text(
-                    '${user!.phoneNumber}',
+                    '${plus.PhoneNumber}',
                     style: TextStyle(color: Colors.black87),
                   ),
                 )
@@ -294,7 +229,8 @@ class _accountPageState extends State<accountPage> {
         ),
       );
 
-  Padding buildDropDwonButton(String v, List<String> dropList) {
+  Padding buildDropDwonButton(String v, List<String> dropList, context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.only(
         left: 10.0,
@@ -323,13 +259,11 @@ class _accountPageState extends State<accountPage> {
                     fontSize: 17,
                     fontWeight: FontWeight.w300),
                 onChanged: (n) {
-                  setState(() {
-                    v == dropdownValueShirtSize
-                        ? dropdownValueShirtSize = n!
-                        : dropdownValueGender = n!;
-                  });
+                  plus.onChanged(newValue: n, value: v);
                 },
-                items: buildListMap(v == dropdownValueShirtSize ? listOfShirtSize : listOfGender)
+                items: buildListMap(v == plus.dropdownValueShirtSize
+                        ? listOfShirtSize
+                        : listOfGender)
                     .toList(),
               ),
             )),
@@ -346,17 +280,20 @@ class _accountPageState extends State<accountPage> {
     });
   }
 
-  Row buildBirthdateButton() {
+  Row buildBirthdateButton(context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Row(
       children: [
-        birthdateDropMenu(dropdownValueDay),
-        birthdateDropMenu(dropdownValueMonth),
-        birthdateDropMenu(dropdownValueYear),
+        birthdateDropMenu(plus.dropdownValueDay, context),
+        birthdateDropMenu(plus.dropdownValueMonth, context),
+        birthdateDropMenu(plus.dropdownValueYear, context),
       ],
     );
   }
 
-  Expanded birthdateDropMenu(String v) {
+  Expanded birthdateDropMenu(String v, context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -379,17 +316,13 @@ class _accountPageState extends State<accountPage> {
                     fontSize: 17,
                     fontWeight: FontWeight.w300),
                 onChanged: (String? newValue) {
-                  setState(() {
-                    v == dropdownValueDay
-                        ? dropdownValueDay = newValue!
-                        : (v == dropdownValueMonth
-                            ? dropdownValueMonth = newValue!
-                            : dropdownValueYear = newValue!);
-                  });
+                  plus.onChangedBirthDate(newValue: newValue, value: v);
                 },
-                items: buildListMap(v == dropdownValueDay
+                items: buildListMap(v == plus.dropdownValueDay
                         ? listOfDay
-                        : (v == dropdownValueMonth ? listOfMonth : listOfYear))
+                        : (v == plus.dropdownValueMonth
+                            ? listOfMonth
+                            : listOfYear))
                     .toList(),
               ),
             )),
