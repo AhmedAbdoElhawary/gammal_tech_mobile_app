@@ -1,52 +1,26 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gammal_tech_mobile_app/c_programming_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/the_pages/lesson_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/waitingPage.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
+import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-List<String> dropList = ["Select one...", 'One', 'Two', 'three', 'Four'];
-
-class videoPage extends StatefulWidget {
+class videoPage extends StatelessWidget {
   int index;
-  videoPage(this.index);
-  @override
-  State<videoPage> createState() => _videoPageState(index);
-}
-
-class _videoPageState extends State<videoPage> {
-  int index;
-
-  _videoPageState(this.index);
-  String dropdownValue1 = "Select one...";
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  int get hashCode => super.hashCode;
+  SharedPreferences prefs;
+  videoPage(this.index,this.prefs);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: new StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("info").snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-
-          final docs = snapshot.data!.docs;
-          var taskData = docs[0].data();
-
-          return buildContainer(taskData);
-        },
-      ),
+      body: buildContainer(context),
     );
   }
-
-  Column buildContainer(Map<String, dynamic> taskData) {
+  Column buildContainer(context) {
     return Column(
       children: [
         Expanded(
@@ -59,10 +33,11 @@ class _videoPageState extends State<videoPage> {
                 child: Column(
                   children: [
                     TheHeadCardOfText(titles[index]),
-                    buildTheVideo(taskData),
+                    buildTheVideo(true,false),
+                    SizedBox(height: 10,),
                     buildTextButton("Start Coding", context, null),
                     buildContainerOfExercises(),
-                    buildContainerOfQuestion(),
+                    buildContainerOfQuestion(context),
                     buildEmptyContainer(),
                     buildTheBottomContainer(),
                   ],
@@ -88,7 +63,7 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Container buildContainerOfQuestion() {
+  Container buildContainerOfQuestion(context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
@@ -111,8 +86,8 @@ class _videoPageState extends State<videoPage> {
             child: Column(
               children: [
                 buildQuestions(),
-                buildDropDwonPadding(),
-                buildSendButton(),
+                buildDropDwonPadding(context),
+                buildSendButton(context),
               ],
             ),
           ),
@@ -121,7 +96,7 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Padding buildDropDwonPadding() {
+  Padding buildDropDwonPadding(context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -132,14 +107,16 @@ class _videoPageState extends State<videoPage> {
               borderRadius: BorderRadius.circular(5),
               color: Color.fromARGB(191, 243, 243, 243),
               border: Border.all(color: Colors.black12)),
-          child: buildDropdownButton()),
+          child: buildDropdownButton(context)),
     );
   }
 
-  DropdownButtonHideUnderline buildDropdownButton() {
+  DropdownButtonHideUnderline buildDropdownButton(context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
+
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-        value: dropdownValue1,
+        value: plus.dropdownValue1,
         isExpanded: true,
         icon: const Icon(Icons.keyboard_arrow_down_outlined),
         iconSize: 20,
@@ -147,9 +124,7 @@ class _videoPageState extends State<videoPage> {
         style: const TextStyle(
             color: Colors.black87, fontSize: 17, fontWeight: FontWeight.w300),
         onChanged: (n) {
-          setState(() {
-            dropdownValue1 = n!;
-          });
+            plus.onChange(n);
         },
         items: ["Select one...", 'Hello Gammal Tech', 'Error']
             .map<DropdownMenuItem<String>>((String value) {
@@ -207,7 +182,8 @@ class _videoPageState extends State<videoPage> {
     );
   }
 
-  Card buildSendButton() {
+  Card buildSendButton(context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
     return Card(
       margin: EdgeInsets.all(10),
       elevation: 5,
@@ -217,15 +193,15 @@ class _videoPageState extends State<videoPage> {
             color: Color.fromARGB(215, 0, 118, 125),
             borderRadius: BorderRadius.circular(5)),
         child: TextButton(
-          onPressed: () {
+          onPressed: () async {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => waitingPage(
-                          image: dropdownValue1 == "Hello Gammal Tech"
-                              ? "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e3fcd02b8df234d21a85952_handshake.gif"
-                              : "https://uploads-ssl.webflow.com/5d2cb3382be6ba1741dc013c/5e3e7bea42782820e8fa79c0_we%20shaking%20head%20omptimized.gif",
-                          checkAnswer: dropdownValue1 == "Hello Gammal Tech"
+                    builder: (context) => waitingPage(checkAccount: true,
+                          image: plus.dropdownValue1 == "Hello Gammal Tech"
+                              ? "lib/asset/images/right.gif"
+                              : "lib/asset/images/wrong.gif",
+                          checkAnswer: plus.dropdownValue1 == "Hello Gammal Tech"
                               ? true
                               : false,
                         )));
