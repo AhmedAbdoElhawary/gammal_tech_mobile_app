@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/FAQ_video_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/the_pages/FAQ_video_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final titles_faq = [
   " هل يمكن العمل بدون شهادة ",
@@ -66,9 +69,10 @@ class faqPage extends StatelessWidget {
       margin: EdgeInsets.only(left: 15, right: 15, ),
       elevation: 5,
       child: InkWell(
-        onTap:(){
+        onTap:() async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => faqVideoPage(titles_faq[index])));
+              context, MaterialPageRoute(builder: (context) => faqVideoPage(titles_faq[index],prefs)));
         } ,
         child: Container(
           padding: EdgeInsets.all(3),
