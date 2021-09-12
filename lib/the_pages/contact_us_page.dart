@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/home_page.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/provider_classes/provider_send_email.dart';
+import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUS extends StatelessWidget {
-  TextEditingController controlUserName = TextEditingController();
-  TextEditingController controlPhoneNumber = TextEditingController();
-  TextEditingController controlEmailAddress = TextEditingController();
-  TextEditingController controlMessage = TextEditingController();
 
   String title = "C Programming";
   cProgrammingPage({var title}) {
@@ -30,6 +30,7 @@ class ContactUS extends StatelessWidget {
   }
 
   SingleChildScrollView container(var context) {
+    var plus = Provider.of<Provider_SendEmail>(context);
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -47,38 +48,15 @@ class ContactUS extends StatelessWidget {
               child: Column(
                 children: [
                   buildQuestionText('Name', 24.5),
-                  buildTextFormField(controlUserName, 'Your Name'),
+                  buildTextFormField(plus.controlUserName, 'Your Name'),
                   buildQuestionText('Phone Number', 24.5),
-                  buildTextFormField(controlPhoneNumber, '+20100XXXYYYY'),
+                  buildTextFormField(plus.controlPhoneNumber, '+20100XXXYYYY'),
                   buildQuestionText('Email Address', 24.5),
-                  buildTextFormField(controlEmailAddress, 'Your@gmail.com'),
+                  buildTextFormField(plus.controlEmailAddress, 'Your@gmail.com'),
                   buildQuestionText('Message', 24.5),
-                  buildTextFormField(controlMessage, 'Your message goes here'),
-                  Card(
-                    margin: EdgeInsets.all(10),
-                    elevation: 5,
-                    child: Container(
-                      height: 55,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(215, 0, 118, 125),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: TextButton(
-                        onPressed: () async {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
-                        },
-                        child: Text(
-                          "  Send  ",
-                          style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
+                  buildTextFormField(plus.controlMessage, 'Your message goes here'),
+                  attachFileButton(context),
+                  sendTextButton(context),
                 ],
               ),
             ),
@@ -86,6 +64,68 @@ class ContactUS extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: buildTheBottomContainer(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Card sendTextButton(context) {
+    var plus = Provider.of<Provider_SendEmail>(context);
+
+    return Card(
+      margin: EdgeInsets.all(10),
+      elevation: 5,
+      child: Container(
+        height: 55,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(215, 0, 118, 125),
+            borderRadius: BorderRadius.circular(5)),
+        child: TextButton(
+          onPressed: () async {
+            plus.send(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+          },
+          child: Text(
+            "  Send  ",
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.w400, color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding attachFileButton(context) {
+    var plus = Provider.of<Provider_SendEmail>(context);
+
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          for (var i = 0; i < plus.attachments.length; i++)
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    plus.attachments[i],
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.remove_circle),
+                  onPressed: () => {plus.removeAttachment(i)},
+                )
+              ],
+            ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              icon: Icon(Icons.attach_file),
+              onPressed: plus.openImagePicker,
+            ),
           ),
         ],
       ),
@@ -111,13 +151,15 @@ class ContactUS extends StatelessWidget {
       child: Card(
         elevation: 0,
         child: Container(
-          height: 40,
+          height: 45,
           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white,
               border: Border.all(color: Colors.black26)),
           child: TextFormField(
+            maxLines: null,
+            expands: false,
             controller: controller,
             keyboardType: TextInputType.name,
             textAlign: TextAlign.center,
@@ -142,6 +184,7 @@ class ContactUS extends StatelessWidget {
       ],
     );
   }
+
 
   Card descriptionText() {
     return Card(
