@@ -55,6 +55,10 @@ class _PaymentPageState extends State<PaymentPage> {
                         )
                       : Column(
                           children: [
+                            buildDynamicPage(
+                                checkLifetimeMembership:
+                                    widget.text == "upgrade" ? true : false,
+                                checkVisa: checkVisaPage)
                           ],
                         ),
                 ],
@@ -114,6 +118,54 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Column buildDynamicPage(
+      {required bool checkLifetimeMembership, required bool checkVisa}) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 6.0, left: 6),
+          child: Card(
+            elevation: 5,
+            shadowColor: Colors.black,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+              ),
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    SizedBox(height: 15),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 6, left: 6),
+          child: Card(
+            elevation: 5,
+            shadowColor: Colors.black,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.white,
+              ),
+              width: double.infinity,
+              alignment: Alignment.center,
+              child: Center(
+              ),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
