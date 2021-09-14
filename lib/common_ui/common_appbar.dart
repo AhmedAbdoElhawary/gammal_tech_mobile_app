@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_text_button_of_menu.dart';
 import 'package:gammal_tech_mobile_app/the_pages/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/the_pages/contact_us_page.dart';
@@ -51,7 +52,7 @@ AppBar buildAppBar(context) {
                               listTileOfDropMenu(context, 'FAQ', faqPage()),
                               listTileOfDropMenu(
                                   context, 'Content', ContactUS()),
-                              biuldTextButton(context,checkAccount)
+                              buildTextButtonOfMenu(context,checkAccount)
                             ],
                           ),
                         ),
