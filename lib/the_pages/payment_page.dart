@@ -141,6 +141,11 @@ class _PaymentPageState extends State<PaymentPage> {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
+                    buildText(checkLifetimeMembership, "Access forLifetime",
+                        "Access for 4 Years"),
+                    SizedBox(height: 15),
+                    buildText(checkLifetimeMembership, "100000EGP (~6382 USD)",
+                        "5800EGP (~370 USD)"),
                     SizedBox(height: 15),
                   ],
                 ),
@@ -166,6 +171,14 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         )
       ],
+    );
+  }
+  Text buildText(
+      bool checkLifetimeMembership, String firstText, String secondText) {
+    return Text(
+      checkLifetimeMembership ? firstText : secondText,
+      style: TextStyle(
+          fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal),
     );
   }
 }
