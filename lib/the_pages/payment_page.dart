@@ -167,7 +167,7 @@ class _PaymentPageState extends State<PaymentPage> {
               alignment: Alignment.center,
               child: Center(
                 child: checkVisa
-                    ?buildColumnOfFawryPay()
+                    ? buildColumnOfVisaPay(checkLifetimeMembership)
                     : buildColumnOfFawryPay(),
               ),
             ),
@@ -176,6 +176,48 @@ class _PaymentPageState extends State<PaymentPage> {
       ],
     );
   }
+
+  Column buildColumnOfVisaPay(bool checkLifetimeMembership) {
+    return Column(
+      children: [
+        Padding(
+          padding:
+              const EdgeInsets.only(right: 40.0, left: 40, top: 20, bottom: 10),
+          child: Card(
+            elevation: 2,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Color.fromRGBO(242, 246, 253, 0.5450980392156862),
+                border: Border.all(color: Colors.black12),
+              ),
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+
+                        SizedBox(width: 15),
+
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        buildAnotherText("Your membership is NOT automatically renewed.\n"
+            "Your card will only be charged once.\n"
+            "Fawry fees may apply.\n",15),
+      ],
+    );
+  }
+
 
   Column buildColumnOfFawryPay() {
     return Column(
