@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gammal_tech_mobile_app/the_pages/FAQ_page.dart';
 import 'package:gammal_tech_mobile_app/the_pages/courses_page.dart';
 import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
+import 'package:gammal_tech_mobile_app/the_pages/premuim_page.dart';
+import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Provider_animationOfButtons_HomePage extends ChangeNotifier {
   late AnimationController animationControllerStartHere =
@@ -21,11 +24,11 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
       animate(animationControllerGoPremium);
 
   initState({required context}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     animationControllerStartHere = animationControllerValue(duration: 1200);
     animationControllerCourses = animationControllerValue(duration: 200);
     animationControllerFAQ = animationControllerValue(duration: 200);
     animationControllerGoPremium = animationControllerValue(duration: 200);
-
     pulseAnimationStartHere = animate(animationControllerStartHere);
     pulseAnimationCourses = animate(animationControllerCourses);
     pulseAnimationFAQ = animate(animationControllerFAQ);
@@ -45,9 +48,14 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
         context: context,
         plus: pulseAnimationGoPremium,
         animation: animationControllerGoPremium,
-        movingToThePage: null);
+        movingToThePage:  prefs.getBool("checkForAccount")==true
+            ? premiumPage()
+            : waitingPage(
+                image: null,
+                checkAnswer: false,
+                checkAccount: false,
+              ));
     notifyListeners();
-
   }
 
   dispose() {
@@ -56,7 +64,6 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
     animationControllerFAQ.dispose();
     animationControllerGoPremium.dispose();
     notifyListeners();
-
   }
 
   Animation<double> animate(controller) {
