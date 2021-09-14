@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
@@ -226,6 +227,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     ),
                     SizedBox(height: 15),
+                    buildPayButton(checkLifetimeMembership),
                   ],
                 ),
               ),
@@ -236,6 +238,29 @@ class _PaymentPageState extends State<PaymentPage> {
             "Your card will only be charged once.\n"
             "Fawry fees may apply.\n",15),
       ],
+    );
+  }
+
+  Card buildPayButton(bool checkLifetimeMembership) {
+    return Card(
+      elevation: 5,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Color.fromARGB(215, 11, 108, 108),
+        ),
+        child: InkWell(
+          onTap: () {},
+          child: Text(
+            "Pay ${checkLifetimeMembership ? 100000 : 5800} EGP",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     );
   }
 
