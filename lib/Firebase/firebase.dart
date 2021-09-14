@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+
+User? user = FirebaseAuth.instance.currentUser;
 
 class FirestoreOperation {
   var dbref = FirebaseFirestore.instance.collection('users');
