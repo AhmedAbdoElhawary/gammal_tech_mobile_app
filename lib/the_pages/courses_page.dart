@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_the_video.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
 import 'package:gammal_tech_mobile_app/the_pages/lesson_page.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
 
 class CoursesPage extends StatelessWidget {
@@ -43,22 +44,22 @@ class CoursesPage extends StatelessWidget {
                 buildCardText(text: "C++ Programming", page: lessonPage("C++ Programming"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "Data Structures",context:context),
+                buildCardText(text: "Data Structures",page: lessonPage("Data Structures"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "Algorithms",context:context),
+                buildCardText(text: "Algorithms",page: lessonPage("Algorithms"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "OOP",context:context),
+                buildCardText(text: "OOP",page: lessonPage("OOP"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "Python",context:context),
+                buildCardText(text: "Python",page: lessonPage("Python"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "Entrepreneurship",context:context),
+                buildCardText(text: "Entrepreneurship",page: lessonPage("Entrepreneurship"),context:context),
                 buildSizedBox(),
                 buildTheVideo(false,false),
-                buildCardText(text: "Company Security",context:context),
+                buildCardText(text: "Company Security",page: lessonPage("Company Security"),context:context),
                 buildSizedBox(),
                 buildTheBottomContainer(),
               ],
@@ -69,7 +70,7 @@ class CoursesPage extends StatelessWidget {
 
   SizedBox buildSizedBox() => SizedBox(height: 10);
 
-  Card buildCardText({required BuildContext context ,required String text, var page}) {
+  Card buildCardText({required BuildContext context ,required String text, required var page}) {
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 5,
