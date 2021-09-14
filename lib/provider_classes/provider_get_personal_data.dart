@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
 
 final List<String> listOfShirtSize = [
   "Select one...",
@@ -32,6 +32,14 @@ class Provider_GetPersonalData extends ChangeNotifier {
   String dropdownValueYear='2001';
   String PhoneNumber='';
   String TheVideo='';
+  int lengthOfTheCourse=0;
+  List questions=[];
+  List exercises=[];
+  String videoId="";
+  String lessonName="";
+  String descriptionText="";
+
+
 
   TextEditingController controlUserName = TextEditingController();
   TextEditingController controlUserEmail = TextEditingController();
@@ -74,8 +82,37 @@ class Provider_GetPersonalData extends ChangeNotifier {
     TheVideo=data.get("video");
   }
 
+   getVideoLessonsData(String theCourse,int indexOfTheLesson) async {
+    CollectionReference _collectionRef =
+    FirebaseFirestore.instance.collection("video lessons").doc(theCourse).collection("lessons");
+    QuerySnapshot querySnapshot = await _collectionRef.get();
 
-  onChangedBirthDate({required String? newValue,required String value}) {
+    questions=querySnapshot.docs[indexOfTheLesson]["Questions"];
+    exercises=querySnapshot.docs[indexOfTheLesson]["Exercises"];
+    videoId=querySnapshot.docs[indexOfTheLesson]["video id"];
+    lessonName=querySnapshot.docs[indexOfTheLesson]["lesson name"];
+    descriptionText=querySnapshot.docs[indexOfTheLesson]["description name"];
+    print(questions[0]["question"]);
+    notifyListeners();
+  }
+  Map mapOfLength={
+    "C Programming":"lengthOfCPrograming",
+    "C++ Programming":"lengthOfCPPPrograming",
+    "Data Structures":"lengthOfDSPrograming",
+    "Algorithms":"lengthOfAlgoPrograming",
+    "OOP":"lengthOfOOPPrograming",
+    "Python":"lengthOfPythonPrograming",
+    "Entrepreneurship":"lengthOfEnterPrograming",
+    "Company Security":"lengthOfSecurityPrograming",
+  };
+  Future<void> getLengthOfTheCourse(String theCourse) async {
+    CollectionReference _collectionRef =
+    FirebaseFirestore.instance.collection("video lessons").doc(theCourse).collection("lessons");
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+    lengthOfTheCourse= querySnapshot.docs.length;
+    notifyListeners();
+  }
+  onChangedBirthDateDropList({required String? newValue,required String value}) {
     value == dropdownValueDay
   ? dropdownValueDay = newValue!
       : (value == dropdownValueMonth
@@ -84,7 +121,7 @@ class Provider_GetPersonalData extends ChangeNotifier {
     notifyListeners();
   }
 
-  onChanged({required String? newValue,required String value}) {
+  onChangedDropList({required String? newValue,required String value}) {
     value == dropdownValueShirtSize
         ?dropdownValueShirtSize = newValue!
         : dropdownValueGender = newValue!;
