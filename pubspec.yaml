@@ -73,7 +73,9 @@ dependencies:
   flutter_pay: ^1.0.2
   http: ^0.13.3
   progress_dialog: ^1.2.2
-    # The following adds the Cupertino Icons font to your application.
+  mask_text_input_formatter: ^2.0.0
+
+  # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
 
 
@@ -108,6 +110,9 @@ flutter:
     - lib/asset/images/home_photo.jpg
     - lib/asset/images/right.gif
     - lib/asset/images/wrong.gif
+    - lib/asset/images/visa_logo.png
+    - lib/asset/images/mastercard.png
+    - lib/asset/images/fawry_logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
