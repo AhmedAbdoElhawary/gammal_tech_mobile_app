@@ -38,8 +38,7 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Provider.of<Provider_GetPersonalData>(context, listen: false)
-        .personalData();
+    Provider.of<Provider_GetPersonalData>(context, listen: false).getVideoLessonsData("c",0);
     if (checkData)
       Provider.of<Provider_GetPersonalData>(context, listen: false)
           .personalData();
