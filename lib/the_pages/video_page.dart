@@ -1,8 +1,12 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_button_of_view_courses.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
 import 'package:gammal_tech_mobile_app/the_pages/lesson_page.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
 import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
 import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
@@ -12,7 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class videoPage extends StatelessWidget {
   int index;
   SharedPreferences prefs;
-  videoPage(this.index,this.prefs);
+  videoPage(this.index, this.prefs);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +24,9 @@ class videoPage extends StatelessWidget {
       body: buildContainer(context),
     );
   }
+
   Column buildContainer(context) {
+    var provider = Provider.of<Provider_GetPersonalData>(context);
     return Column(
       children: [
         Expanded(
@@ -33,10 +39,12 @@ class videoPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TheHeadCardOfText(titles[index]),
-                    buildTheVideo(true,false),
-                    SizedBox(height: 10,),
-                    buildTextButton("Start Coding", context, null),
-                    buildContainerOfExercises(),
+                    buildTheLessonVideo(true, false, provider.videoId),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    buildTextButtonOfViewCourses("Start Coding", context, null),
+                    buildContainerOfExercises(context),
                     buildContainerOfQuestion(context),
                     buildEmptyContainer(),
                     buildTheBottomContainer(),
@@ -113,7 +121,6 @@ class videoPage extends StatelessWidget {
 
   DropdownButtonHideUnderline buildDropdownButton(context) {
     var plus = Provider.of<Provider_GetPersonalData>(context);
-
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         value: plus.dropdownValue1,
@@ -124,7 +131,7 @@ class videoPage extends StatelessWidget {
         style: const TextStyle(
             color: Colors.black87, fontSize: 17, fontWeight: FontWeight.w300),
         onChanged: (n) {
-            plus.onChange(n);
+          plus.onChange(n);
         },
         items: ["Select one...", 'Hello Gammal Tech', 'Error']
             .map<DropdownMenuItem<String>>((String value) {
@@ -137,7 +144,7 @@ class videoPage extends StatelessWidget {
     );
   }
 
-  Directionality buildContainerOfExercises() {
+  Directionality buildContainerOfExercises(context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -153,23 +160,55 @@ class videoPage extends StatelessWidget {
             buildTheHeadText("Exercises"),
             buildSizedBox(),
             Container(
-              alignment: Alignment.centerRight,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
-                  buildTextExercises(),
+                  buildTextExercises(0, context),
+                  buildTextExercises(1, context),
+                  buildTextExercises(2, context),
+                  buildTextExercises(3, context),
+                  buildTextExercises(4, context),
+                  buildTextExercises(5, context),
+                  buildTextExercises(6, context),
+                  buildTextExercises(7, context),
+                  buildTextExercises(8, context),
+                  buildTextExercises(9, context),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Row buildTextExercises(int index, context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
+    return Row(
+      children: [
+        Text(
+          "${index + 1}.  ${index == 0 ? plus.exercises[index]["exercise"] : plus.exercises[index]}",
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.right,
+        ),
+        if (index == 0)
+          SizedBox(width: 80,),
+        if (index == 0)
+          InkWell(
+            onTap: () {
+              launchURL(plus.exercises[index]["url"]);
+            },
+            child: Text(
+              "Solution",
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Color.fromRGBO(0, 78, 234, 1.0),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.right,
+            ),
+          ),
+      ],
     );
   }
 
@@ -197,13 +236,15 @@ class videoPage extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => waitingPage(checkAccount: true,
+                    builder: (context) => waitingPage(
+                          checkAccount: true,
                           image: plus.dropdownValue1 == "Hello Gammal Tech"
                               ? "lib/asset/images/right.gif"
                               : "lib/asset/images/wrong.gif",
-                          checkAnswer: plus.dropdownValue1 == "Hello Gammal Tech"
-                              ? true
-                              : false,
+                          checkAnswer:
+                              plus.dropdownValue1 == "Hello Gammal Tech"
+                                  ? true
+                                  : false,
                         )));
           },
           child: Text(
@@ -227,10 +268,4 @@ class videoPage extends StatelessWidget {
       );
 
   SizedBox buildSizedBox() => SizedBox(height: 15);
-
-  Text buildTextExercises() => Text(
-        "5- حل المسأله 1+1 حل المسأله 1+1 ",
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        textAlign: TextAlign.right,
-      );
 }
