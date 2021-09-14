@@ -92,7 +92,7 @@ class Provider_GetPersonalData extends ChangeNotifier {
     videoId=querySnapshot.docs[indexOfTheLesson]["video id"];
     lessonName=querySnapshot.docs[indexOfTheLesson]["lesson name"];
     descriptionText=querySnapshot.docs[indexOfTheLesson]["description name"];
-    print(questions[0]["question"]);
+    print(questions[0]["answers"]);
     notifyListeners();
   }
   Map mapOfLength={

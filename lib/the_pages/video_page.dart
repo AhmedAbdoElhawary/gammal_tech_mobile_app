@@ -93,7 +93,13 @@ class videoPage extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Column(
               children: [
-                buildQuestions(),
+                buildQuestions(0,context),
+                buildDropDwonPadding(context),
+                buildQuestions(1,context),
+                buildDropDwonPadding(context),
+                buildQuestions(2,context),
+                buildDropDwonPadding(context),
+                buildQuestions(3,context),
                 buildDropDwonPadding(context),
                 buildSendButton(context),
               ],
@@ -257,12 +263,14 @@ class videoPage extends StatelessWidget {
     );
   }
 
-  Text buildQuestions() => Text(
-        "std::cout<<\"Hello Gammal Tech\"<<std::endl;",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-      );
-
+  Text buildQuestions(int index,context) {
+    var plus = Provider.of<Provider_GetPersonalData>(context);
+    return Text(
+      "${plus.questions[index]["question"]}",
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+    );
+  }
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         child: Text(item),
       );
