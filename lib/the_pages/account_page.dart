@@ -259,7 +259,7 @@ class accountPage extends StatelessWidget {
                     fontSize: 17,
                     fontWeight: FontWeight.w300),
                 onChanged: (n) {
-                  plus.onChanged(newValue: n, value: v);
+                  plus.onChangedDropList(newValue: n, value: v);
                 },
                 items: buildListMap(v == plus.dropdownValueShirtSize
                         ? listOfShirtSize
@@ -316,7 +316,7 @@ class accountPage extends StatelessWidget {
                     fontSize: 17,
                     fontWeight: FontWeight.w300),
                 onChanged: (String? newValue) {
-                  plus.onChangedBirthDate(newValue: newValue, value: v);
+                  plus.onChangedBirthDateDropList(newValue: newValue, value: v);
                 },
                 items: buildListMap(v == plus.dropdownValueDay
                         ? listOfDay
