@@ -166,6 +166,9 @@ class _PaymentPageState extends State<PaymentPage> {
               width: double.infinity,
               alignment: Alignment.center,
               child: Center(
+                child: checkVisa
+                    ?buildColumnOfFawryPay()
+                    : buildColumnOfFawryPay(),
               ),
             ),
           ),
@@ -173,6 +176,46 @@ class _PaymentPageState extends State<PaymentPage> {
       ],
     );
   }
+
+  Column buildColumnOfFawryPay() {
+    return Column(
+      children: [
+        SizedBox(height: 10),
+        buildAnotherText("Receive a code to use at any Fawry location.",20),
+        SizedBox(height: 15),
+        Card(
+          elevation: 5,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Color.fromARGB(215, 11, 108, 108),
+            ),
+            child: InkWell(
+              onTap: () {},
+              child: Text(
+                "Get Fawry Code",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 15),
+        buildAnotherText("Fawry payments can take some time to be processed.\nFawry fees may apply.",15),
+        SizedBox(height: 15),
+      ],
+    );
+  }
+
+  Text buildAnotherText(String text,double size) {
+    return Text(
+      text,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: size, color: Colors.black, fontWeight: FontWeight.w300),
+      );
+  }
+
   Text buildText(
       bool checkLifetimeMembership, String firstText, String secondText) {
     return Text(
