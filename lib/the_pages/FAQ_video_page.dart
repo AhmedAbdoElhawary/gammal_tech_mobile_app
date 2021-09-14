@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_button_of_view_courses.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_the_video.dart';
+import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
 import 'package:gammal_tech_mobile_app/the_pages/courses_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,7 +37,7 @@ class faqVideoPage extends StatelessWidget {
                   TheHeadCardOfText(textIndex),
                   buildTheVideo(true,false),
                   buildContainerOfText(),
-                  buildTextButton("  View Courses  ", CoursesPage(), context),
+                  buildTextButtonOfViewCourses("  View Courses  ", CoursesPage(), context),
                 ],
               ),
             ),
