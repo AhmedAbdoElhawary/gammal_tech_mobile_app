@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 enum Payment {
   PAY_WITH_VISA,
@@ -178,6 +179,13 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Column buildColumnOfVisaPay(bool checkLifetimeMembership) {
+    var maskFormatterCardNumber = new MaskTextInputFormatter(
+        mask: '0000 0000 0000 0000', filter: {"0": RegExp(r'[0-9]')});
+    var maskFormatterDateExpired = new MaskTextInputFormatter(
+        mask: '## / ##', filter: {"#": RegExp(r'[0-9]')});
+    var maskFormatterCVC = new MaskTextInputFormatter(
+        mask: '###', filter: {"#": RegExp(r'[0-9]')});
+
     return Column(
       children: [
         Padding(
@@ -195,13 +203,26 @@ class _PaymentPageState extends State<PaymentPage> {
                 margin: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-
+                    buildVisaTextField(
+                        maskFormatterCardNumber,
+                        Icons.credit_card_outlined,
+                        controllerCardNumber,
+                        "Card number"),
                     SizedBox(height: 15),
                     Row(
                       children: [
-
+                        Expanded(
+                          child: buildVisaTextField(
+                              maskFormatterDateExpired,
+                              Icons.calendar_today,
+                              controllerDateExpired,
+                              "MM / YY"),
+                        ),
                         SizedBox(width: 15),
-
+                        Expanded(
+                          child: buildVisaTextField(maskFormatterCVC,
+                              Icons.lock_sharp, controllerCVC, "CVC"),
+                        ),
                       ],
                     ),
                     SizedBox(height: 15),
@@ -218,6 +239,31 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
+  Container buildVisaTextField(MaskTextInputFormatter maskFormatterCardNumber,
+      icon, controller, String hintText) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.white,
+        border: Border.all(color: Colors.black26),
+      ),
+      child: TextFormField(
+          style: TextStyle(fontSize: 15, height: 1.4),
+          inputFormatters: [maskFormatterCardNumber],
+          keyboardType:
+              TextInputType.numberWithOptions(signed: false, decimal: false),
+          controller: controller,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            prefixIcon: Icon(
+              icon,
+              size: 20,
+            ),
+            hintText: hintText,
+          ),
+          onChanged: (value) {}),
+    );
+  }
 
   Column buildColumnOfFawryPay() {
     return Column(
