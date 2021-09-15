@@ -13,7 +13,8 @@ class Provider_GetTheVideosFromFirestore extends ChangeNotifier {
             index == 0 ||
             index == 1 ||
             index == 2) return videoPage(index, prefs);
-        return waitingPage(image: null,checkAnswer: false,checkAccount: false);
+        return waitingPage(
+            image: null, checkAnswer: false, checkAccount: false);
       }));
     });
   }

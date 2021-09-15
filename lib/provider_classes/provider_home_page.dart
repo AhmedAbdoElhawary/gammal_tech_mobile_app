@@ -48,7 +48,7 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
         context: context,
         plus: pulseAnimationGoPremium,
         animation: animationControllerGoPremium,
-        movingToThePage:  prefs.getBool("checkForAccount")==true
+        movingToThePage: prefs.getBool("checkForAccount") == true
             ? premiumPage()
             : waitingPage(
                 image: null,

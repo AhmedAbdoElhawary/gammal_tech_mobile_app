@@ -21,11 +21,11 @@ void main() async {
             create: (_) => Provider_animationOfButtons_HomePage()),
         ChangeNotifierProvider(create: (_) => Provider_SignIn()),
         ChangeNotifierProvider(create: (_) => Provider_GetPersonalData()),
-        ChangeNotifierProvider(create: (_) => Provider_GetTheVideosFromFirestore()),
+        ChangeNotifierProvider(
+            create: (_) => Provider_GetTheVideosFromFirestore()),
         ChangeNotifierProvider(create: (_) => Provider_SendEmail()),
-
       ],
-      child: new MyApp(checkData),
+      child: MyApp(checkData),
     ),
   );
 }
@@ -38,18 +38,20 @@ class MyApp extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Provider.of<Provider_GetPersonalData>(context, listen: false).getVideoLessonsData("c",0);
-    if (checkData)
+    Provider.of<Provider_GetPersonalData>(context, listen: false)
+        .getVideoLessonsData("c", 0);
+    if (checkData) {
       Provider.of<Provider_GetPersonalData>(context, listen: false)
           .personalData();
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Gammal Tech',
       theme: ThemeData(
-        appBarTheme: AppBarTheme(color: Colors.white, elevation: 6),
+        appBarTheme: const AppBarTheme(color: Colors.white, elevation: 6),
         primarySwatch: Colors.blue,
       ),
-      home: new HomePage(),
+      home: HomePage(),
     );
   }
 }
