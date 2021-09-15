@@ -93,13 +93,13 @@ class videoPage extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Column(
               children: [
-                buildQuestions(0,context),
+                buildQuestions(0, context),
                 buildDropDwonPadding(context),
-                buildQuestions(1,context),
+                buildQuestions(1, context),
                 buildDropDwonPadding(context),
-                buildQuestions(2,context),
+                buildQuestions(2, context),
                 buildDropDwonPadding(context),
-                buildQuestions(3,context),
+                buildQuestions(3, context),
                 buildDropDwonPadding(context),
                 buildSendButton(context),
               ],
@@ -192,13 +192,14 @@ class videoPage extends StatelessWidget {
     var plus = Provider.of<Provider_GetPersonalData>(context);
     return Row(
       children: [
-        Text(
-          "${index + 1}.  ${index == 0 ? plus.exercises[index]["exercise"] : plus.exercises[index]}",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.right,
+        Expanded(
+          child: Text(
+            "${index + 1}.  ${index == 0 ? plus.exercises[index]["exercise"] : plus.exercises[index]}",
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            maxLines: 3,
+            textAlign: TextAlign.right,
+          ),
         ),
-        if (index == 0)
-          SizedBox(width: 80,),
         if (index == 0)
           InkWell(
             onTap: () {
@@ -263,7 +264,7 @@ class videoPage extends StatelessWidget {
     );
   }
 
-  Text buildQuestions(int index,context) {
+  Text buildQuestions(int index, context) {
     var plus = Provider.of<Provider_GetPersonalData>(context);
     return Text(
       "${plus.questions[index]["question"]}",
@@ -271,6 +272,7 @@ class videoPage extends StatelessWidget {
       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
     );
   }
+
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         child: Text(item),
       );
