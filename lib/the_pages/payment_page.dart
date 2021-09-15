@@ -10,11 +10,6 @@ import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
 import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-enum Payment {
-  PAY_WITH_VISA,
-  PAY_WITH_FAWRY,
-}
-
 class PaymentPage extends StatefulWidget {
   String text;
   PaymentPage(this.text);

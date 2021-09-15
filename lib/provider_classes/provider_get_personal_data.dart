@@ -9,9 +9,9 @@ final List<String> listOfShirtSize = [
   "S",
   "M",
   "L",
-  "XL"
-      "XXL",
-  "Overflow"
+  "XL",
+  "XXL",
+  "Overflow",
 ];
 final List<String> listOfGender = [
   "Select one...",
@@ -66,7 +66,6 @@ class Provider_GetPersonalData extends ChangeNotifier {
         data.get("birthyear") == "" ? '2000' : data.get("birthyear");
     PhoneNumber = data.get("phone") == "" ? '' : data.get("phone");
     id = data.id;
-    notifyListeners();
   }
 
   getTheVideos(index) async {

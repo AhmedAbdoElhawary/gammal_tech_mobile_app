@@ -3,24 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
-
 class FirestoreOperation {
   var dbref = FirebaseFirestore.instance.collection('users');
-
-  CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('users');
-  late var data;
-  Future<dynamic> getData() async {
-    QuerySnapshot querySnapshot = await _collectionRef.get();
-    int i = 0;
-    for (i = 0; i < querySnapshot.docs.length; i++) {
-      if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) {
-        break;
-      }
-    }
-    data = querySnapshot.docs[i].data();
-    return querySnapshot.docs[i].data();
-  }
 
   addDataFirestore({
     required String name,
