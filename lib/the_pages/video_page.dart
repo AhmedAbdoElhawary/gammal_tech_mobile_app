@@ -196,7 +196,7 @@ class videoPage extends StatelessWidget {
           child: Text(
             "${index + 1}.  ${index == 0 ? plus.exercises[index]["exercise"] : plus.exercises[index]}",
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            maxLines: 3,
+            maxLines: 4,
             textAlign: TextAlign.right,
           ),
         ),
