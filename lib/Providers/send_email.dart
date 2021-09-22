@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/UI.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Provider_SendEmail extends ChangeNotifier {
