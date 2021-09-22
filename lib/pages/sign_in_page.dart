@@ -22,12 +22,12 @@ class signInPage extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: double.infinity,
-              color: Color.fromARGB(215, 11, 108, 108),
+              color: const Color.fromARGB(215, 11, 108, 108),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     TheHeadCardOfText("Sign In"),
-                    Text(
+                    const Text(
                       "Enter your phone number to sign in or to sign up.",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20, color: Colors.white),
@@ -42,7 +42,8 @@ class signInPage extends StatelessWidget {
                             key: plus.scaffoldKey,
                             padding: const EdgeInsets.all(8.0),
                             child: plus.showLoading
-                                ? Center(child: CircularProgressIndicator())
+                                ? const Center(
+                                    child: CircularProgressIndicator())
                                 : plus.currentState ==
                                         MobileVerificationState
                                             .SHOW_MOBILE_FORM_STATE
@@ -68,37 +69,33 @@ class signInPage extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
+        const Text(
           "Enter your phone number",
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
         ),
         IntlPhoneField(
           controller: plus.phoneController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "Phone Number",
           ),
           onChanged: (phone) {
             plus.zd = phone.countryCode.toString();
-            print(plus.zd);
-            print(plus.phoneController);
           },
           onCountryChanged: (phone) {
             plus.zd = phone.countryCode.toString();
-            print(plus.zd);
-            print(plus.phoneController);
           },
         ),
         Card(
-          color: Color.fromARGB(215, 11, 108, 108),
-          margin: EdgeInsets.all(10),
+          color: const Color.fromARGB(215, 11, 108, 108),
+          margin: const EdgeInsets.all(10),
           elevation: 3,
           child: InkWell(
             onTap: () async {
               plus.verifyNumber();
             },
             child: Container(
-              padding: EdgeInsets.all(8),
-              child: Text(
+              padding: const EdgeInsets.all(8),
+              child: const Text(
                 "  VERIFY  ",
                 style: TextStyle(
                     fontSize: 15,
@@ -108,7 +105,7 @@ class signInPage extends StatelessWidget {
             ),
           ),
         ),
-        Text(
+        const Text(
           "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12),
@@ -122,32 +119,32 @@ class signInPage extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
+        const Text(
           "Verify your phone number",
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         TextField(
           controller: plus.otpController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: "6-digit code",
           ),
         ),
         Row(
           children: [
             Card(
-              color: Color.fromARGB(215, 11, 108, 108),
-              margin: EdgeInsets.all(10),
+              color: const Color.fromARGB(215, 11, 108, 108),
+              margin: const EdgeInsets.all(10),
               elevation: 3,
               child: InkWell(
                 onTap: () async {
                   plus.otpNumber(context);
                 },
                 child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
+                  padding: const EdgeInsets.all(8),
+                  child: const Text(
                     "  CONTINUE  ",
                     style: TextStyle(
                         fontSize: 15,
@@ -159,19 +156,19 @@ class signInPage extends StatelessWidget {
             ),
             Card(
               color: Colors.white,
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               elevation: 3,
               child: InkWell(
                 onTap: () async {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(builder: (context) => HomePage()),
-                        (Route<dynamic> route) => false,
+                    (Route<dynamic> route) => false,
                   );
                 },
                 child: Container(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
+                  padding: const EdgeInsets.all(8),
+                  child: const Text(
                     "  CANCEL  ",
                     style: TextStyle(
                       fontSize: 15,
@@ -184,7 +181,7 @@ class signInPage extends StatelessWidget {
             ),
           ],
         ),
-        Text(
+        const Text(
           "By tapping Verify, you are indicating that you accept our Terms of Service and Privacy Policy. An SMS may be sent. Message & data rates may apply.",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12),

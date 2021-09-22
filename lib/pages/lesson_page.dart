@@ -47,13 +47,12 @@ class lessonPage extends StatelessWidget {
     String textPath = map[title];
     var provider = Provider.of<Provider_GetPersonalData>(context);
     provider.getLengthOfTheCourse(textPath);
-    print(provider.lengthOfTheCourse);
     return Scaffold(
       appBar: buildAppBar(context),
       body: Container(
         width: double.infinity,
         height: 700,
-        color: Color.fromARGB(215, 11, 108, 108),
+        color: const Color.fromARGB(215, 11, 108, 108),
         child: ListView.separated(
             itemCount: provider.lengthOfTheCourse,
             itemBuilder: (context, index) {
@@ -89,16 +88,16 @@ class lessonPage extends StatelessWidget {
     return Column(
       children: [
         TheHeadCardOfText(title),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         descriptionText(),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }
 
   Card descriptionText() {
     return Card(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 15,
         right: 15,
       ),
@@ -108,7 +107,7 @@ class lessonPage extends StatelessWidget {
         child: Container(
           width: double.infinity,
           alignment: Alignment.center,
-          child: Text(
+          child: const Text(
             "Your first step in computer science and becoming a software engineer.\nDevelop your programming skills by learning C: one of the most fundamental programming languages.",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -125,11 +124,12 @@ class lessonPage extends StatelessWidget {
       BuildContext context, String title, String descriptionText, int index) {
     var plus = Provider.of<Provider_GetTheVideosFromFirestore>(context);
     return Card(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 5,
       child: TextButton(
         onPressed: () async {
-          var provider = Provider.of<Provider_GetPersonalData>(context,listen: false);
+          var provider =
+              Provider.of<Provider_GetPersonalData>(context, listen: false);
           provider.getVideoLessonsData("c", index);
           plus.onPressedLessonButton(context, index);
         },
@@ -155,7 +155,7 @@ class lessonPage extends StatelessWidget {
 
   Padding buildPadding(int index) {
     return Padding(
-      padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 5),
       child: InkWell(
         onTap: () {},
         child: Container(
@@ -164,11 +164,11 @@ class lessonPage extends StatelessWidget {
           child: Center(
               child: Text(
             "Lesson ${index + 1}",
-            style: TextStyle(color: Colors.white, fontSize: 23),
+            style: const TextStyle(color: Colors.white, fontSize: 23),
           )),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: Color.fromARGB(200, 8, 43, 34),
+            color: const Color.fromARGB(200, 8, 43, 34),
           ),
         ),
       ),

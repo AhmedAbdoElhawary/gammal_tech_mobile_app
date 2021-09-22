@@ -29,16 +29,17 @@ class StartHerePage extends StatelessWidget {
         Expanded(
           child: Container(
             width: double.infinity,
-            color: Color.fromARGB(215, 11, 108, 108),
+            color: const Color.fromARGB(215, 11, 108, 108),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   TheHeadCardOfText(textIndex),
-                  buildTheVideo(true,false),
+                  buildTheVideo(true, false),
                   buildContainerOfText(),
                   Padding(
-                    padding: const EdgeInsets.only(top:10.0,bottom: 20),
-                    child: buildTextButtonOfViewCourses("View Courses", CoursesPage(), context),
+                    padding: const EdgeInsets.only(top: 10.0, bottom: 20),
+                    child: buildTextButtonOfViewCourses(
+                        "View Courses", CoursesPage(), context),
                   ),
                   buildTheBottomContainer(),
                 ],
@@ -69,23 +70,22 @@ class StartHerePage extends StatelessWidget {
     );
   }
 
-  SizedBox buildSizedBox() => SizedBox(height: 15);
+  SizedBox buildSizedBox() => const SizedBox(height: 15);
 
   Directionality buildTextQuestion() {
-
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Column(
         children: [
-          Text(
+          const Text(
             "في ما يلي بعض من المشتركين علي الموقع الذين التحقوا بالتدريب العملي في شركتنا بعد إنتهاء التدريب الأونلاين"
             "\n",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
           ),
-          buildTheVideo(true,true),
-          buildTheVideo(true,true),
-          Text(
+          buildTheVideo(true, true),
+          buildTheVideo(true, true),
+          const Text(
             "\n"
             "\n"
             "من أين نبدأ تعلم البرمجة؟"

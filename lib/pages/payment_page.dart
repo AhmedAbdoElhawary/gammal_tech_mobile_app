@@ -34,13 +34,13 @@ class _PaymentPageState extends State<PaymentPage> {
             child: Container(
               width: double.infinity,
               height: 700,
-              color: Color.fromARGB(215, 11, 108, 108),
+              color: const Color.fromARGB(215, 11, 108, 108),
               child: Column(
                 children: [
                   TheHeadCardOfText(widget.text == "upgrade"
                       ? "Lifetime (Upgrade)"
                       : "Yearly Membership (Extend)"),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   FirstPage
@@ -92,7 +92,7 @@ class _PaymentPageState extends State<PaymentPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Pay With ",
                   style: TextStyle(
                       fontSize: 20,
@@ -137,13 +137,13 @@ class _PaymentPageState extends State<PaymentPage> {
               child: Center(
                 child: Column(
                   children: [
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     buildText(checkLifetimeMembership, "Access forLifetime",
                         "Access for 4 Years"),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     buildText(checkLifetimeMembership, "100000EGP (~6382 USD)",
                         "5800EGP (~370 USD)"),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                   ],
                 ),
               ),
@@ -175,12 +175,12 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Column buildColumnOfVisaPay(bool checkLifetimeMembership) {
-    var maskFormatterCardNumber = new MaskTextInputFormatter(
+    var maskFormatterCardNumber = MaskTextInputFormatter(
         mask: '0000 0000 0000 0000', filter: {"0": RegExp(r'[0-9]')});
-    var maskFormatterDateExpired = new MaskTextInputFormatter(
+    var maskFormatterDateExpired = MaskTextInputFormatter(
         mask: '## / ##', filter: {"#": RegExp(r'[0-9]')});
-    var maskFormatterCVC = new MaskTextInputFormatter(
-        mask: '###', filter: {"#": RegExp(r'[0-9]')});
+    var maskFormatterCVC =
+        MaskTextInputFormatter(mask: '###', filter: {"#": RegExp(r'[0-9]')});
 
     return Column(
       children: [
@@ -192,7 +192,7 @@ class _PaymentPageState extends State<PaymentPage> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Color.fromRGBO(242, 246, 253, 0.5450980392156862),
+                color: const Color.fromRGBO(242, 246, 253, 0.5450980392156862),
                 border: Border.all(color: Colors.black12),
               ),
               child: Container(
@@ -204,7 +204,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         Icons.credit_card_outlined,
                         controllerCardNumber,
                         "Card number"),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Row(
                       children: [
                         Expanded(
@@ -214,14 +214,14 @@ class _PaymentPageState extends State<PaymentPage> {
                               controllerDateExpired,
                               "MM / YY"),
                         ),
-                        SizedBox(width: 15),
+                        const SizedBox(width: 15),
                         Expanded(
                           child: buildVisaTextField(maskFormatterCVC,
                               Icons.lock_sharp, controllerCVC, "CVC"),
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     buildPayButton(checkLifetimeMembership),
                   ],
                 ),
@@ -229,9 +229,11 @@ class _PaymentPageState extends State<PaymentPage> {
             ),
           ),
         ),
-        buildAnotherText("Your membership is NOT automatically renewed.\n"
+        buildAnotherText(
+            "Your membership is NOT automatically renewed.\n"
             "Your card will only be charged once.\n"
-            "Fawry fees may apply.\n",15),
+            "Fawry fees may apply.\n",
+            15),
       ],
     );
   }
@@ -244,14 +246,14 @@ class _PaymentPageState extends State<PaymentPage> {
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: Color.fromARGB(215, 11, 108, 108),
+          color: const Color.fromARGB(215, 11, 108, 108),
         ),
         child: InkWell(
           onTap: () {},
           child: Text(
             "Pay ${checkLifetimeMembership ? 100000 : 5800} EGP",
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
@@ -268,10 +270,10 @@ class _PaymentPageState extends State<PaymentPage> {
         border: Border.all(color: Colors.black26),
       ),
       child: TextFormField(
-          style: TextStyle(fontSize: 15, height: 1.4),
+          style: const TextStyle(fontSize: 15, height: 1.4),
           inputFormatters: [maskFormatterCardNumber],
-          keyboardType:
-              TextInputType.numberWithOptions(signed: false, decimal: false),
+          keyboardType: const TextInputType.numberWithOptions(
+              signed: false, decimal: false),
           controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -288,47 +290,49 @@ class _PaymentPageState extends State<PaymentPage> {
   Column buildColumnOfFawryPay() {
     return Column(
       children: [
-        SizedBox(height: 10),
-        buildAnotherText("Receive a code to use at any Fawry location.",20),
-        SizedBox(height: 15),
+        const SizedBox(height: 10),
+        buildAnotherText("Receive a code to use at any Fawry location.", 20),
+        const SizedBox(height: 15),
         Card(
           elevation: 5,
           child: Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: Color.fromARGB(215, 11, 108, 108),
+              color: const Color.fromARGB(215, 11, 108, 108),
             ),
             child: InkWell(
               onTap: () {},
-              child: Text(
+              child: const Text(
                 "Get Fawry Code",
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ),
           ),
         ),
-        SizedBox(height: 15),
-        buildAnotherText("Fawry payments can take some time to be processed.\nFawry fees may apply.",15),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
+        buildAnotherText(
+            "Fawry payments can take some time to be processed.\nFawry fees may apply.",
+            15),
+        const SizedBox(height: 15),
       ],
     );
   }
 
-  Text buildAnotherText(String text,double size) {
+  Text buildAnotherText(String text, double size) {
     return Text(
       text,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: size, color: Colors.black, fontWeight: FontWeight.w300),
-      );
+      textAlign: TextAlign.center,
+      style: TextStyle(
+          fontSize: size, color: Colors.black, fontWeight: FontWeight.w300),
+    );
   }
 
   Text buildText(
       bool checkLifetimeMembership, String firstText, String secondText) {
     return Text(
       checkLifetimeMembership ? firstText : secondText,
-      style: TextStyle(
+      style: const TextStyle(
           fontSize: 20, color: Colors.black, fontWeight: FontWeight.normal),
     );
   }

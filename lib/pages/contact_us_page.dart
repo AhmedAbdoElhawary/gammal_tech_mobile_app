@@ -11,7 +11,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'home_page.dart';
 
 class ContactUS extends StatelessWidget {
-
   String title = "C Programming";
   cProgrammingPage({var title}) {
     this.title = title;
@@ -24,7 +23,7 @@ class ContactUS extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: 700,
-        color: Color.fromARGB(215, 11, 108, 108),
+        color: const Color.fromARGB(215, 11, 108, 108),
         child: container(context),
       ),
     );
@@ -37,13 +36,13 @@ class ContactUS extends StatelessWidget {
         children: [
           containerOfTheHeadOfTheList(),
           Card(
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 15,
               right: 15,
             ),
             elevation: 5,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               width: double.infinity,
               alignment: Alignment.center,
               child: Column(
@@ -53,9 +52,11 @@ class ContactUS extends StatelessWidget {
                   buildQuestionText('Phone Number', 24.5),
                   buildTextFormField(plus.controlPhoneNumber, '+20100XXXYYYY'),
                   buildQuestionText('Email Address', 24.5),
-                  buildTextFormField(plus.controlEmailAddress, 'Your@gmail.com'),
+                  buildTextFormField(
+                      plus.controlEmailAddress, 'Your@gmail.com'),
                   buildQuestionText('Message', 24.5),
-                  buildTextFormField(plus.controlMessage, 'Your message goes here'),
+                  buildTextFormField(
+                      plus.controlMessage, 'Your message goes here'),
                   attachFileButton(context),
                   sendTextButton(context),
                 ],
@@ -75,12 +76,12 @@ class ContactUS extends StatelessWidget {
     var plus = Provider.of<Provider_SendEmail>(context);
 
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       elevation: 5,
       child: Container(
         height: 55,
         decoration: BoxDecoration(
-            color: Color.fromARGB(215, 0, 118, 125),
+            color: const Color.fromARGB(215, 0, 118, 125),
             borderRadius: BorderRadius.circular(5)),
         child: TextButton(
           onPressed: () async {
@@ -88,7 +89,7 @@ class ContactUS extends StatelessWidget {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => HomePage()));
           },
-          child: Text(
+          child: const Text(
             "  Send  ",
             style: TextStyle(
                 fontSize: 26, fontWeight: FontWeight.w400, color: Colors.white),
@@ -102,7 +103,7 @@ class ContactUS extends StatelessWidget {
     var plus = Provider.of<Provider_SendEmail>(context);
 
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         children: <Widget>[
           for (var i = 0; i < plus.attachments.length; i++)
@@ -116,7 +117,7 @@ class ContactUS extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.remove_circle),
+                  icon: const Icon(Icons.remove_circle),
                   onPressed: () => {plus.removeAttachment(i)},
                 )
               ],
@@ -124,7 +125,7 @@ class ContactUS extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: IconButton(
-              icon: Icon(Icons.attach_file),
+              icon: const Icon(Icons.attach_file),
               onPressed: plus.openImagePicker,
             ),
           ),
@@ -167,7 +168,7 @@ class ContactUS extends StatelessWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: hint,
-              hintStyle: TextStyle(color: Colors.black26),
+              hintStyle: const TextStyle(color: Colors.black26),
             ),
           ),
         ),
@@ -179,28 +180,27 @@ class ContactUS extends StatelessWidget {
     return Column(
       children: [
         TheHeadCardOfText(title),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         descriptionText(),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }
 
-
   Card descriptionText() {
     return Card(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         left: 15,
         right: 15,
       ),
       elevation: 5,
       child: Container(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         width: double.infinity,
         alignment: Alignment.center,
         child: Column(
           children: [
-            Text(
+            const Text(
               "Call us or use WhatsApp at",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -214,7 +214,7 @@ class ContactUS extends StatelessWidget {
                   "+201033998844",
                   style: TextStyle(fontSize: 20, color: Colors.blue[700]),
                 )),
-            Text(
+            const Text(
               "Email us at support@gammal.tech\nChat with us using the chat icon (for signed-in users)."
               "Send us a message using the form.",
               textAlign: TextAlign.center,

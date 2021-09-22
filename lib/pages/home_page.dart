@@ -28,7 +28,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   dispose() {
     Future.delayed(Duration.zero, () {
-      Provider.of<Provider_animationOfButtons_HomePage>(context, listen: false).dispose();
+      Provider.of<Provider_animationOfButtons_HomePage>(context, listen: false)
+          .dispose();
     });
     super.dispose();
   }
@@ -39,15 +40,15 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: buildAppBar(context),
       body: buildCenterBody(context),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 11, 120, 105),
-        shape: RoundedRectangleBorder(
+        backgroundColor: const Color.fromARGB(255, 11, 120, 105),
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(9),
                 bottomLeft: Radius.circular(40),
                 topLeft: Radius.circular(40),
                 bottomRight: Radius.circular(40))),
         onPressed: () {},
-        child: Icon(
+        child: const Icon(
           Icons.chat_rounded,
         ),
       ),
@@ -55,7 +56,9 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Center buildCenterBody(BuildContext context) {
-    Provider.of<Provider_animationOfButtons_HomePage>(context).animationControllerStartHere.forward();
+    Provider.of<Provider_animationOfButtons_HomePage>(context)
+        .animationControllerStartHere
+        .forward();
     return Center(
       child: Column(
         children: [
@@ -77,7 +80,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Container(
       width: double.infinity,
       height: double.maxFinite,
-      color: Color.fromARGB(226, 11, 108, 108),
+      color: const Color.fromARGB(226, 11, 108, 108),
       child: buildColumn(context),
     );
   }
@@ -126,13 +129,14 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
         color: text == "Go Premium"
             ? Colors.yellow[600]
             : (text == "START HERE"
-                ? Color.fromARGB(235, 4, 69, 71)
+                ? const Color.fromARGB(235, 4, 69, 71)
                 : Colors.white),
         margin: text == "Go Premium"
-            ? EdgeInsets.all(15)
+            ? const EdgeInsets.all(15)
             : (text == "START HERE"
-                ? EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 10)
-                : EdgeInsets.only(left: 15, right: 15, top: 10)),
+                ? const EdgeInsets.only(
+                    left: 15, right: 15, top: 15, bottom: 10)
+                : const EdgeInsets.only(left: 15, right: 15, top: 10)),
         elevation: 10,
         child: TextButton(
           onPressed: () {
@@ -144,10 +148,10 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ? plus.animationControllerStartHere
                         : plus.animationControllerGoPremium));
             animation.forward();
-            if(text=="START HERE")
+            if (text == "START HERE") {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => StartHerePage(text)));
-
+            }
           },
           child: buildContainerOfText(text),
         ),
@@ -185,7 +189,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Text(
             link,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white,
                 fontStyle: FontStyle.italic,
                 fontSize: 15,
@@ -201,7 +205,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Text buildJoinUsText(String text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
           color: Colors.white,
           fontSize: 15,
           fontStyle: FontStyle.italic,

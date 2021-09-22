@@ -11,11 +11,10 @@ Padding buildTheVideo(bool checkForPadding, bool checkForHeight) {
       color: Colors.white,
       width: double.infinity,
       height: checkForHeight ? 170 : 186,
-      child: VimeoPlayer(videoId: videoId),
+      child: const VimeoPlayer(videoId: videoId),
       // child: VimeoPlayer(
       //   videoId: videoId,
       // ),
     ),
   );
 }
-

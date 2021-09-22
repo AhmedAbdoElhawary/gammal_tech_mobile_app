@@ -18,9 +18,9 @@ final List<String> listOfGender = [
   "Male",
   "Female",
 ];
-var listOfDay = new List<String>.generate(31, (i) => "${i + 1}");
-var listOfMonth = new List<String>.generate(12, (i) => "${i + 1}");
-var listOfYear = new List<String>.generate(67, (i) => "${1950 + i}");
+var listOfDay = List<String>.generate(31, (i) => "${i + 1}");
+var listOfMonth = List<String>.generate(12, (i) => "${i + 1}");
+var listOfYear = List<String>.generate(67, (i) => "${1950 + i}");
 
 class Provider_GetPersonalData extends ChangeNotifier {
   String dropdownValue1 = "Select one...";

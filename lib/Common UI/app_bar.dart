@@ -10,11 +10,10 @@ import 'UI.dart';
 
 AppBar buildAppBar(context) {
   return AppBar(
-      iconTheme: IconThemeData(color:  Colors.teal[800]),
+    iconTheme: IconThemeData(color: Colors.teal[800]),
     elevation: 5,
     title: TextButton(
       onPressed: () {
-        showToast("$context");
         if (context != HomePage()) {
           Navigator.pushAndRemoveUntil(
             context,
@@ -36,7 +35,7 @@ AppBar buildAppBar(context) {
           showGeneralDialog(
             context: context,
             barrierDismissible: true,
-            transitionDuration: Duration(milliseconds: 500),
+            transitionDuration: const Duration(milliseconds: 500),
             barrierLabel: MaterialLocalizations.of(context).dialogLabel,
             barrierColor: Colors.black.withOpacity(0),
             pageBuilder: (context, _, __) {
@@ -48,17 +47,17 @@ AppBar buildAppBar(context) {
                     children: <Widget>[
                       Container(
                         width: double.infinity,
-                        color: Color.fromARGB(0, 255, 255, 255),
+                        color: const Color.fromARGB(0, 255, 255, 255),
                         child: Card(
-                          color: Color.fromARGB(240, 255, 255, 255),
+                          color: const Color.fromARGB(240, 255, 255, 255),
                           margin: const EdgeInsets.only(),
                           child: ListView(
                             shrinkWrap: true,
                             children: <Widget>[
-                              ListTile(title: Text('Premium')),
+                              const ListTile(title: Text('Premium')),
                               listTileOfDropMenu(
                                   context, 'Courses', CoursesPage()),
-                              ListTile(title: Text('Masterclass')),
+                              const ListTile(title: Text('Masterclass')),
                               listTileOfDropMenu(context, 'FAQ', faqPage()),
                               listTileOfDropMenu(
                                   context, 'Content', ContactUS()),
@@ -78,7 +77,7 @@ AppBar buildAppBar(context) {
                   parent: animation,
                   curve: Curves.easeOut,
                 ).drive(Tween<Offset>(
-                  begin: Offset(0, -1.0),
+                  begin: const Offset(0, -1.0),
                   end: Offset.zero,
                 )),
                 child: child,
@@ -86,7 +85,7 @@ AppBar buildAppBar(context) {
             },
           );
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.menu,
           textDirection: TextDirection.rtl,
           color: Colors.black87,

@@ -18,7 +18,7 @@ class accountPage extends StatelessWidget {
         body: Container(
           width: double.infinity,
           height: 700,
-          color: Color.fromARGB(215, 11, 108, 108),
+          color: const Color.fromARGB(215, 11, 108, 108),
           child: container(context),
         ));
   }
@@ -38,14 +38,14 @@ class accountPage extends StatelessWidget {
     return Column(
       children: [
         Card(
-          margin: EdgeInsets.only(left: 5, right: 5, top: 15),
+          margin: const EdgeInsets.only(left: 5, right: 5, top: 15),
           elevation: 5,
           color: Colors.black,
           child: Container(
-            padding: EdgeInsets.only(top: 5, bottom: 5),
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
             width: double.infinity,
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               "Account Details",
               style: TextStyle(
                   fontSize: 25,
@@ -54,7 +54,7 @@ class accountPage extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
       ],
@@ -96,7 +96,7 @@ class accountPage extends StatelessWidget {
               buildQuestionText("Your rank is 16  See more", 18),
               Card(
                 color: Colors.white,
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 elevation: 3,
                 child: InkWell(
                   onTap: () async {
@@ -108,8 +108,8 @@ class accountPage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => HomePage()));
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
+                    padding: const EdgeInsets.all(8),
+                    child: const Text(
                       " Sign Out ",
                       style: TextStyle(
                         fontSize: 15,
@@ -154,7 +154,7 @@ class accountPage extends StatelessWidget {
                 id: plus.id,
               );
             },
-            child: Text(
+            child: const Text(
               " Save Changes ",
               style: TextStyle(
                   fontSize: 30,
@@ -171,7 +171,7 @@ class accountPage extends StatelessWidget {
     return Text(
       text,
       textAlign: TextAlign.center,
-      style: TextStyle(
+      style: const TextStyle(
           color: Colors.white,
           fontSize: 11,
           fontStyle: FontStyle.italic,
@@ -200,8 +200,8 @@ class accountPage extends StatelessWidget {
           child: text == 'phone'
               ? Center(
                   child: Text(
-                    '${plus.PhoneNumber}',
-                    style: TextStyle(color: Colors.black87),
+                    plus.PhoneNumber,
+                    style: const TextStyle(color: Colors.black87),
                   ),
                 )
               : TextFormField(
@@ -211,7 +211,7 @@ class accountPage extends StatelessWidget {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: text,
-                    hintStyle: TextStyle(color: Colors.black26),
+                    hintStyle: const TextStyle(color: Colors.black26),
                   ),
                 ),
         ),
@@ -335,6 +335,5 @@ class accountPage extends StatelessWidget {
         child: Text(item),
       );
 
-  SizedBox buildSizedBox() => SizedBox(height: 15);
+  SizedBox buildSizedBox() => const SizedBox(height: 15);
 }
-

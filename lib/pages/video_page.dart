@@ -34,14 +34,14 @@ class videoPage extends StatelessWidget {
           child: Container(
             width: double.infinity,
             height: 700,
-            color: Color.fromARGB(215, 11, 108, 108),
+            color: const Color.fromARGB(215, 11, 108, 108),
             child: Center(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     TheHeadCardOfText(titles[index]),
                     buildTheLessonVideo(true, false, provider.videoId),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     buildTextButtonOfViewCourses("Start Coding", context, null),
@@ -85,7 +85,7 @@ class videoPage extends StatelessWidget {
         children: [
           buildTheHeadText("Questions"),
           buildSizedBox(),
-          Text(
+          const Text(
             "Answer the following questions according to what you learned from the video.",
             textAlign: TextAlign.center,
           ),
@@ -120,7 +120,7 @@ class videoPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10.0, right: 10.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: Color.fromARGB(191, 243, 243, 243),
+              color: const Color.fromARGB(191, 243, 243, 243),
               border: Border.all(color: Colors.black12)),
           child: buildDropdownButton(context)),
     );
@@ -196,7 +196,7 @@ class videoPage extends StatelessWidget {
         Expanded(
           child: Text(
             "${index + 1}.  ${index == 0 ? plus.exercises[index]["exercise"] : plus.exercises[index]}",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             maxLines: 4,
             textAlign: TextAlign.right,
           ),
@@ -206,7 +206,7 @@ class videoPage extends StatelessWidget {
             onTap: () {
               launchURL(plus.exercises[index]["url"]);
             },
-            child: Text(
+            child: const Text(
               "Solution",
               style: TextStyle(
                   decoration: TextDecoration.underline,
@@ -224,7 +224,7 @@ class videoPage extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
       ),
     );
   }
@@ -232,12 +232,12 @@ class videoPage extends StatelessWidget {
   Card buildSendButton(context) {
     var plus = Provider.of<Provider_GetPersonalData>(context);
     return Card(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       elevation: 5,
       child: Container(
         height: 55,
         decoration: BoxDecoration(
-            color: Color.fromARGB(215, 0, 118, 125),
+            color: const Color.fromARGB(215, 0, 118, 125),
             borderRadius: BorderRadius.circular(5)),
         child: TextButton(
           onPressed: () async {
@@ -255,7 +255,7 @@ class videoPage extends StatelessWidget {
                                   : false,
                         )));
           },
-          child: Text(
+          child: const Text(
             "  Send  ",
             style: TextStyle(
                 fontSize: 26, fontWeight: FontWeight.w400, color: Colors.white),
@@ -270,7 +270,7 @@ class videoPage extends StatelessWidget {
     return Text(
       "${plus.questions[index]["question"]}",
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
     );
   }
 
@@ -278,5 +278,5 @@ class videoPage extends StatelessWidget {
         child: Text(item),
       );
 
-  SizedBox buildSizedBox() => SizedBox(height: 15);
+  SizedBox buildSizedBox() => const SizedBox(height: 15);
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,7 +25,7 @@ InkWell buildTextYoutube() {
     onTap: () {
       launchURL("https://www.youtube.com/gammaltech?sub_confirmation=1");
     },
-    child: Text(
+    child: const Text(
       "© 2021 Gammal Tech. All rights reserved.",
       style: TextStyle(
         fontSize: 15,

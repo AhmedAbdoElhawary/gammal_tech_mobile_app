@@ -22,11 +22,11 @@ class CoursesPage extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-                width: double.infinity,
-                height: 700,
-            color: Color.fromARGB(215, 11, 108, 108),
-                child: buildSingleChildScrollView(context),
-              ),
+            width: double.infinity,
+            height: 700,
+            color: const Color.fromARGB(215, 11, 108, 108),
+            child: buildSingleChildScrollView(context),
+          ),
         ),
       ],
     );
@@ -34,58 +34,81 @@ class CoursesPage extends StatelessWidget {
 
   SingleChildScrollView buildSingleChildScrollView(context) {
     return SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                TheHeadCardOfText("Our Courses"),
-                buildTheVideo(false,false),
-                buildCardText(text: "C Programming", page: lessonPage("C Programming"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "C++ Programming", page: lessonPage("C++ Programming"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "Data Structures",page: lessonPage("Data Structures"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "Algorithms",page: lessonPage("Algorithms"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "OOP",page: lessonPage("OOP"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "Python",page: lessonPage("Python"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "Entrepreneurship",page: lessonPage("Entrepreneurship"),context:context),
-                buildSizedBox(),
-                buildTheVideo(false,false),
-                buildCardText(text: "Company Security",page: lessonPage("Company Security"),context:context),
-                buildSizedBox(),
-                buildTheBottomContainer(),
-              ],
-            ),
-          ),
-        );
+      child: Center(
+        child: Column(
+          children: [
+            TheHeadCardOfText("Our Courses"),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "C Programming",
+                page: lessonPage("C Programming"),
+                context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "C++ Programming",
+                page: lessonPage("C++ Programming"),
+                context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "Data Structures",
+                page: lessonPage("Data Structures"),
+                context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "Algorithms",
+                page: lessonPage("Algorithms"),
+                context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "OOP", page: lessonPage("OOP"), context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "Python", page: lessonPage("Python"), context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "Entrepreneurship",
+                page: lessonPage("Entrepreneurship"),
+                context: context),
+            buildSizedBox(),
+            buildTheVideo(false, false),
+            buildCardText(
+                text: "Company Security",
+                page: lessonPage("Company Security"),
+                context: context),
+            buildSizedBox(),
+            buildTheBottomContainer(),
+          ],
+        ),
+      ),
+    );
   }
 
-  SizedBox buildSizedBox() => SizedBox(height: 10);
+  SizedBox buildSizedBox() => const SizedBox(height: 10);
 
-  Card buildCardText({required BuildContext context ,required String text, required var page}) {
+  Card buildCardText(
+      {required BuildContext context,
+      required String text,
+      required var page}) {
     return Card(
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5),
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 5),
       elevation: 5,
       child: TextButton(
         onPressed: () {
           Navigator.push(
-               context, MaterialPageRoute(builder: (context) => page));
+              context, MaterialPageRoute(builder: (context) => page));
         },
         child: Container(
           width: double.infinity,
           alignment: Alignment.center,
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 25,
                 color: Colors.black87,
                 fontWeight: FontWeight.w400),

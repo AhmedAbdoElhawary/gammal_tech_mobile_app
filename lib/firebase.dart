@@ -63,7 +63,7 @@ class FirestoreOperation {
       {required String id,
       required var model,
       required bool fromUpdate}) async {
-    String filePath = model["image"].replaceAll(new RegExp(r'(\?alt).*'), '');
+    String filePath = model["image"].replaceAll(RegExp(r'(\?alt).*'), '');
 
     List split = filePath.split("data%2F");
 

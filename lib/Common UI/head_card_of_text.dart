@@ -3,7 +3,7 @@ import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 
 Card TheHeadCardOfText(String title) {
   return Card(
-    margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
     elevation: 5,
     color: Colors.black,
     child: Container(
@@ -12,13 +12,15 @@ Card TheHeadCardOfText(String title) {
       alignment: Alignment.center,
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),
       ),
     ),
   );
 }
-Padding buildTheLessonVideo(bool checkForPadding, bool checkForHeight,String videoId) {
+
+Padding buildTheLessonVideo(
+    bool checkForPadding, bool checkForHeight, String videoId) {
   return Padding(
     padding: checkForPadding
         ? const EdgeInsets.only(top: 15, right: 10, left: 10)

@@ -15,11 +15,11 @@ class premiumPage extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: 700,
-              color: Color.fromARGB(215, 11, 108, 108),
+              color: const Color.fromARGB(215, 11, 108, 108),
               child: Column(
                 children: [
                   TheHeadCardOfText("Manage Membership"),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -58,10 +58,10 @@ class premiumPage extends StatelessWidget {
             },
             child: Text(
               text,
-              style: TextStyle(color: Colors.black, fontSize: 25),
+              style: const TextStyle(color: Colors.black, fontSize: 25),
             )),
         decoration: BoxDecoration(
-            color: Color.fromRGBO(255, 213, 0, 1.0),
+            color: const Color.fromRGBO(255, 213, 0, 1.0),
             borderRadius: BorderRadius.circular(5)),
       ),
     );

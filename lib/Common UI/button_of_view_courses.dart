@@ -12,15 +12,17 @@ Card buildTextButtonOfViewCourses(String text, page, context) {
       height: 55,
       child: TextButton(
         onPressed: () {
-          if(text=="Start Coding")
+          if (text == "Start Coding") {
             launchURL("https://replit.com/@GammalTechTeam/C-Repl-Gammal-Tech");
-          if (page != null)
+          }
+          if (page != null) {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => page));
+          }
         },
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 30, color: Colors.black, fontWeight: FontWeight.normal),
         ),
       ),
