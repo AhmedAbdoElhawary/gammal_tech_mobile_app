@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'UI.dart';
 
 Container buildTheBottomContainer() {
   return Container(
@@ -41,7 +42,7 @@ InkWell buildIconYoutube() {
       launchURL("https://www.youtube.com/gammaltech?sub_confirmation=1");
     },
     child: Image.asset(
-      "lib/asset/images/youtube.png",
+      "asset/images/youtube.png",
       fit: BoxFit.cover,
       width: 35,
       height: 70,

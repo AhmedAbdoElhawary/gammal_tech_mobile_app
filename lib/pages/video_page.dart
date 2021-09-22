@@ -3,15 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_button_of_view_courses.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
-import 'package:gammal_tech_mobile_app/the_pages/lesson_page.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
-import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/button_of_view_courses.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
+import 'package:gammal_tech_mobile_app/Providers/get_personal_data.dart';
+import 'package:gammal_tech_mobile_app/pages/waitingPage.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'lesson_page.dart';
 
 class videoPage extends StatelessWidget {
   int index;
@@ -246,8 +247,8 @@ class videoPage extends StatelessWidget {
                     builder: (context) => waitingPage(
                           checkAccount: true,
                           image: plus.dropdownValue1 == "Hello Gammal Tech"
-                              ? "lib/asset/images/right.gif"
-                              : "lib/asset/images/wrong.gif",
+                              ? "asset/images/right.gif"
+                              : "asset/images/wrong.gif",
                           checkAnswer:
                               plus.dropdownValue1 == "Hello Gammal Tech"
                                   ? true

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:gammal_tech_mobile_app/the_pages/lesson_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/sign_in_page.dart';
+import 'package:gammal_tech_mobile_app/pages/sign_in_page.dart';
+
+import 'lesson_page.dart';
+
 
 class waitingPage extends StatefulWidget {
   var image;
