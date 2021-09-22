@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_home_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/start_here_page.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
+import 'package:gammal_tech_mobile_app/Providers/home_page.dart';
+import 'package:gammal_tech_mobile_app/pages/start_here_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -87,7 +87,7 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
         height: double.infinity,
         width: double.infinity,
         child: Image.asset(
-          "lib/asset/images/home_photo.jpg",
+          "asset/images/home_photo.jpg",
           fit: BoxFit.cover,
         ));
   }

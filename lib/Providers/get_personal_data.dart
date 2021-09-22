@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
+import 'package:gammal_tech_mobile_app/firebase.dart';
 
 final List<String> listOfShirtSize = [
   "Select one...",
@@ -51,8 +51,6 @@ class Provider_GetPersonalData extends ChangeNotifier {
       if (querySnapshot.docs[i]["phone"] == user!.phoneNumber) break;
     }
     var data = querySnapshot.docs[i];
-    print(
-        "=============================================\n${querySnapshot.docs[i].data()}\n${data.get("name")}\n==============================================");
     controlUserName.text = data.get("name");
     controlUserEmail.text = data.get("email");
     dropdownValueShirtSize =
@@ -88,7 +86,6 @@ class Provider_GetPersonalData extends ChangeNotifier {
     videoId = querySnapshot.docs[indexOfTheLesson]["video id"];
     lessonName = querySnapshot.docs[indexOfTheLesson]["lesson name"];
     descriptionText = querySnapshot.docs[indexOfTheLesson]["description name"];
-    print(questions[0]["answers"]);
   }
 
   Future<void> getLengthOfTheCourse(String theCourse) async {
