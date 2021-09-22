@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-ui.dart';
-import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/UI.dart';
+import 'package:gammal_tech_mobile_app/firebase.dart';
+import 'package:gammal_tech_mobile_app/pages/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  enum MobileVerificationState {
   SHOW_MOBILE_FORM_STATE,

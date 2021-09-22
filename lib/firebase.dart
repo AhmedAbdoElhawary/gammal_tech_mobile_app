@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/UI.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
+
 class FirestoreOperation {
-  var dbref = FirebaseFirestore.instance.collection('users');
+  var db = FirebaseFirestore.instance.collection('users');
 
   addDataFirestore({
     required String name,
@@ -16,7 +18,7 @@ class FirestoreOperation {
     required String birthmonth,
     required String birthyear,
   }) {
-    dbref
+    db
         .add({
           'name': name,
           "email": email,
@@ -27,8 +29,8 @@ class FirestoreOperation {
           'birthmonth': birthmonth,
           'birthyear': birthyear,
         })
-        .then((value) => print("User Updat ed"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => showToast("user added $value"))
+        .catchError((error) => showToast("Failed to update user: $error"));
   }
 
   updateDataFirestore(
@@ -41,7 +43,7 @@ class FirestoreOperation {
       required String birthmonth,
       required String birthyear,
       required String id}) {
-    dbref
+    db
         .doc(id)
         .update({
           'name': name,
@@ -53,11 +55,8 @@ class FirestoreOperation {
           'birthmonth': birthmonth,
           'birthyear': birthyear,
         })
-        .then((value) => print(
-            "************************************************************************************************************************************************************\n"
-                "  User Updated "
-                "\n***********************************************************************************************************************************************************"))
-        .catchError((error) => print("Failed to update user: $error"));
+        .then((value) => showToast("user updates"))
+        .catchError((error) => showToast("Failed to update user: $error"));
   }
 
   deleteDataFirestore(
@@ -72,18 +71,19 @@ class FirestoreOperation {
         .ref("data")
         .child(split[1])
         .delete()
-        .then((_) => print('Successfully deleted $filePath storage item'))
+        .then((_) => showToast('Successfully deleted $filePath storage item'))
         .catchError((_) {
-      print("image not exist in the firebase storage");
+      showToast("image not exist in the firebase storage");
     });
 
     if (!fromUpdate) {
-      dbref
+      db
           .doc(id)
           .delete()
-          .then((value) => print("deleting successfully"))
-          .catchError((e) => print("$e \nerror while deleting the element"));
-      print(id);
+          .then((value) => showToast("deleting successfully"))
+          .catchError(
+              (e) => showToast("$e \nerror while deleting the element"));
+      showToast(id);
     }
   }
 }

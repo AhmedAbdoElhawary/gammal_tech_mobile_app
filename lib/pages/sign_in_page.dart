@@ -1,13 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
-import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_sign_in_page.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
+import 'package:gammal_tech_mobile_app/Providers/sign_in_page.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
+
+import 'home_page.dart';
 
 class signInPage extends StatelessWidget {
   @override

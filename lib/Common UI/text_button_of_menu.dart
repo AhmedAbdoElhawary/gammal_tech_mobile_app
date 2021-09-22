@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/the_pages/account_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/sign_in_page.dart';
-
+import 'package:gammal_tech_mobile_app/pages/account_page.dart';
+import 'package:gammal_tech_mobile_app/pages/sign_in_page.dart';
 Center buildTextButtonOfMenu(BuildContext context, bool checkAccount) {
   return Center(
     child: Card(

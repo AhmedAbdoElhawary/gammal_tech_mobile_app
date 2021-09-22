@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/the_pages/FAQ_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/courses_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/premuim_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
+import 'package:gammal_tech_mobile_app/pages/FAQ_page.dart';
+import 'package:gammal_tech_mobile_app/pages/courses_page.dart';
+import 'package:gammal_tech_mobile_app/pages/home_page.dart';
+import 'package:gammal_tech_mobile_app/pages/premuim_page.dart';
+import 'package:gammal_tech_mobile_app/pages/waitingPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Provider_animationOfButtons_HomePage extends ChangeNotifier {

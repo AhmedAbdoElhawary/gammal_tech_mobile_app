@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:gammal_tech_mobile_app/the_pages/video_page.dart';
-import 'package:gammal_tech_mobile_app/the_pages/waitingPage.dart';
+import 'package:gammal_tech_mobile_app/pages/video_page.dart';
+import 'package:gammal_tech_mobile_app/pages/waitingPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Provider_GetTheVideosFromFirestore extends ChangeNotifier {

@@ -3,11 +3,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_get_videos_form_firestore.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
+import 'package:gammal_tech_mobile_app/Providers/get_personal_data.dart';
+import 'package:gammal_tech_mobile_app/Providers/get_videos_form_firestore.dart';
 import 'package:provider/provider.dart';
 
 final titles = [
