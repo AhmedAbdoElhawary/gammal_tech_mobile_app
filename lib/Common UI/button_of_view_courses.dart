@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
 
 Card buildTextButtonOfViewCourses(String text, page, context) {
   return Card(

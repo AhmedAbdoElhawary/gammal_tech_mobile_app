@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/Firebase/firebase.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/the_pages/home_page.dart';
-import 'package:gammal_tech_mobile_app/provider_classes/provider_get_personal_data.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Providers/get_personal_data.dart';
+import 'package:gammal_tech_mobile_app/firebase.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home_page.dart';
 
 class accountPage extends StatelessWidget {
   @override
@@ -336,3 +337,4 @@ class accountPage extends StatelessWidget {
 
   SizedBox buildSizedBox() => SizedBox(height: 15);
 }
+
