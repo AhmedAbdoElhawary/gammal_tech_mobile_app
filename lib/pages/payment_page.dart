@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common-theBottomBarOfyoutube.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_appbar.dart';
-import 'package:gammal_tech_mobile_app/common_ui/common_head_card_of_text.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/app_bar.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
+import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -104,11 +104,11 @@ class _PaymentPageState extends State<PaymentPage> {
                   child: checkVisa
                       ? Row(
                           children: [
-                            Image.asset("lib/asset/images/visa_logo.png"),
-                            Image.asset("lib/asset/images/mastercard.png"),
+                            Image.asset("asset/images/visa_logo.png"),
+                            Image.asset("asset/images/mastercard.png"),
                           ],
                         )
-                      : Image.asset("lib/asset/images/fawry_logo.png"),
+                      : Image.asset("asset/images/fawry_logo.png"),
                 )
               ],
             ),
