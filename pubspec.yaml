@@ -106,13 +106,13 @@ flutter:
 
   # To add asset to your application, add an asset section, like this:
   assets:
-    - lib/asset/images/youtube.png
-    - lib/asset/images/home_photo.jpg
-    - lib/asset/images/right.gif
-    - lib/asset/images/wrong.gif
-    - lib/asset/images/visa_logo.png
-    - lib/asset/images/mastercard.png
-    - lib/asset/images/fawry_logo.png
+    - asset/images/youtube.png
+    - asset/images/home_photo.jpg
+    - asset/images/right.gif
+    - asset/images/wrong.gif
+    - asset/images/visa_logo.png
+    - asset/images/mastercard.png
+    - asset/images/fawry_logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
