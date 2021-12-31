@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'home_page.dart';
 
-class ContactUS extends StatelessWidget {
+class ContactUs extends StatelessWidget {
   String title = "C Programming";
   cProgrammingPage({var title}) {
     this.title = title;
@@ -179,7 +179,7 @@ class ContactUS extends StatelessWidget {
   Column containerOfTheHeadOfTheList() {
     return Column(
       children: [
-        TheHeadCardOfText(title),
+        headCardOfText(title),
         const SizedBox(height: 10),
         descriptionText(),
         const SizedBox(height: 10),

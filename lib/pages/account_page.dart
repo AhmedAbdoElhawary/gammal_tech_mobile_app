@@ -10,7 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 
-class accountPage extends StatelessWidget {
+class AccountPage extends StatelessWidget {
+  const AccountPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

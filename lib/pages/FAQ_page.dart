@@ -56,7 +56,7 @@ class faqPage extends StatelessWidget {
   Column container(int index, var context) {
     return Column(
       children: [
-        if (index == 0) TheHeadCardOfText("FAQ"),
+        if (index == 0) headCardOfText("FAQ"),
         buildCard(context, titles_faq[index], index),
         const SizedBox(
           height: 10,

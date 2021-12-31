@@ -60,7 +60,7 @@ AppBar buildAppBar(context) {
                               const ListTile(title: Text('Masterclass')),
                               listTileOfDropMenu(context, 'FAQ', faqPage()),
                               listTileOfDropMenu(
-                                  context, 'Content', ContactUS()),
+                                  context, 'Content', ContactUs()),
                               buildTextButtonOfMenu(context, checkAccount)
                             ],
                           ),

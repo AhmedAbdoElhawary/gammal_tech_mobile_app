@@ -26,7 +26,7 @@ class signInPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    TheHeadCardOfText("Sign In"),
+                    headCardOfText("Sign In"),
                     const Text(
                       "Enter your phone number to sign in or to sign up.",
                       textAlign: TextAlign.center,

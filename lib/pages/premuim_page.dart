@@ -18,7 +18,7 @@ class premiumPage extends StatelessWidget {
               color: const Color.fromARGB(215, 11, 108, 108),
               child: Column(
                 children: [
-                  TheHeadCardOfText("Manage Membership"),
+                  headCardOfText("Manage Membership"),
                   const SizedBox(
                     height: 20,
                   ),

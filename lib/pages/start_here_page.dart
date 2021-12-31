@@ -33,7 +33,7 @@ class StartHerePage extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  TheHeadCardOfText(textIndex),
+                  headCardOfText(textIndex),
                   buildTheVideo(true, false),
                   buildContainerOfText(),
                   Padding(

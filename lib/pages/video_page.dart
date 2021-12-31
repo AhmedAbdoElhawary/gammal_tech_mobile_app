@@ -39,7 +39,7 @@ class videoPage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    TheHeadCardOfText(titles[index]),
+                    headCardOfText(titles[index]),
                     buildTheLessonVideo(true, false, provider.videoId),
                     const SizedBox(
                       height: 10,

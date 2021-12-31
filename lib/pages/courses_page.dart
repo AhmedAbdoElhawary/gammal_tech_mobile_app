@@ -37,7 +37,7 @@ class CoursesPage extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            TheHeadCardOfText("Our Courses"),
+            headCardOfText("Our Courses"),
             buildTheVideo(false, false),
             buildCardText(
                 text: "C Programming",
