@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vimeo_player_flutter/vimeo_player_flutter.dart';
 
-Card TheHeadCardOfText(String title) {
+Card headCardOfText(String title) {
   return Card(
     margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
     elevation: 5,

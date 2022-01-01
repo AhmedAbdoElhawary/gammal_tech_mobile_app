@@ -87,7 +87,7 @@ class lessonPage extends StatelessWidget {
   Column containerOfTheHeadOfTheList() {
     return Column(
       children: [
-        TheHeadCardOfText(title),
+        headCardOfText(title),
         const SizedBox(height: 10),
         descriptionText(),
         const SizedBox(height: 10),

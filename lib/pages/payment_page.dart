@@ -37,7 +37,7 @@ class _PaymentPageState extends State<PaymentPage> {
               color: const Color.fromARGB(215, 11, 108, 108),
               child: Column(
                 children: [
-                  TheHeadCardOfText(widget.text == "upgrade"
+                  headCardOfText(widget.text == "upgrade"
                       ? "Lifetime (Upgrade)"
                       : "Yearly Membership (Extend)"),
                   const SizedBox(
