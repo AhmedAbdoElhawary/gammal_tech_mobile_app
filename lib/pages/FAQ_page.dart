@@ -6,9 +6,9 @@ import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
 import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'FAQ_video_page.dart';
+import 'faq_video_page.dart';
 
-final titles_faq = [
+final titlesFaq = [
   " هل يمكن العمل بدون شهادة ",
   " Gammal Tech العمل في ",
   ' من أين أبدأ تعلم البرمجة؟ ',
@@ -31,7 +31,9 @@ final titles_faq = [
   " Gammal Tech العمل في ",
 ];
 
-class faqPage extends StatelessWidget {
+class FaqPage extends StatelessWidget {
+  const FaqPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +43,7 @@ class faqPage extends StatelessWidget {
         height: 700,
         color: Color.fromARGB(215, 11, 108, 108),
         child: ListView.separated(
-            itemCount: titles_faq.length,
+            itemCount: titlesFaq.length,
             itemBuilder: (context, index) {
               return container(index, context);
             },
@@ -57,11 +59,11 @@ class faqPage extends StatelessWidget {
     return Column(
       children: [
         if (index == 0) headCardOfText("FAQ"),
-        buildCard(context, titles_faq[index], index),
+        buildCard(context, titlesFaq[index], index),
         const SizedBox(
           height: 10,
         ),
-        if (titles_faq.length - 1 == index) buildTheBottomContainer(),
+        if (titlesFaq.length - 1 == index) buildTheBottomContainer(),
       ],
     );
   }
@@ -80,7 +82,7 @@ class faqPage extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      faqVideoPage(titles_faq[index], prefs)));
+                      FaqVideoPage(titlesFaq[index], prefs)));
         },
         child: Container(
           padding: EdgeInsets.all(3),

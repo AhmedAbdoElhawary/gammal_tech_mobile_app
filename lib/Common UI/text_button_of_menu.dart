@@ -14,7 +14,7 @@ Center buildTextButtonOfMenu(BuildContext context, bool checkAccount) {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      checkAccount != true ? signInPage() : AccountPage()));
+                      checkAccount != true ? SignInPage() : const AccountPage()));
         },
         child: Container(
           padding: const EdgeInsets.all(8),

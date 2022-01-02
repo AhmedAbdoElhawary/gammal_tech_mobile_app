@@ -9,6 +9,8 @@ import 'package:gammal_tech_mobile_app/Common%20UI/the_video.dart';
 import 'lesson_page.dart';
 
 class CoursesPage extends StatelessWidget {
+  const CoursesPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

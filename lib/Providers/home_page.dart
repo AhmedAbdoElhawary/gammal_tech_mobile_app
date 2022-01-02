@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gammal_tech_mobile_app/pages/FAQ_page.dart';
+import 'package:gammal_tech_mobile_app/pages/faq_page.dart';
 import 'package:gammal_tech_mobile_app/pages/courses_page.dart';
 import 'package:gammal_tech_mobile_app/pages/home_page.dart';
 import 'package:gammal_tech_mobile_app/pages/premuim_page.dart';
@@ -33,23 +33,23 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
     pulseAnimationCourses = animate(animationControllerCourses);
     pulseAnimationFAQ = animate(animationControllerFAQ);
     pulseAnimationGoPremium = animate(animationControllerGoPremium);
-    ListenerStartHereButtonClicked();
-    ListenerButtonClicked(
+    listenerStartHereButtonClicked();
+    listenerButtonClicked(
         context: context,
         plus: pulseAnimationCourses,
         animation: animationControllerCourses,
-        movingToThePage: CoursesPage());
-    ListenerButtonClicked(
+        movingToThePage: const CoursesPage());
+    listenerButtonClicked(
         context: context,
         plus: pulseAnimationFAQ,
         animation: animationControllerFAQ,
-        movingToThePage: faqPage());
-    ListenerButtonClicked(
+        movingToThePage: const FaqPage());
+    listenerButtonClicked(
         context: context,
         plus: pulseAnimationGoPremium,
         animation: animationControllerGoPremium,
         movingToThePage: prefs.getBool("checkForAccount") == true
-            ? premiumPage()
+            ? PremiumPage()
             : waitingPage(
                 image: null,
                 checkAnswer: false,
@@ -68,7 +68,7 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
 
   Animation<double> animate(controller) {
     double end;
-    var curve;
+    Cubic curve;
     if (controller == animationControllerStartHere) {
       end = 1.06;
       curve = Curves.easeIn;
@@ -84,17 +84,17 @@ class Provider_animationOfButtons_HomePage extends ChangeNotifier {
       AnimationController(
           vsync: HomePageState(), duration: Duration(milliseconds: duration));
 
-  void ListenerStartHereButtonClicked() {
+  void listenerStartHereButtonClicked() {
     return pulseAnimationStartHere.addStatusListener((status) {
-      if (status == AnimationStatus.completed)
+      if (status == AnimationStatus.completed) {
         animationControllerStartHere.reverse();
-      else if (status == AnimationStatus.dismissed) {
+      } else if (status == AnimationStatus.dismissed) {
         animationControllerStartHere.forward();
       }
     });
   }
 
-  void ListenerButtonClicked(
+  void listenerButtonClicked(
       {required plus,
       required animation,
       required movingToThePage,

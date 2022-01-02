@@ -22,7 +22,7 @@ class _PaymentPageState extends State<PaymentPage> {
   TextEditingController controllerCardNumber = TextEditingController();
   TextEditingController controllerDateExpired = TextEditingController();
   TextEditingController controllerCVC = TextEditingController();
-  bool FirstPage = true;
+  bool firstPage = true;
   late bool checkVisaPage;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   const SizedBox(
                     height: 8,
                   ),
-                  FirstPage
+                  firstPage
                       ? Column(
                           children: [
                             buildPayTextButton(true),
@@ -74,7 +74,7 @@ class _PaymentPageState extends State<PaymentPage> {
       child: InkWell(
         onTap: () {
           setState(() {
-            FirstPage = false;
+            firstPage = false;
             checkVisaPage = checkVisa;
           });
         },
