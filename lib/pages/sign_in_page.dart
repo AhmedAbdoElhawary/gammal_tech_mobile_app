@@ -10,7 +10,9 @@ import 'package:provider/provider.dart';
 
 import 'home_page.dart';
 
-class signInPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
+  const SignInPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var plus = Provider.of<Provider_SignIn>(context);

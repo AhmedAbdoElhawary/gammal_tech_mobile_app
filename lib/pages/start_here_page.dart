@@ -39,7 +39,7 @@ class StartHerePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, bottom: 20),
                     child: buildTextButtonOfViewCourses(
-                        "View Courses", CoursesPage(), context),
+                        "View Courses", const CoursesPage(), context),
                   ),
                   buildTheBottomContainer(),
                 ],

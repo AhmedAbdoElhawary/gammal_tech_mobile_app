@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gammal_tech_mobile_app/Common%20UI/text_button_of_menu.dart';
-import 'package:gammal_tech_mobile_app/pages/FAQ_page.dart';
+import 'package:gammal_tech_mobile_app/pages/faq_page.dart';
 import 'package:gammal_tech_mobile_app/pages/contact_us_page.dart';
 import 'package:gammal_tech_mobile_app/pages/courses_page.dart';
 import 'package:gammal_tech_mobile_app/pages/home_page.dart';
@@ -56,9 +56,9 @@ AppBar buildAppBar(context) {
                             children: <Widget>[
                               const ListTile(title: Text('Premium')),
                               listTileOfDropMenu(
-                                  context, 'Courses', CoursesPage()),
+                                  context, 'Courses', const CoursesPage()),
                               const ListTile(title: Text('Masterclass')),
-                              listTileOfDropMenu(context, 'FAQ', faqPage()),
+                              listTileOfDropMenu(context, 'FAQ', const FaqPage()),
                               listTileOfDropMenu(
                                   context, 'Content', ContactUs()),
                               buildTextButtonOfMenu(context, checkAccount)

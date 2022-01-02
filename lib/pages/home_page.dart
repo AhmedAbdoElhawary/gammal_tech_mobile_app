@@ -11,6 +11,8 @@ import 'package:gammal_tech_mobile_app/pages/start_here_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => HomePageState();
 }
@@ -85,8 +87,8 @@ class HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  Container buildContainerOfImage() {
-    return Container(
+  SizedBox buildContainerOfImage() {
+    return SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Image.asset(

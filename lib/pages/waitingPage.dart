@@ -73,7 +73,7 @@ class _waitingPageState extends State<waitingPage> {
           else if (!widget.checkAnswer) Navigator.pop(context);
         } else {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => signInPage()));
+              context, MaterialPageRoute(builder: (context) => SignInPage()));
         }
       } else {
         await Future.delayed(const Duration(seconds: 1), () {

@@ -12,10 +12,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'courses_page.dart';
 
-class faqVideoPage extends StatelessWidget {
+class FaqVideoPage extends StatelessWidget {
   String textIndex;
   SharedPreferences prefs;
-  faqVideoPage(this.textIndex,this.prefs);
+  FaqVideoPage(this.textIndex,this.prefs);
 
   @override
   Widget build(BuildContext context) {

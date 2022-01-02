@@ -4,7 +4,9 @@ import 'package:gammal_tech_mobile_app/Common%20UI/head_card_of_text.dart';
 import 'package:gammal_tech_mobile_app/Common%20UI/the_bottom_bar_of_youtube.dart';
 import 'package:gammal_tech_mobile_app/pages/payment_page.dart';
 
-class premiumPage extends StatelessWidget {
+class PremiumPage extends StatelessWidget {
+  const PremiumPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
