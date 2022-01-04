@@ -14,10 +14,10 @@ AppBar buildAppBar(context) {
     elevation: 5,
     title: TextButton(
       onPressed: () {
-        if (context != HomePage()) {
+        if (context != const HomePage()) {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => const HomePage()),
             (Route<dynamic> route) => false,
           );
         }

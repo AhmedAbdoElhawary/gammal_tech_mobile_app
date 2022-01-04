@@ -12,7 +12,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PaymentPage extends StatefulWidget {
   String text;
-  PaymentPage(this.text);
+  PaymentPage(this.text, {Key? key}) : super(key: key);
 
   @override
   State<PaymentPage> createState() => _PaymentPageState();

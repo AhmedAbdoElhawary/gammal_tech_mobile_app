@@ -22,15 +22,15 @@ var listOfDay = List<String>.generate(31, (i) => "${i + 1}");
 var listOfMonth = List<String>.generate(12, (i) => "${i + 1}");
 var listOfYear = List<String>.generate(67, (i) => "${1950 + i}");
 
-class Provider_GetPersonalData extends ChangeNotifier {
+class ProviderGetPersonalData extends ChangeNotifier {
   String dropdownValue1 = "Select one...";
   String dropdownValueShirtSize = 'Select one...';
   String dropdownValueGender = 'Select one...';
   String dropdownValueDay = '4';
   String dropdownValueMonth = '4';
   String dropdownValueYear = '2001';
-  String PhoneNumber = '';
-  String TheVideo = '';
+  String phoneNumber = '';
+  String theVideo = '';
   int lengthOfTheCourse = 0;
   List questions = [];
   List exercises = [];
@@ -62,7 +62,7 @@ class Provider_GetPersonalData extends ChangeNotifier {
         data.get("birthmonth") == "" ? '4' : data.get("birthmonth");
     dropdownValueYear =
         data.get("birthyear") == "" ? '2000' : data.get("birthyear");
-    PhoneNumber = data.get("phone") == "" ? '' : data.get("phone");
+    phoneNumber = data.get("phone") == "" ? '' : data.get("phone");
     id = data.id;
   }
 
@@ -71,7 +71,7 @@ class Provider_GetPersonalData extends ChangeNotifier {
         FirebaseFirestore.instance.collection('info');
     QuerySnapshot querySnapshot = await _collectionRef.get();
     var data = querySnapshot.docs[index];
-    TheVideo = data.get("video");
+    theVideo = data.get("video");
   }
 
   getVideoLessonsData(String theCourse, int indexOfTheLesson) async {

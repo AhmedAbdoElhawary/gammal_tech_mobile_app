@@ -64,7 +64,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Column buildCard(BuildContext context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Column(
       children: [
         buildSizedBox(),
@@ -107,7 +107,7 @@ class AccountPage extends StatelessWidget {
                     prefs.setBool("checkForAccount", false);
                     await plus.auth.signOut();
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        MaterialPageRoute(builder: (context) => const HomePage()));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(8),
@@ -129,7 +129,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Padding buildSaveChangesTextButton(BuildContext context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Card(
@@ -143,12 +143,12 @@ class AccountPage extends StatelessWidget {
           child: TextButton(
             onPressed: () async {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
+                  context, MaterialPageRoute(builder: (context) => const HomePage()));
               FirestoreOperation().updateDataFirestore(
                 name: plus.controlUserName.text,
                 shirt: plus.dropdownValueShirtSize,
                 email: plus.controlUserEmail.text,
-                phone: plus.PhoneNumber,
+                phone: plus.phoneNumber,
                 gender: plus.dropdownValueGender,
                 birthday: plus.dropdownValueDay,
                 birthmonth: plus.dropdownValueMonth,
@@ -182,7 +182,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Padding buildTextFormField(var controller, String text, context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.only(
         left: 10.0,
@@ -202,7 +202,7 @@ class AccountPage extends StatelessWidget {
           child: text == 'phone'
               ? Center(
                   child: Text(
-                    plus.PhoneNumber,
+                    plus.phoneNumber,
                     style: const TextStyle(color: Colors.black87),
                   ),
                 )
@@ -233,7 +233,7 @@ class AccountPage extends StatelessWidget {
       );
 
   Padding buildDropDwonButton(String v, List<String> dropList, context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Padding(
       padding: const EdgeInsets.only(
         left: 10.0,
@@ -284,7 +284,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Row buildBirthdateButton(context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Row(
       children: [
         birthdateDropMenu(plus.dropdownValueDay, context),
@@ -295,7 +295,7 @@ class AccountPage extends StatelessWidget {
   }
 
   Expanded birthdateDropMenu(String v, context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
 
     return Expanded(
       child: Padding(
