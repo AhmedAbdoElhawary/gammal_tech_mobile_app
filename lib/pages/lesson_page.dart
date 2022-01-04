@@ -37,15 +37,13 @@ Map map = {
   "Company Security": "CompanySecurity",
 };
 
-class lessonPage extends StatelessWidget {
+class LessonPage extends StatelessWidget {
   String title = "C Programming";
-  lessonPage(String title) {
-    this.title = title;
-  }
+  LessonPage(this.title);
   @override
   Widget build(BuildContext context) {
     String textPath = map[title];
-    var provider = Provider.of<Provider_GetPersonalData>(context);
+    var provider = Provider.of<ProviderGetPersonalData>(context);
     provider.getLengthOfTheCourse(textPath);
     return Scaffold(
       appBar: buildAppBar(context),
@@ -67,7 +65,7 @@ class lessonPage extends StatelessWidget {
   }
 
   Column container(int index, var context) {
-    var provider = Provider.of<Provider_GetPersonalData>(context);
+    var provider = Provider.of<ProviderGetPersonalData>(context);
     provider.getVideoLessonsData("c", index);
     return Column(
       children: [
@@ -129,7 +127,7 @@ class lessonPage extends StatelessWidget {
       child: TextButton(
         onPressed: () async {
           var provider =
-              Provider.of<Provider_GetPersonalData>(context, listen: false);
+              Provider.of<ProviderGetPersonalData>(context, listen: false);
           provider.getVideoLessonsData("c", index);
           plus.onPressedLessonButton(context, index);
         },

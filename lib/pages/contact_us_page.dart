@@ -87,7 +87,7 @@ class ContactUs extends StatelessWidget {
           onPressed: () async {
             plus.send(context);
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
+                context, MaterialPageRoute(builder: (context) => const HomePage()));
           },
           child: const Text(
             "  Send  ",

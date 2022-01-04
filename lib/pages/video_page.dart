@@ -17,7 +17,7 @@ import 'lesson_page.dart';
 class videoPage extends StatelessWidget {
   int index;
   SharedPreferences prefs;
-  videoPage(this.index, this.prefs);
+  videoPage(this.index, this.prefs, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class videoPage extends StatelessWidget {
   }
 
   Column buildContainer(context) {
-    var provider = Provider.of<Provider_GetPersonalData>(context);
+    var provider = Provider.of<ProviderGetPersonalData>(context);
     return Column(
       children: [
         Expanded(
@@ -127,7 +127,7 @@ class videoPage extends StatelessWidget {
   }
 
   DropdownButtonHideUnderline buildDropdownButton(context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return DropdownButtonHideUnderline(
       child: DropdownButton<String>(
         value: plus.dropdownValue1,
@@ -166,22 +166,20 @@ class videoPage extends StatelessWidget {
           children: [
             buildTheHeadText("Exercises"),
             buildSizedBox(),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTextExercises(0, context),
-                  buildTextExercises(1, context),
-                  buildTextExercises(2, context),
-                  buildTextExercises(3, context),
-                  buildTextExercises(4, context),
-                  buildTextExercises(5, context),
-                  buildTextExercises(6, context),
-                  buildTextExercises(7, context),
-                  buildTextExercises(8, context),
-                  buildTextExercises(9, context),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildTextExercises(0, context),
+                buildTextExercises(1, context),
+                buildTextExercises(2, context),
+                buildTextExercises(3, context),
+                buildTextExercises(4, context),
+                buildTextExercises(5, context),
+                buildTextExercises(6, context),
+                buildTextExercises(7, context),
+                buildTextExercises(8, context),
+                buildTextExercises(9, context),
+              ],
             ),
           ],
         ),
@@ -190,7 +188,7 @@ class videoPage extends StatelessWidget {
   }
 
   Row buildTextExercises(int index, context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Row(
       children: [
         Expanded(
@@ -230,7 +228,7 @@ class videoPage extends StatelessWidget {
   }
 
   Card buildSendButton(context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Card(
       margin: const EdgeInsets.all(10),
       elevation: 5,
@@ -266,7 +264,7 @@ class videoPage extends StatelessWidget {
   }
 
   Text buildQuestions(int index, context) {
-    var plus = Provider.of<Provider_GetPersonalData>(context);
+    var plus = Provider.of<ProviderGetPersonalData>(context);
     return Text(
       "${plus.questions[index]["question"]}",
       textAlign: TextAlign.center,

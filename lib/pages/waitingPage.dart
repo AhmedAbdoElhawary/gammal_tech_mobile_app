@@ -69,7 +69,7 @@ class _waitingPageState extends State<waitingPage> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => lessonPage('C Programming')));
+                    builder: (context) => LessonPage('C Programming')));
           else if (!widget.checkAnswer) Navigator.pop(context);
         } else {
           Navigator.push(
